@@ -1,0 +1,166 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+    color: #black;
+}
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+    height: 100%;
+    background-color: #4CAF50 !important;
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+    display: table;
+    width: 100%;
+    height: 100%; /* For at least Firefox */
+    min-height: 100%;
+}
+
+.site-wrapper-inner {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.cover-container {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+    padding: 30px;
+}
+
+/*
+ * Header
+ */
+.masthead-brand {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.masthead-nav > li {
+    display: inline-block;
+}
+
+.masthead-nav > li + li {
+    margin-left: 20px;
+}
+
+.masthead-nav > li > a {
+    padding-right: 0;
+    padding-left: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* IE8 proofing */
+    color: rgba(255, 255, 255, .75);
+}
+
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+    background-color: transparent;
+    border-bottom-color: #a9a9a9;
+}
+
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+    padding: 0 20px;
+}
+
+.cover .btn-lg {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 12pt;
+    border-radius: 2px;
+}
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+    color: #999; /* IE8 proofing */
+    color: rgba(255, 255, 255, .5);
+}
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 2068px) {
+    /* Pull out the header and footer */
+    .masthead {
+        position: fixed;
+        top: 0;
+    }
+
+    .mastfoot {
+        position: fixed;
+        bottom: 0;
+    }
+
+    /* Start the vertical centering */
+    .site-wrapper-inner {
+        vertical-align: middle;
+    }
+
+    /* Handle the widths */
+    .masthead,
+    .mastfoot,
+    .cover-container {
+        width: 100%; /* Must be percentage or pixels for horizontal alignment */
+    }
+}
+
+.register {
+    margin-top: 30px;
+}
+
+.register .panel-caption {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.register .form-control-static {
+    float: left;
+    font-size: 16px;
+    color: #555;
+    margin-top: 4px;
+    margin-right: 15px;
+}
+
+.register .birthday-control {
+    width: auto;
+    float: left;
+    margin-top: 4pt;
+    margin-bottom: 4pt !important;
+    margin-right: 2pt;
+}
+
+.register button[type='submit'] {
+    width: auto;
+}

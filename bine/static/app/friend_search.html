@@ -1,0 +1,56 @@
+<link href="/static/bine/css/friend.css" rel="stylesheet">
+
+<div class="row main-content">
+    <div class="col-md-2 left-panel">
+        <div class="list-group">
+            <a href="#/friend/confirmed/" class="list-group-item">내 친구</a>
+            <a href="#/friend/unconfirmed/" class="list-group-item">친구 요청</a>
+            <a href="#/friend/search/" class="list-group-item active">친구 찾기</a>
+            <a href="#/friend/recommend/" class="list-group-item">새 친구 추천</a>
+        </div>
+    </div>
+    <div class="col-md-10 right-panel">
+        <div class="row">
+            <h4>친구 찾기</h4>
+
+            <div class="input-group">
+                <input type="text" class="form-control" aria-label="친구 검색" ng-model="friend_query"
+                       placeholder="친구 아이디 또는 이름">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" ng-click="search_friend()">찾기</button>
+                  </span>
+            </div>
+            <!-- /input-group -->
+
+        </div>
+
+        <div class="row friend-search-title">
+            <h4>검색 결과 (총 {{ search_friends.length || 0 }} 명)</h4>
+        </div>
+        <div class="row friend-panel" ng-repeat="friend in search_friends | filter:friend_query">
+            <div class="media">
+                <div class="media-left">
+                    <a href="">
+                        <img class="media-object user-photo" ng-src="
+
+                                {{ friend.photo != null && friend.photo || friend.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}"
+                             alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading friend-title">{{ friend.fullname }}</h4>
+
+                    <div class="friend-info">
+                        <span>아이디: {{ friend.username }}</span> |
+                        <span>생일: {{ friend.birthday }}</span> |
+                        <span>학교: {{ friend.school }} 일원초등학교</span>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)">친구 요청</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

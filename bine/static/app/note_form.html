@@ -1,0 +1,206 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Bine</a>
+        <ul class="nav navbar-nav visible-sm visible-md visible-lg">
+            <li class="active"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
+                    class="menu_caption"> 노트</span></a></li>
+            <li><a href="#/book/"><span class="glyphicon glyphicon-book"></span><span class="menu_caption"> 책</span></a>
+            </li>
+            <li><a href="#/friend/"><span class="glyphicon glyphicon-user"></span><span class="menu_caption"> 친구</span></a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
+            <li>
+                <a class="login-user" href="#/user/">
+                    <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
+                        {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
+                </a>
+            </li>
+        </uL>
+
+        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
+            <li class="active">
+                <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
+            </li>
+            <li>
+                <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
+            </li>
+            <li>
+                <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
+            </li>
+            <li>
+                <div class="dropdown pull-right">
+                    <div class="float-menu dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span
+                            class="glyphicon glyphicon-menu-hamburger"></span>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="#/note/new">{{ user.fullname }}</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">기본 정보 수정</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">활동 보기</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">로그아웃</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">독서노트 작성</a></li>
+
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">전체 독서노트 보기</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">내 독서노트만 보기</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">새 독서노트만 보기</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <div class="input-group  hidden-xs">
+                    <input type="text" class="form-control" placeholder="책 검색">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+						</span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</nav>
+
+<!-- Book Search Modal -->
+<div class="modal fade  book-search-modal" id="book_search_modal"
+     tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">책 검색 및 선택</h4>
+
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="book_title"
+                           placeholder="책이름" ng-keyup="$event.keyCode == 13 ? search_book() : null"> <span
+                        class="input-group-btn">
+						<button class="btn btn-primary" type="submit"
+                                ng-click="search_book()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+					</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4"
+                         ng-repeat="book in books">
+                        <div class="thumbnail">
+                            <a href="" ng-click="select_book(book)">
+                                <img class="book-photo" ng-src="{{ book.cover_s_url }}"
+                                     alt="{{ book.title }}">
+                            </a>
+
+                            <div class="caption book-caption">
+                                <p class="book-title"> {{ strip_book_title(book)}} </p>
+
+                                <p class="book-author">저자: {{ book.author }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  BookNote Edit Panel -->
+<div class="panel panel-primary note-new-panel">
+    <div class="panel-heading">
+        <a href="#/note/"><span class="glyphicon glyphicon-menu-left"></span></a>독서노트
+    </div>
+    <form name="note_form" novalidate>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="book_title" ng-model="book_title"
+                           placeholder="읽은 책을 검색하세요." required readonly><span
+                        class="input-group-btn">
+						<button class="btn btn-primary" type="button"
+                                ng-click="search_book()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+					</span>
+                </div>
+                <div class="error-msg"
+                     ng-show="note_form.$submitted || note_form.book_title.$touched">
+                    <div ng-show="note_form.book_title.$error.required">
+                        <span class='glyphicon glyphicon-info-sign'></span>책을 선택하십시오.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" ng-model="note.content"
+                          name="content" rows="8" placeholder="책 내용을 정리하거나 읽고난 느낌을 쓰세요."
+                          required></textarea>
+            </div>
+
+            <div class="form-inline">
+                <span class="form-control-static date-label">읽은 날짜:</span> <input
+                    type="date" class="form-control" ng-model="note.read_date_from"
+                    name="read_date_from"><span class="form-control-static">
+					부터 </span> <input type="date" class="form-control"
+                                      ng-model="note.read_date_to" name="read_date_to"></input> <span
+                    class="form-control-static"> 까지 </span>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group form-box-top">
+                <span class="form-control-static">공개 범위:</span> <label
+                    class="radio-inline"> <input type="radio"
+                                                 ng-model="note.share_to" name="share_to" value="P"> 개인
+            </label> <label class="radio-inline"> <input type="radio"
+                                                         ng-model="note.share_to" name="share_to" value="F" checked>
+                친구
+            </label> <label class="radio-inline"> <input type="radio"
+                                                         ng-model="note.share_to" name="share_to" value="A"> 모두
+            </label>
+            </div>
+
+            <div class="form-group form-box-top">
+				<span class="form-control-static">평점: <span
+                        class="glyphicon glyphicon-star" id="pref-1"
+                        ng_click='set_preference(1)'></span> <span
+                        class="glyphicon glyphicon-star" id="pref-2"
+                        ng_click='set_preference(2)'></span> <span
+                        class="glyphicon glyphicon-star" id="pref-3"
+                        ng_click='set_preference(3)'></span> <span
+                        class="glyphicon glyphicon-star" id="pref-4"
+                        ng_click='set_preference(4)'></span> <span
+                        class="glyphicon glyphicon-star" id="pref-5"
+                        ng_click='set_preference(5)'></span>
+				</span>
+            </div>
+
+            <div class="form-group form-box-bottom">
+                <span class="form-control-static">첨부파일:</span> <input type="file"
+                                                                      ng-file-select ng-capture="camera"
+                                                                      ng-model='note.attach'
+                                                                      class="filestyle" name="attach"
+                                                                      data-buttonText="첨부파일">
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-primary" ng-click="save()">저장</button>
+        </div>
+    </form>
+
+</div>
+

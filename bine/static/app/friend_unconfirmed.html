@@ -1,0 +1,51 @@
+<link href="/static/bine/css/friend.css" rel="stylesheet">
+
+<div class="row main-content">
+    <div class="col-md-2 left-panel">
+        <div class="list-group">
+            <a href="#/friend/confirmed/" class="list-group-item">내 친구</a>
+            <a href="#/friend/unconfirmed/" class="list-group-item active">친구 요청</a>
+            <a href="#/friend/search/" class="list-group-item">친구 찾기</a>
+            <a href="#/friend/recommend/" class="list-group-item">새 친구 추천</a>
+        </div>
+    </div>
+    <div class="col-md-10 right-panel">
+        <div class="row">
+            <h4>친구 요청 목록 (총 {{ friends.length }} 명)</h4>
+        </div>
+        <div class="alert alert-warning" ng-show="!friends.length">
+            <span class="glyphicon glyphicon-alert"></span> 아직 친구 되기를 원하는 사람이 없습니다. <a href="#/friend/search/">친구 찾기</a>나
+            <a
+                    href="#/friend/recommend/">친구 추천</a>을 통해서 새로운 친구를 추가하세요.
+        </div>
+
+        <div class="row friend-panel" ng-repeat="friend in friends">
+            <div class="media">
+                <div class="media-left">
+                    <a href="">
+                        <img class="media-object user-photo" ng-src="
+
+                                {{ friend.photo || friend.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}"
+                             alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading friend-title">{{ friend.fullname }}</h4>
+
+                    <div class="friend-info">
+                        <span>아이디: {{ friend.username }}</span> |
+                        <span>생일: {{ friend.birthday }}</span> |
+                        <span>학교: {{ friend.school }} 일원초등학교</span>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-xs btn-default" ng-click="confirm_friend(friend, $index)">친구 수락</button>
+                        <button class="btn btn-xs btn-default" ng-click="unconfirm_friend(friend, $index)">친구 거부
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

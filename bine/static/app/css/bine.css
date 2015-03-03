@@ -1,0 +1,256 @@
+@media screen and (max-width: 480px) {
+    .menu_caption {
+        display: none;
+    }
+
+    .search-icon-only {
+        display: inline;
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .menu_caption {
+        display: inline;
+    }
+
+    .search-icon-only {
+        display: none;
+    }
+}
+
+.container-fluid .navbar {
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 50px;
+}
+
+.navbar-nav > li {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.navbar-nav > li > a {
+    color: #ffffff;
+}
+
+/* 화면이 모바일 크기로 줄어들었을 때 책 검색 input box가 다음 줄로 가는 것을 방지하는 기능*/
+.navbar-form .form-control, .navbar-form .input-group-btn {
+    width: auto !important;
+}
+
+.navbar .form-group {
+    margin-bottom: 0;
+}
+
+/* 모바일 화면에서 서브 메뉴을 위한 스타일 */
+.float-menu {
+    padding: 14px;
+    color: white;
+    font-size: 16px;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+}
+
+/*
+    Active인 메뉴 표시
+*/
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    border-bottom: solid 4px #ffffff;
+    padding-bottom: 8px;
+    color: #E8F5E9 !important;
+}
+
+.error-msg {
+    font-size: 9pt;
+    color: #595959;
+
+    margin-top: 6px;
+    margin-left: 6px;
+}
+
+.error-msg .glyphicon-info-sign {
+    color: #FF4081;
+    margin-right: 2px;
+}
+
+.login-user {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.login-user img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 0;
+    margin-left: 8px;
+    margin-top: 5px;
+}
+
+.page-menu {
+    padding-right: 16px;
+}
+
+.page-content {
+    background: #fff;
+    border-radius: 4px;
+    padding-bottom: 16px;
+}
+
+.page-content .list-title {
+    margin-left: 4px;
+    /* margin-bottom: 20px; */
+    border-bottom: solid 1px #ddd;
+    padding-bottom: 8px;
+}
+
+.list-item {
+    margin-bottom: 8px;
+    border: none;
+}
+
+.list-item > .panel-heading {
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: white;
+    border-bottom: none;
+}
+
+.list-item .panel-title {
+    font-size: 12pt;
+    font-weight: bold;
+    text-overflow: ellipsis;
+}
+
+.list-item .media-heading {
+    font-size: 12pt;
+    font-weight: bold;
+    text-overflow: ellipsis;
+}
+
+.list-item .media-heading a {
+    color: black;
+}
+
+.list-item > .panel-footer {
+    background-color: white;
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.list-item > .panel-body {
+    padding: 0 8px;
+    margin-bottom: 0;
+}
+
+.list-item .panel-detail, .detail-item .panel-detail {
+    font-size: 8pt;
+    color: #595959;
+}
+
+.list-item .panel-content, .detail-item .panel-content {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+.list-item .panel-action {
+    margin-top: 8px;
+
+}
+
+.list-item .panel-action a {
+    margin-top: 4px;
+    color: #595959;
+    font-size: 14px;
+}
+
+.detail-item .panel-heading, .detail-item .panel-footer {
+    background: #ffffff;
+}
+
+.list-item .book-photo {
+    padding: 4px 4px 4px 8px;
+    margin-top: -30px;
+    width: 100px;
+    height: auto;
+}
+
+.detail-item .book-photo {
+    padding: 4px 4px 4px 8px;
+    width: 100px;
+    height: auto;
+}
+
+.list-item .panel-footer {
+    padding-top: 2px;
+}
+
+.list-item .panel-footer a {
+    color: #595959;
+}
+
+.note-new-panel {
+    margin-top: 10px;
+}
+
+.book-search-modal .book-photo {
+    width: 72px;
+    height: 100px;
+}
+
+.book-search-modal .book-caption {
+    font-size: 10px;
+    color: #595959;
+    text-align: center;
+}
+
+.book-search-modal .book-caption .book-title {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.book-search-modal .row {
+    margin-top: 10px;
+}
+
+.book-search-modal .thumbnail {
+    background: white;
+    border: 0;
+}
+
+.user-info-container {
+    background: #fff;
+    border-radius: 4px;
+}
+
+.user-info-container label {
+    color: #555;
+}
+
+.user-info-container .birthday-control {
+    width: auto;
+    float: left;
+    margin-top: 4pt;
+    margin-bottom: 4pt !important;
+    margin-right: 2pt;
+}
+
+.user-info-container button[type='submit'] {
+    width: auto;
+    margin-bottom: 8px;
+}
+
+.user-info-container .img-thumbnail {
+    width: 100px;
+    height: auto;
+}

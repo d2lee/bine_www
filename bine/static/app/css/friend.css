@@ -1,0 +1,31 @@
+
+.friend-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.friend-search-title {
+    margin-top: 15px;
+}
+
+.friend-panel {
+    border-radius: 2px;
+    margin-bottom: 8px;
+}
+
+.friend-panel .friend-info {
+    font-size: 14px;
+    color: #595959;
+    margin-top: 10px;
+}
+
+.user-photo {
+    width: 80px;
+    height: 80px;
+
+    color: #595959;
+
+    padding: 2px;
+
+}

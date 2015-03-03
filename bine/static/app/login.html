@@ -1,0 +1,50 @@
+<link href="/static/app/css/login.css" rel="stylesheet">
+
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+                <div class="inner"></div>
+            </div>
+            <div class="inner cover">
+                <h1 class="cover-heading">Bine</h1>
+                <blockquote class="lead">
+                    <p>"같은 책을 읽은 다른 사람들과 어울릴 때, 책읽기의 기쁨은 두 배가 된다."</p>
+                    <footer>
+                        <cite title="캐서린 맨스필드"> 캐서린 맨스필드</cite>
+                    </footer>
+                </blockquote>
+                <p class="lead">
+
+                <form class="form-signin" method="post">
+                    <label for="alias" class="sr-only">아이디</label> <input type="text"
+                                                                          ng-model="username" name="username"
+                                                                          class="form-control" placeholder="아이디"
+                                                                          required>
+                    <label for="password" class="sr-only">암호</label> <input
+                        type="password" ng-model="password" name="password" class="form-control"
+                        placeholder="암호" required>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"
+                            ng-click="login()">로그인
+                    </button>
+                    <div class="checkbox">
+                        <label> <input type="checkbox" value="remember-me">자동
+                            로그인 | <a href="#/register/">회원가입</a> | <a href="#">아이디암호찾기</a>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>
+                        @Copyright by <a href="https://bine.co.kr">bine.co.kr</a>.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

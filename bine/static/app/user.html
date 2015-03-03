@@ -1,0 +1,249 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Bine</a>
+        <ul class="nav navbar-nav visible-sm visible-md visible-lg">
+            <li><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
+                    class="menu_caption"> 노트</span></a></li>
+            <li><a href="#/book/"><span class="glyphicon glyphicon-book"></span><span class="menu_caption"> 책</span></a>
+            </li>
+            <li><a href="#/friend/"><span class="glyphicon glyphicon-user"></span><span class="menu_caption"> 친구</span></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
+            <li>
+                <a class="login-user" href="#/user/">
+                    <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
+                        {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
+                </a>
+            </li>
+        </uL>
+
+        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
+            <li class="active">
+                <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
+            </li>
+            <li>
+                <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
+            </li>
+            <li>
+                <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
+            </li>
+            <li>
+                <div class="dropdown pull-right">
+                    <div class="float-menu dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span
+                            class="glyphicon glyphicon-menu-hamburger"></span>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="#/note/new">{{ user.fullname }}</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">기본 정보 수정</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">활동 보기</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">로그아웃</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <div class="input-group  hidden-xs">
+                    <input type="text" class="form-control" placeholder="책 검색">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+						</span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div class="hidden-xs col-sm-3 col-md-2">
+    <div class="list-group">
+        <a href="" class="list-group-item active">개인정보수정</a>
+        <a href="" class="list-group-item">독서 상태 보기</a>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-9 col-md-10 user-info-container">
+    <div class="col-xs-12">
+        <h4 class="list-title">개인 정보</h4>
+
+        <div class="ng-hide alert alert-warning">
+            <span class="glyphicon glyphicon-alert"></span> 아직 독서 노트를 작성하지 않으셨네요. 새로 독서노트를 작성하려면 <a href="#/note/new/">여기</a>를
+            눌러주세요.
+        </div>
+    </div>
+
+    <form name="user_form" class="form-horizontal" novalidate>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="username">아이디:</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.username" name="username"
+                               placeholder="아이디"
+                               readonly required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="fullname">이름:</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.fullname"
+                               name="fullname" placeholder="이름" required>
+
+                        <div class="error-msg"
+                             ng-show="user_form.$submitted || user_form.fullname.$touched">
+                            <div ng-show="user_form.fullname.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>이름은 필수
+                                항목입니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="email">이메일:</label>
+
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" ng-model="user.email"
+                               name="email" placeholder="이메일" required>
+
+                        <div class="error-msg"
+                             ng-show="user_form.$submitted || user_form.email.$touched">
+                            <div ng-show="user_form.email.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>이메일 주소는 필수
+                                항목입니다.
+                            </div>
+                            <div ng-show="user_form.email.$error.email">
+                                <span class='glyphicon glyphicon-info-sign'></span>올바른 이메일 주소를
+                                입력해 주십시오.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="birth_year">생일:</label>
+
+                    <div class="col-sm-10">
+                        <select
+                                class="form-control birthday-control"
+                                ng-model="birth_year" name="birth_year"
+                                ng-options="index.name for index in year_list" required>
+                            <option value="">년도</option>
+                        </select>
+                        <select class="form-control birthday-control"
+                                ng-model="birth_month" name="birth_month"
+                                ng-options="index.name for index in month_list" required>
+                            <option value="">월</option>
+                        </select>
+                        <select class="form-control birthday-control"
+                                ng-model="birth_day" name="birth_day"
+                                ng-options="index.name for index in day_list" required>
+                            <option value="">일</option>
+                        </select> <span class="clearfix"></span>
+
+                        <div class="error-msg"
+                             ng-show="user_form.$submitted || user_form.birth_day.$touched">
+                            <div ng-show="user_form.birth_year.$error.required || user_form.birth_month.$error.required || user_form.birth_day.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>생일은 필수 항목입니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label class="col-sm-2 control-label" for="sex">성별:</label>
+
+                    <div class="col-sm-10">
+                        <div class=" btn-group pull-left" data-toggle="buttons">
+                            <label class="btn btn-default btn-sex btn-left" ng-click="set_sex('M')"> <input
+                                    type="radio" name="sex" ng-model="sex"
+                                    value="M" required autocomplete="off"> 남자
+                            </label> <label class="btn btn-default btn-sex" ng-click="set_sex('F')"> <input
+                                type="radio" name="sex" ng-model="sex"
+                                value="F" required autocomplete="off"> 여자
+                        </label>
+
+                        </div>
+                        <span class="clearfix"></span>
+
+                        <div class="error-msg"
+                             ng-show="user_form.$submitted || user_form.sex.$touched">
+                            <div ng-show="user_form.sex.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>성별은 필수 항목입니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="password1">자기 소개:</label>
+
+                    <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="user.tagline"
+                              name="tagline" placeholder="자신을 소개하세요."></textarea>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="password1">비밀번호:</label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" ng-model="password1"
+                               name="password1" placeholder="비밀번호" required ng-minlength="6">
+
+                        <div class="error-msg"
+                             ng-show="user_form.$submitted || user_form.password1.$touched">
+                            <div ng-show="user_form.password1.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>비밀번호는 필수
+                                항목입니다.
+                            </div>
+                            <div ng-show="user_form.password1.$error.minlength">
+                                <span class='glyphicon glyphicon-info-sign'></span>비밀번호는 최소 6자
+                                이상이어야 합니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label sr-only" for="password2">비밀번호 재확인:</label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control"
+                               ng-model="password2" name="password2"
+                               placeholder="비밀번호 재확인"
+                               ng-required="user_form.password1 == user_form.password2">
+
+                        <div class="error-msg"
+                             ng-show="! (user_form.password1.$error.required || user_form.password1.$error.minlength) && (user_form.$submitted || user_form.password2.$touched)">
+                            <div ng-show="user_form.password2.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>비밀번호가 일치하지
+                                않습니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-2">
+                <img class="img-thumbnail" src="/static/app/images/male.jpg">
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-md btn-primary pull-right"
+                    ng-click="register()">저장하기
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
