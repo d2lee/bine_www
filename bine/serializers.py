@@ -1,8 +1,12 @@
 # -*- coding: UTF-8 -*-
+from calendar import timegm
+import datetime
 
 from rest_framework import serializers
 from django.contrib.auth import update_session_auth_hash
 from rest_framework.exceptions import ValidationError
+from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 
 from bine.models import User, Book, BookNote, BookNoteReply
 
@@ -21,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_on',)
 
     def create(self, validated_data):
-        return User.objects.create(**validated_data)
+        return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.username)
@@ -41,6 +45,23 @@ class UserSerializer(serializers.ModelSerializer):
             update_session_auth_hash(self.context.get('request'), instance)
 
         return instance
+
+    def register(self):
+        self.save()
+
+        if self.instance:
+            payload = jwt_payload_handler(self.instance)  # Include original issued at time for a brand new token,
+            # to allow token refresh
+            if api_settings.JWT_ALLOW_REFRESH:
+                payload['orig_iat'] = timegm(
+                    datetime.utcnow().utctimetuple()
+                )
+
+            return {
+                'token': jwt_encode_handler(payload),
+                'user': self.data
+            }
+        return None
 
 
 class UserSimpleSerializer(serializers.ModelSerializer):

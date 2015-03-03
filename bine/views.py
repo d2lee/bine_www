@@ -2,6 +2,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -75,29 +76,33 @@ class Register(APIView):
 
     @staticmethod
     def post(request):
+        """
         username = request.data['username']
         fullname = request.data['fullname']
         birthday = request.data['birthday']
         sex = request.data['sex']
         email = request.data['email']
         password = request.data['password']
-
         # validation code is required here
-        user = User.objects.create_user(username=username,
-                                        fullname=fullname,
-                                        birthday=birthday,
-                                        sex=sex,
-                                        email=email,
-                                        password=password)
-        if user is not None:
-            serializer = JSONWebTokenSerializer(data=request.DATA)
-            if serializer.is_valid():
-                token = serializer.object.get('token')
-                response_data = auth_response_payload_handler(token, user)
-                return Response(response_data)
-            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-        return Response(status=HTTP_403_FORBIDDEN)
+        try:
+            user = User.objects.create_user(username=username,
+                                            fullname=fullname,
+                                            birthday=birthday,
+                                            sex=sex,
+                                            email=email,
+                                            password=password)
+        except IntegrityError as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        """
+        serializer = UserSerializer(data=request.data)
 
+        if serializer.is_valid():
+            response_data = serializer.register()
+
+        if response_data is None:
+            return Response(status=HTTP_400_BAD_REQUEST)
+        else:
+            return Response(response_data)
 
 class BookDetail(APIView):
     @staticmethod
