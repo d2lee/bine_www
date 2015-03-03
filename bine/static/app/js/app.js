@@ -142,6 +142,9 @@ bineApp.config(function Config($httpProvider, jwtInterceptorProvider) {
 // 페이지가 변경될 떄마다 token 만료 시간이 얼마남지 않았으면 새로 refresh하고 만료되었으면 login화면으로 이동한다.
 bineApp.run(['$location', '$rootScope', 'authService', function ($location, $rootScope, authService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        if (skip_urls(next))
+            return;
+
         if (!authService.get_token()) {
             $location.path('/login/');
         }
@@ -159,6 +162,10 @@ bineApp.run(['$location', '$rootScope', 'authService', function ($location, $roo
             }
         }
     });
+
+    this.skip_urls = function (next) {
+        return next.$$route.originalPath == '/register/';
+    }
 }]);
 
 
