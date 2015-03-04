@@ -69,7 +69,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
         $scope.make_html_attach = function (attach_url) {
             var html = "";
             if (attach_url) {
-                html = "| <a href='" + attach_url + "'>첨부파일(1)</a>";
+                html = "| <a href='/media/" + attach_url + "'>첨부파일(1)</a>";
             }
             return $sce.trustAsHtml(html);
         }
@@ -232,7 +232,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
         $scope.make_html_attach = function (attach_url) {
             var html = "";
             if (attach_url) {
-                html = "| <a href='" + attach_url + "'>첨부파일(1)</a>";
+                html = "| <a href='/media/" + attach_url + "'>첨부파일(1)</a>";
             }
             return $sce.trustAsHtml(html);
         }
