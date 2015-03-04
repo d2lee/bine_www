@@ -32,8 +32,8 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/static/app/book_list.html',
         controller: 'bookListControl'
     }).when('/friend/', {
-        templateUrl: '/static/app/friend_confirmed.html',
-        controller: 'friendConfirmedListControl'
+        templateUrl: '/static/app/friend_list.html',
+        controller: 'friendListControl'
     }).when('/friend/confirmed/', {
         templateUrl: '/static/app/friend_confirmed.html',
         controller: 'friendConfirmedListControl'

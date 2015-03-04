@@ -1,12 +1,7 @@
-bineApp.controller('friendConfirmedListControl', ['$scope', '$http', 'authService', function ($scope, $http, authService) {
-
-    // check the authentication
-    if (!authService.check_auth_and_set_user($scope)) {
-        return;
-    }
+bineApp.controller('friendListControl', ['$scope', '$http', 'authService', function ($scope, $http, authService) {
 
     $scope.load_friend_list = function () {
-        $http.get('/api/friend/?status=Y').success(function (data) {
+        $http.get('/api/friend/?action=conf_list').success(function (data) {
             $scope.friends = data;
         });
     }

@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^api/book/isbn13/(?P<isbn13>[0-9a-zA-Z]+)/$', BookDetail.as_view()),
     url(r'^api/friend/$', FriendList.as_view()),
     url(r'^api/friend/(?P<pk>[0-9]+)/$', FriendList.as_view()),
-    url(r'^api/friend/(?P<action>[a-zA-Z]+)/$', FriendList.as_view()),
     url(r'^api/auth/check/(?P<username>.*)/$', UserView.as_view()),  # duplication check
     url(r'^api/auth/register/$', UserView.as_view()),    # register
     url(r'^api/auth/login/$', 'rest_framework_jwt.views.obtain_jwt_token'),

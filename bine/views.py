@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from django.views.generic.base import View
 from django.shortcuts import render
 
-from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit
+from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, FriendRelation
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer
 
 
@@ -139,30 +139,30 @@ class BookList(APIView):
 
 
 class FriendList(APIView):
-    def get(self, request, action=None):
-        if action is None:
-            Response(status=HTTP_400_BAD_REQUEST)
-
+    @staticmethod
+    def get(request):
         user = request.user
+
+        action = request.GET.get('action')
 
         if action == 'recommend':
             friends = user.get_recommended_friends()
         elif action == 'search':
-            query = request.GET.get('q')
+            query = request.data.get('q')
             if query is None:
                 return Response(status=HTTP_400_BAD_REQUEST)
             friends = user.search_friend(query)
-        elif action is None:
-            status = request.GET.get('status')
-            if status == 'Y':
-                friends = user.get_confirmed_friends()
-            elif status == 'N':
-                friends = user.get_unconfirmed_friends()
-            else:
-                return Response(status=HTTP_400_BAD_REQUEST)
-
-        json_text = list(map(lambda x: x.to_json(), friends))
-        return Response(data=json_text)
+        elif action == 'conf_list':
+            friends = FriendRelation.get_confirmed_friends(user)
+        elif action == 'unconf_list':
+            friends = FriendRelation.get_unconfirmed_friends(user)
+        else:
+            return Response(status=HTTP_400_BAD_REQUEST)
+        if friends:
+            friends_json = Response(UserSerializer(friends).data)
+        else:
+            friends_json = {}
+        return Response(data=friends_json)
 
     def put(self, request):
         friend_id = request.data.get('friend')

@@ -93,7 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             friend.remove_friend(self, False)
 
     def get_confirmed_friends(self):
-        return FriendRelation.get_confirmed_friends(self)
+        return FriendRelation.get_confirmed_friends()
 
     def get_unconfirmed_friends(self):
         return FriendRelation.get_unconfirmed_friends(self)
@@ -157,6 +157,15 @@ class FriendRelation(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='N', blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @staticmethod
+    def get_unconfirmed_friends(user):
+        friend_relations = FriendRelation.objects.filter(from_user=user, status='N')
+        return list(map(lambda x: x.to_user, friend_relations))
+
+    @staticmethod
+    def get_confirmed_friends(user):
+        friend_relations = FriendRelation.objects.filter(from_user=user, status='Y')
+        return list(map(lambda x: x.to_user, friend_relations))
 
     def __str__(self):
         return self.from_user.username + " - " + self.to_user.username
