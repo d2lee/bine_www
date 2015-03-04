@@ -11,13 +11,15 @@
     <title>Bine</title>
 
     <!-- Bootstrap core CSS -->
+    <script src="/static/angular/angular.min.js"></script>
+
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/app/css/bine.css" rel="stylesheet">
 </head>
 
 <body ng-app="bineApp">
 
-<div class="container-fluid" ng-view></div>
+<div class="container-fluid" ng-view ng-cloak></div>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -28,7 +30,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/static/angular/angular.min.js"></script>
+
 <script src="/static/angular/angular-route.min.js"></script>
 <script src="/static/angular/angular-sanitize.min.js"></script>
 <script src="/static/angular/angular-cookies.min.js"></script>

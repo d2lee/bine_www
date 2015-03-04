@@ -1,3 +1,7 @@
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none;
+}
+
 @media screen and (max-width: 480px) {
     .menu_caption {
         display: none;

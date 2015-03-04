@@ -26,7 +26,7 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
                 return;
             }
 
-            var url = "/api/auth/" + $scope.username + "/";
+            var url = "/api/auth/check/" + $scope.username + "/";
             $scope.user_duplicated = undefined;
 
             $http.get(url).success(function (data) {
@@ -43,7 +43,7 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
             if (!$scope.reg_form.$valid && ($scope.user_duplicated == false))
                 return;
 
-            var url = "/api/auth/";
+            var url = "/api/auth/register/";
 
             $scope.make_birthday();
 

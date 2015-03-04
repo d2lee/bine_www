@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Bine</a>
+        <a class="navbar-brand" href="#/note/">Bine</a>
         <ul class="nav navbar-nav visible-sm visible-md visible-lg">
             <li class="active"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
                     class="menu_caption"> 노트</span></a></li>
@@ -14,6 +14,9 @@
             <li>
                 <a class="login-user" href="#/user/">
                     <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
+
+
+
 
                             {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
                 </a>
@@ -70,44 +73,32 @@
 </nav>
 
 <div class="hidden-xs col-sm-4 col-md-3 page-menu">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-                       aria-controls="collapseOne">
-                        {{ user.fullname }}
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    친구 10명이 등록되어 있습니다.<br>
-                    이번 주엔 10권을 읽었습니다. <br>
-                    목표까지 10권의 책이 남았습니다.
-                </div>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                {{ user.fullname }}
+            </h4>
         </div>
+        <div class="panel-body">
+            이번 주에 읽은 책은 10권입니다.  <br>
+            목표한 100권까지는 이제 10권 남았습니다. <br>
+            친구들은 10명이 책을 읽었네요.  <br>
 
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                       aria-expanded="false" aria-controls="collapseTwo">
-                        메뉴
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="list-group">
-                    <a href="" class="list-group-item active">전체 독서노트 보기</a>
-                    <a href="" class="list-group-item">내 독서노트만 보기</a>
-                    <a href="" class="list-group-item">친구 독서노트만 보기</a>
-                    <a href="" class="list-group-item">새 독서노트만 보기</a>
-                    <a href="#/note/new/" class="list-group-item">독서노트 작성</a>
-                </div>
+        </div>
+    </div>
 
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                메뉴
+            </h4>
+        </div>
+        <div class="list-group">
+            <a href="" class="list-group-item active">전체 독서노트 보기</a>
+            <a href="" class="list-group-item">내 독서노트만 보기</a>
+            <a href="" class="list-group-item">친구 독서노트만 보기</a>
+            <a href="" class="list-group-item">새 독서노트만 보기</a>
+            <a href="#/note/new/" class="list-group-item">독서노트 작성</a>
         </div>
     </div>
 </div>
@@ -122,7 +113,10 @@
             눌러주세요.
         </div>
     </div>
-    <div class="list-item media col-xs-15" ng-repeat="note in notes">
+    <div class="list-item media col-xs-15" ng-show="loading">
+        <img src="/static/app/images/loading.gif" width="50px" height="50px">
+    </div>
+    <div class="list-item media col-xs-15" ng-repeat="note in notes" repeat_done="iteration_done()" ng-show="!loading">
         <div class="media-left">
             <a href="#">
                 <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">

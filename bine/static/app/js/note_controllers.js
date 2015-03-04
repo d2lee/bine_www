@@ -3,16 +3,17 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
     function ($rootScope, $scope, $sce, $http, authService) {
         $scope.init = function () {
             $rootScope.note = null;
+            $scope.user = authService.get_user();
 
-            // check the authentication
-            if (!authService.check_auth_and_set_user($scope)) {
-                return;
-            }
-
+            $scope.loading = true;
             $http.get('/api/note/').success(function (data) {
                 $scope.notes = data;
                 $scope.noData = !$scope.notes.length;
             });
+        }
+
+        $scope.iteration_done = function() {
+            $scope.loading = false;
         }
 
         $scope.make_html_preference = function (preference) {

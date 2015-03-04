@@ -1,6 +1,14 @@
 var bineApp = angular.module('bineApp', ['ngRoute', 'ngCookies', 'ngSanitize',
     'angular-jwt', 'angularFileUpload']);
 
+bineApp.directive('repeatDone', function () {
+    return function (scope, element, attrs) {
+        if (scope.$last) { // all are rendered
+            scope.$eval(attrs.repeatDone);
+        }
+    }
+});
+
 bineApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/note/', {
         templateUrl: '/static/app/note_list.html',
@@ -142,7 +150,7 @@ bineApp.config(function Config($httpProvider, jwtInterceptorProvider) {
 // 페이지가 변경될 떄마다 token 만료 시간이 얼마남지 않았으면 새로 refresh하고 만료되었으면 login화면으로 이동한다.
 bineApp.run(['$location', '$rootScope', 'authService', function ($location, $rootScope, authService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
-        if (skip_urls(next))
+        if (this.is_skip_url(next))
             return;
 
         if (!authService.get_token()) {
@@ -163,8 +171,8 @@ bineApp.run(['$location', '$rootScope', 'authService', function ($location, $roo
         }
     });
 
-    this.skip_urls = function (next) {
-        return next.$$route.originalPath == '/register/';
+    this.is_skip_url = function (next) {
+        return next.$$route && (next.$$route.originalPath == '/register/');
     }
 }]);
 
