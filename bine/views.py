@@ -26,7 +26,7 @@ def get_book(request):
 def auth_response_payload_handler(token, user=None):
     return {
         'token': token,
-        'user': {'fullname': user.fullname},
+        'user': {'id': user.id, 'fullname': user.fullname},
     }
 
 

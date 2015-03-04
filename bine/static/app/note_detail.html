@@ -50,14 +50,18 @@
     </div>
 </nav>
 
-<div class='detail-container'>
+<div class='detail-container' ng-cloak>
     <ol class="breadcrumb">
         <li><a href="#/note/">노트</a></li>
         <li class="active">자세히보기</li>
     </ol>
 
 
-    <div class="panel panel-default detail-item">
+    <div ng-show="loading">
+        <img src="/static/app/images/loading.gif" width="50px" height="50px">
+    </div>
+
+    <div class="panel panel-default detail-item" ng-show="!loading" ng-cloak>
         <div class="panel-heading">
             <h4 class="panel-title">{{ note.book.title }}</h4>
         </div>
@@ -78,7 +82,7 @@
             <a href="" ng-click="edit_note(note)">나도 읽었어요</a> | <a href="" ng-click="edit_note(note)">읽고 싶어요</a>
         </div>
     </div>
-    <div class="panel panel-default detail-item">
+    <div class="panel panel-default detail-item" ng-show="!loading" ng-cloak>
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a href="#/note/{{ note.id }}">{{ note.user.id === user.id ? '나' : note.user.fullname }}의 독후감</a></h4>

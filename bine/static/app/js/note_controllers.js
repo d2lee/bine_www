@@ -86,10 +86,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
     function ($rootScope, $scope, $sce, $routeParams, $http, authService) {
         $scope.init = function () {
 
-            // check the authentication
-            if (!authService.check_auth_and_set_user($scope)) {
-                return;
-            }
+            $scope.user = authService.get_user();
 
             // 노트 ID 읽기
             var note_id = $routeParams.note_id;
@@ -103,8 +100,10 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             $scope.new_reply_content = "";
             $scope.current_reply = "";
 
+            $scope.loading = true;
+
             $scope.fetch_note_detail(note_id);
-            $scope.fetch_note_reply(note_id);
+            // $scope.fetch_note_reply(note_id);
         }
 
         $scope.fetch_note_detail = function (note_id) {
@@ -112,7 +111,11 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             var url = '/api/note/' + note_id + "/";
             $http.get(url).success(function (data) {
                 $scope.note = data;
-            });
+                $scope.loading = false;
+
+            }).error(function() {
+                $scope.loading = false;
+            })
         }
 
         $scope.fetch_note_reply = function (note_id) {
@@ -120,6 +123,9 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             var note_reply_url = '/api/note/' + note_id + "/reply/";
             $http.get(note_reply_url).success(function (data) {
                 $scope.replies = data;
+                $scope.loading_reply = false;
+            }).error(function (data) {
+                $scope.loading_reply = false;
             });
         }
 
