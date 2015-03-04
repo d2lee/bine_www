@@ -54,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
             # to allow token refresh
             if api_settings.JWT_ALLOW_REFRESH:
                 payload['orig_iat'] = timegm(
-                    datetime.utcnow().utctimetuple()
+                    datetime.datetime.utcnow().utctimetuple()
                 )
 
             return {
