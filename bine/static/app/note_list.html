@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Bine</a>
+        <a class="navbar-brand" href="/">Bine</a>
         <ul class="nav navbar-nav visible-sm visible-md visible-lg">
             <li class="active"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
                     class="menu_caption"> 노트</span></a></li>
@@ -14,7 +14,8 @@
             <li>
                 <a class="login-user" href="#/user/">
                     <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
-                        {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
+
+                            {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
                 </a>
             </li>
         </uL>

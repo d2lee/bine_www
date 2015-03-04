@@ -2,7 +2,6 @@
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -14,7 +13,6 @@ from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_400_BAD_REQUEST, \
 from rest_framework.response import Response
 from django.views.generic.base import View
 from django.shortcuts import render
-from rest_framework_jwt.serializers import JSONWebTokenSerializer
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer
@@ -71,29 +69,20 @@ class Login(APIView):
         return Response(status=HTTP_403_FORBIDDEN)
 
 
-class Register(APIView):
+class UserView(APIView):
     permission_classes = (AllowAny,)
 
     @staticmethod
+    def get(request, username):
+        """
+            if duplication, return OK; otherwise, return error.
+        """
+        # assume that it returns HTTP error if error happens
+        User.objects.get(username=username)
+        return Response(data={'username': username}, status=HTTP_200_OK)
+
+    @staticmethod
     def post(request):
-        """
-        username = request.data['username']
-        fullname = request.data['fullname']
-        birthday = request.data['birthday']
-        sex = request.data['sex']
-        email = request.data['email']
-        password = request.data['password']
-        # validation code is required here
-        try:
-            user = User.objects.create_user(username=username,
-                                            fullname=fullname,
-                                            birthday=birthday,
-                                            sex=sex,
-                                            email=email,
-                                            password=password)
-        except IntegrityError as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        """
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -103,6 +92,7 @@ class Register(APIView):
             return Response(status=HTTP_400_BAD_REQUEST)
         else:
             return Response(response_data)
+
 
 class BookDetail(APIView):
     @staticmethod

@@ -19,13 +19,31 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
         }
 
         /*
+         사용자 아이디 중복 검사
+         */
+        $scope.check_duplicate_userid = function () {
+            if (!$scope.username) {
+                return;
+            }
+
+            var url = "/api/auth/" + $scope.username + "/";
+            $scope.user_duplicated = undefined;
+
+            $http.get(url).success(function (data) {
+                $scope.user_duplicated = true;
+            }).error(function (data) {
+                $scope.user_duplicated = false;
+            });
+        }
+
+        /*
          새 사용자 등록 함수
          */
         $scope.register = function () {
-            if (!$scope.reg_form.$valid)
+            if (!$scope.reg_form.$valid && ($scope.user_duplicated == false))
                 return;
 
-            var url = "/api/auth/register/";
+            var url = "/api/auth/";
 
             $scope.make_birthday();
 
@@ -105,4 +123,5 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
 
         $scope.init_birthday();
 
-    } ]);
+    }])
+;
