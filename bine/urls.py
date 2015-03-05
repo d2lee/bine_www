@@ -7,7 +7,6 @@ from bine.views import BookList, BookNoteList, BookNoteDetail, \
 
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view()),
     url(r'^api/note/$', BookNoteList.as_view()),
     url(r'^api/note/(?P<pk>[0-9]+)/$', BookNoteDetail.as_view()),
     url(r'^api/note/(?P<note_id>[0-9]+)/reply/$', BookNoteReplyList.as_view()),
@@ -22,6 +21,7 @@ urlpatterns = [
     url(r'^api/auth/register/$', UserView.as_view()),    # register
     url(r'^api/auth/login/$', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^api/auth/refresh_token/$', 'rest_framework_jwt.views.refresh_jwt_token'),
+    url(r'^.*$', IndexView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
