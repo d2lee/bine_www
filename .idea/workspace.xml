@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="토ㅋ">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/app.js" afterPath="$PROJECT_DIR$/bine/static/app/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/css/bine.css" afterPath="$PROJECT_DIR$/bine/static/app/css/bine.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/templates/bine.html" afterPath="$PROJECT_DIR$/bine/templates/bine.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/dolee.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/dolee.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/friend_list.html" afterPath="$PROJECT_DIR$/bine/static/app/friend_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/models.py" afterPath="$PROJECT_DIR$/bine/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/serializers.py" afterPath="$PROJECT_DIR$/bine/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/urls.py" afterPath="$PROJECT_DIR$/bine/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/user_auth_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/user_auth_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/views.py" afterPath="$PROJECT_DIR$/bine/views.py" />
+    <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -102,12 +91,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/views.py">
+      <file leaf-file-name="note_form.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5762" max-vertical-offset="6210">
-              <caret line="403" column="0" selection-start-line="403" selection-start-column="0" selection-end-line="403" selection-end-column="0" />
+            <state vertical-scroll-proportion="-39.333332" vertical-offset="1501" max-vertical-offset="3450">
+              <caret line="163" column="18" selection-start-line="163" selection-start-column="18" selection-end-line="163" selection-end-column="18" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="note_controllers.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3618421" vertical-offset="5000" max-vertical-offset="5880">
+              <caret line="363" column="40" selection-start-line="363" selection-start-column="40" selection-end-line="363" selection-end-column="40" />
+              <folding>
+                <element signature="e#9000#9152#0" expanded="false" />
+                <element signature="e#9714#9770#0" expanded="false" />
+                <element signature="e#10681#10964#0" expanded="false" />
+                <element signature="e#12204#13292#0" expanded="false" />
+                <element signature="e#13373#14037#0" expanded="false" />
+                <element signature="e#14084#14408#0" expanded="false" />
+                <element signature="e#14447#14493#0" expanded="false" />
+                <element signature="e#14535#14690#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,11 +130,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53125" vertical-offset="1192" max-vertical-offset="1800">
-              <caret line="101" column="6" selection-start-line="101" selection-start-column="6" selection-end-line="101" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1192" max-vertical-offset="1800">
+              <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -137,16 +145,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-1.8571428" vertical-offset="901" max-vertical-offset="1440">
               <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bine.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.37037" vertical-offset="3512" max-vertical-offset="4140">
-              <caret line="269" column="20" selection-start-line="269" selection-start-column="20" selection-end-line="269" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -221,7 +219,6 @@
         <option value="$PROJECT_DIR$/bine/static/app/note_detail.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/book_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/note_form.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
         <option value="$PROJECT_DIR$/bine/templates/bine.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/user_auth_controllers.js" />
         <option value="$PROJECT_DIR$/bine/serializers.py" />
@@ -234,6 +231,7 @@
         <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
         <option value="$PROJECT_DIR$/bine_www/settings.py" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
       </list>
     </option>
   </component>
@@ -831,7 +829,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425522225345</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="토큰 시간만큼 지난 후 페이지를 refresh하면 화면이 멈추고 angularjs에서 inject 에러 발생 문제 해결&#10;&#10;- 그밖에 friend관련 기능 구현 중임 (아직 완성은 안됨)">
+      <created>1425564889207</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1425564889207</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -846,6 +850,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39937106" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4764151" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -856,7 +861,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -892,7 +896,8 @@
     <MESSAGE value="/api로 제외하고 모든 url를 bine.html이 처리하도록 urls.py파일 변경&#10;&#10;- bine.html로  매핑하는 url pattern을 모든 스트링 형태를 지원하도록 수정" />
     <MESSAGE value="메인 메뉴에 있는 사용자 icon을 클릭했을 때 드롭다운메뉴가 나오도록 수정하고 로그아웃 기능 추가" />
     <MESSAGE value="노트 추가시에 성공 실패 메시지를 javascript:alert창이 아닌 일반 &lt;div&gt;로 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="노트 추가시에 성공 실패 메시지를 javascript:alert창이 아닌 일반 &lt;div&gt;로 변경" />
+    <MESSAGE value="토큰 시간만큼 지난 후 페이지를 refresh하면 화면이 멈추고 angularjs에서 inject 에러 발생 문제 해결&#10;&#10;- 그밖에 friend관련 기능 구현 중임 (아직 완성은 안됨)" />
+    <option name="LAST_COMMIT_MESSAGE" value="토큰 시간만큼 지난 후 페이지를 refresh하면 화면이 멈추고 angularjs에서 inject 에러 발생 문제 해결&#10;&#10;- 그밖에 friend관련 기능 구현 중임 (아직 완성은 안됨)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1063,14 +1068,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15936953" vertical-offset="2114" max-vertical-offset="3450">
-          <caret line="147" column="22" selection-start-line="142" selection-start-column="15" selection-end-line="147" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10507881" vertical-offset="195" max-vertical-offset="2760">
@@ -1195,25 +1192,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49243698" vertical-offset="4132" max-vertical-offset="5235">
-          <caret line="318" column="0" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
-          <folding>
-            <element signature="e#9000#9152#0" expanded="false" />
-            <element signature="e#9205#9703#0" expanded="false" />
-            <element signature="e#9714#9770#0" expanded="false" />
-            <element signature="e#10681#10964#0" expanded="false" />
-            <element signature="e#11009#12019#0" expanded="false" />
-            <element signature="e#12204#13292#0" expanded="false" />
-            <element signature="e#13373#14037#0" expanded="false" />
-            <element signature="e#14084#14408#0" expanded="false" />
-            <element signature="e#14447#14493#0" expanded="false" />
-            <element signature="e#14535#14690#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1342,9 +1320,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53125" vertical-offset="1192" max-vertical-offset="1800">
-          <caret line="101" column="6" selection-start-line="101" selection-start-column="6" selection-end-line="101" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1192" max-vertical-offset="1800">
+          <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-39.333332" vertical-offset="1501" max-vertical-offset="3450">
+          <caret line="163" column="18" selection-start-line="163" selection-start-column="18" selection-end-line="163" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3618421" vertical-offset="5000" max-vertical-offset="5880">
+          <caret line="363" column="40" selection-start-line="363" selection-start-column="40" selection-end-line="363" selection-end-column="40" />
+          <folding>
+            <element signature="e#9000#9152#0" expanded="false" />
+            <element signature="e#9714#9770#0" expanded="false" />
+            <element signature="e#10681#10964#0" expanded="false" />
+            <element signature="e#12204#13292#0" expanded="false" />
+            <element signature="e#13373#14037#0" expanded="false" />
+            <element signature="e#14084#14408#0" expanded="false" />
+            <element signature="e#14447#14493#0" expanded="false" />
+            <element signature="e#14535#14690#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
