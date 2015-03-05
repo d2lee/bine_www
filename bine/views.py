@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
-from django.http.response import JsonResponse, HttpResponseBadRequest
-from django.contrib.auth import authenticate, login, logout
-from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_400_BAD_REQUEST, \
+from django.http.response import HttpResponseBadRequest
+from rest_framework.status import HTTP_400_BAD_REQUEST, \
     HTTP_200_OK
 from rest_framework.response import Response
 from django.views.generic.base import View
@@ -17,81 +18,55 @@ from django.shortcuts import render
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, FriendRelation
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer
 
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
+def register(request):
 
-def get_book(request):
-    book = Book.objects.get(pk=request.POST['book'])
-    return book
+    serializer = UserSerializer(data=request.data)
+
+    if serializer.is_valid():
+        response_data = serializer.register()
+
+    if response_data is None:
+        return Response(status=HTTP_400_BAD_REQUEST)
+    else:
+        return Response(response_data)
+
+
+@api_view(['GET'])
+@permission_classes((AllowAny, ))
+def check_username_duplication(request, username):
+    """
+        if duplication, return OK; otherwise, return error.
+    """
+    # assume that it returns HTTP error if error happens
+    User.objects.get(username=username)
+    return Response(data={'username': username})
 
 
 def auth_response_payload_handler(token, user=None):
     return {
         'token': token,
-        'user': {'id': user.id, 'fullname': user.fullname},
+        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex},
     }
 
 
-class LoginRequiredMixin(object):
-    @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
-        return login_required(view, None)
-
-
 class IndexView(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         return render(request, 'bine.html')
 
 
-class LoginView(View):
-    def get(self, request):
-        return render(request, 'login.html')
-
-
-class Login(APIView):
-    permission_classes = (AllowAny,)
-
-    def post(self, request):
-        username = request.data['username']
-        password = request.data['password']
-
-        if not (username and password):
-            return JsonResponse(status=HTTP_400_BAD_REQUEST)
-
-        if request.user:
-            logout(request)
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return Response(data=user.to_json(), status=HTTP_200_OK)
-
-        return Response(status=HTTP_403_FORBIDDEN)
-
-
 class UserView(APIView):
-    permission_classes = (AllowAny,)
-
     @staticmethod
-    def get(request, username):
-        """
-            if duplication, return OK; otherwise, return error.
-        """
-        # assume that it returns HTTP error if error happens
-        User.objects.get(username=username)
-        return Response(data={'username': username}, status=HTTP_200_OK)
-
-    @staticmethod
-    def post(request):
-        serializer = UserSerializer(data=request.data)
-
-        if serializer.is_valid():
-            response_data = serializer.register()
-
-        if response_data is None:
+    def get(request):
+        query = request.GET['q']
+        if not (query and len(query) >= 2):
             return Response(status=HTTP_400_BAD_REQUEST)
-        else:
-            return Response(response_data)
+
+        users = request.user.search(query)
+
+        return Response(UserSerializer(users, many=True).data, content_type="application/json")
 
 
 class BookDetail(APIView):
@@ -143,37 +118,45 @@ class FriendList(APIView):
     def get(request):
         user = request.user
 
-        action = request.GET.get('action')
+        action = request.GET.get('type')
 
         if action == 'recommend':
-            friends = user.get_recommended_friends()
+            friends = FriendRelation.get_recommended_friends()
         elif action == 'search':
             query = request.data.get('q')
             if query is None:
                 return Response(status=HTTP_400_BAD_REQUEST)
             friends = user.search_friend(query)
-        elif action == 'conf_list':
+        elif action == 'from':
+            friends = FriendRelation.get_from_friends(user)
+        elif action == 'to':
+            friends = FriendRelation.get_to_friends(user)
+        elif action == 'confirm':
             friends = FriendRelation.get_confirmed_friends(user)
-        elif action == 'unconf_list':
-            friends = FriendRelation.get_unconfirmed_friends(user)
         else:
             return Response(status=HTTP_400_BAD_REQUEST)
-        if friends:
-            friends_json = Response(UserSerializer(friends).data)
-        else:
-            friends_json = {}
-        return Response(data=friends_json)
 
-    def put(self, request):
-        friend_id = request.data.get('friend')
-        status = request.data.get('status')
+        return Response(UserSerializer(friends, many=True).data, content_type="application/json")
 
-        if friend_id is None or status is None:
+    @staticmethod
+    def put(request, pk):
+        friend_id = pk
+
+        if friend_id is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        return Response(status=HTTP_200_OK)
+        friend = User.objects.get(pk=friend_id)
+        if friend is None:
+            return Response(status=HTTP_400_BAD_REQUEST)
 
-    def post(self, request):
+        relation = FriendRelation.confirm_friend(request.user, friend)
+        if relation:
+            return Response(status=HTTP_200_OK)
+        else:
+            return Response(status=HTTP_400_BAD_REQUEST)
+
+    @staticmethod
+    def post(request):
         friend_id = request.data.get('friend')
 
         friend = User.objects.get(pk=friend_id)
@@ -185,7 +168,8 @@ class FriendList(APIView):
 
         return Response(data=friend.to_json())
 
-    def delete(self, request, pk):
+    @staticmethod
+    def delete(request, pk):
         friend_id = pk
         friend = User.objects.get(pk=friend_id)
 

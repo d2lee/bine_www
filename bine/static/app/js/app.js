@@ -1,4 +1,4 @@
-var bineApp = angular.module('bineApp', ['ngRoute', 'ngCookies', 'ngSanitize',
+var bineApp = angular.module('bineApp', ['ngRoute', 'ngResource', 'ngCookies', 'ngSanitize',
     'angular-jwt', 'angularFileUpload']);
 
 bineApp.directive('repeatDone', function () {
@@ -98,13 +98,15 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
 
             var mins = Math.floor(milisec_diff / 1000 / 60);
 
-            if (mins <= 2) {
+            if (mins <= 5) {
                 var data = {'token': token};
                 var url = "/api/auth/refresh_token/";
 
                 $http.post(url, data).success(function (data) {
                     $window.sessionStorage.token = data.token;
-                });
+                }).error(function () {
+
+                })
             }
         }
 
@@ -157,8 +159,6 @@ bineApp.run(['$location', '$rootScope', 'authService', function ($location, $roo
             $location.path('/login/');
         }
         else {
-            authService.refresh_token_if_expired_soon();
-
             if (authService.isTokenExpired()) {
                 event.preventDefault();
                 $rootScope.$evalAsync(function () {
@@ -166,13 +166,15 @@ bineApp.run(['$location', '$rootScope', 'authService', function ($location, $roo
                 });
             }
             else {
-                $rootScope.user = authService.get_user();
+                authService.refresh_token_if_expired_soon();
+
+                // $rootScope.user = authService.get_user();
             }
         }
     });
 
     this.is_skip_url = function (next) {
-        return next.$$route && (next.$$route.originalPath == '/register/');
+        return next.$$route && (next.$$route.originalPath == '/register/' || next.$$route.originalPath == '/login/');
     }
 }]);
 
@@ -193,5 +195,19 @@ bineApp.filter('truncate', function () {
             content = content.substr(0, lastSpace);
 
         return content + '...';
+    };
+});
+
+bineApp.filter('photo', function () {
+    return function (content, sex) {
+        if (content && content != null) {
+            return content;
+        }
+        else if (sex == 'M') {
+            return '/static/app/images/male.jpg';
+        }
+        else if (sex == 'F') {
+            return '/static/app/images/female.jpg';
+        }
     };
 });

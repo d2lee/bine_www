@@ -108,7 +108,6 @@
 
 .page-content .list-title {
     margin-left: 4px;
-    /* margin-bottom: 20px; */
     border-bottom: solid 1px #ddd;
     padding-bottom: 8px;
 }
@@ -260,4 +259,13 @@
 
 .panel-error-msg p {
     margin-bottom: 8px;
+}
+
+.list-item .user-photo {
+    width: 100px;
+    height: 100px;
+}
+
+.list-title .form-inline {
+    margin-top: 8px;
 }

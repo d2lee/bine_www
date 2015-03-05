@@ -3,7 +3,7 @@ from calendar import timegm
 import datetime
 
 from rest_framework import serializers
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate
 from rest_framework.exceptions import ValidationError
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
@@ -45,6 +45,42 @@ class UserSerializer(serializers.ModelSerializer):
             update_session_auth_hash(self.context.get('request'), instance)
 
         return instance
+
+    def login(self):
+        credentials = {
+            'username': self.validated_data.get('username', None),
+            'password': self.validated_data.get('password', None),
+        }
+
+        if all(credentials.values()):
+            self.instance = authenticate(**credentials)
+            user = self.instance
+
+            if user:
+                if not user.is_active:
+                    msg = _('사용자 계정이 비활성화되었습니다.')
+                    raise serializers.ValidationError(msg)
+
+                payload = jwt_payload_handler(user)
+
+                # Include original issued at time for a brand new token,
+                # to allow token refresh
+                if api_settings.JWT_ALLOW_REFRESH:
+                    payload['orig_iat'] = timegm(
+                        datetime.utcnow().utctimetuple()
+                    )
+
+                return {
+                    'token': jwt_encode_handler(payload),
+                    'user': self.data
+                }
+            else:
+                msg = _('사용자 아이디와 암호가 일치하지 않습니다.')
+                raise serializers.ValidationError(msg)
+        else:
+            msg = _('사용자 아이디와 암호를 입력하시기 바랍니다.')
+            msg = msg.format(username_field=self.username_field)
+            raise serializers.ValidationError(msg)
 
     def register(self):
         self.save()

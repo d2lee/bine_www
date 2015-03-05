@@ -15,7 +15,7 @@
                 <div class="dropdown pull-right ">
                     <div class="float-menu dropdown-toggle login-user" data-toggle="dropdown" aria-expanded="true">
                         <a href=""><img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중"
-                                        ng-src="{{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
+                                        ng-src="{{ user.photo | photo: user.sex }}">
                         </a>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">

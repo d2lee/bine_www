@@ -75,7 +75,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'fullname', 'birthday', 'sex']
 
-    def add_friend(self, friend, symm=True):
+    def add_friend(self, friend, symm=False):
         friend_relation, created = FriendRelation.objects.get_or_create(
             from_user=self,
             to_user=friend)
@@ -84,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             friend.add_friend(self, False)
         return friend_relation
 
-    def remove_friend(self, friend, symm=True):
+    def remove_friend(self, friend, symm=False):
         FriendRelation.objects.filter(
             from_user=self,
             to_user=friend).delete()
@@ -92,22 +92,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             # avoid recursion by passing `symm=False`
             friend.remove_friend(self, False)
 
-    def get_confirmed_friends(self):
-        return FriendRelation.get_confirmed_friends()
-
-    def get_unconfirmed_friends(self):
-        return FriendRelation.get_unconfirmed_friends(self)
-
-    def search_friend(self, query):
+    def search(self, query):
         users = User.objects.filter(Q(username__contains=query) | Q(fullname__contains=query))
 
         # Exclude self from search_list
-        return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
-
-    def get_recommended_friends(self):
-        users = User.objects.all()
-
-        # Exclude self and self's friends
         return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
 
     def get_user_and_friend_notes(self):
@@ -150,22 +138,50 @@ class FriendRelation(models.Model):
     to_user = ForeignKey(User, related_name='to_people')
 
     STATUS_CHOICES = (
-        ('N', '대기'),
+        ('D', '대기'),
         ('Y', '승락'),
-        ('D', '삭제'),
+        ('N', '취소'),
     )
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='N', blank=False)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='D', blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @staticmethod
-    def get_unconfirmed_friends(user):
-        friend_relations = FriendRelation.objects.filter(from_user=user, status='N')
+    def get_to_friends(user):
+        friend_relations = FriendRelation.objects.filter(to_user=user, status='D')
+        return list(map(lambda x: x.from_user, friend_relations))
+
+    @staticmethod
+    def get_from_friends(user):
+        friend_relations = FriendRelation.objects.filter(from_user=user, status='D')
         return list(map(lambda x: x.to_user, friend_relations))
 
     @staticmethod
     def get_confirmed_friends(user):
-        friend_relations = FriendRelation.objects.filter(from_user=user, status='Y')
-        return list(map(lambda x: x.to_user, friend_relations))
+        friend_relations = FriendRelation.objects.filter(Q(from_user=user) | Q(to_user=user), status='Y')
+        return list(map(lambda x: x.from_user, friend_relations))
+
+    @staticmethod
+    def confirm_friend(user, friend):
+        relation = FriendRelation.objects.get(to_user=user, from_user=friend)
+        if relation:
+            relation.status = 'Y'
+            relation.save()
+        return relation
+
+    @staticmethod
+    def reject_friend(user, friend):
+        relation = FriendRelation.objects.get(to_user=user, from_user=friend)
+        if relation:
+            relation.status = 'N'
+            relation.save()
+        return relation
+
+    @staticmethod
+    def get_recommended_friends(user):
+        users = User.objects.all()
+
+        # Exclude self and self's friends
+        return users.exclude(Q(id=user.id) | Q(friends__id=user.id)).all()
 
     def __str__(self):
         return self.from_user.username + " - " + self.to_user.username

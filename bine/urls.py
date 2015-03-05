@@ -2,6 +2,7 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from bine import views
 from bine.views import BookList, BookNoteList, BookNoteDetail, \
     BookNoteLikeItUpdate, BookNoteReplyDetail, BookNoteReplyList, IndexView, FriendList, BookDetail, UserView
 
@@ -17,10 +18,11 @@ urlpatterns = [
     url(r'^api/book/isbn13/(?P<isbn13>[0-9a-zA-Z]+)/$', BookDetail.as_view()),
     url(r'^api/friend/$', FriendList.as_view()),
     url(r'^api/friend/(?P<pk>[0-9]+)/$', FriendList.as_view()),
-    url(r'^api/auth/check/(?P<username>.*)/$', UserView.as_view()),  # duplication check
-    url(r'^api/auth/register/$', UserView.as_view()),    # register
-    url(r'^api/auth/login/$', 'rest_framework_jwt.views.obtain_jwt_token'),
-    url(r'^api/auth/refresh_token/$', 'rest_framework_jwt.views.refresh_jwt_token'),
+    url(r'^api/user/$', UserView.as_view()),  # duplication check
+    url(r'^api/user/check/(?P<username>.*)/$', views.check_username_duplication),  # duplication check
+    url(r'^api/user/register/$', views.register),  # register
+    url(r'^api/user/login/$', 'rest_framework_jwt.views.obtain_jwt_token'),
+    url(r'^api/user/refresh_token/$', 'rest_framework_jwt.views.refresh_jwt_token'),
     url(r'^.*$', IndexView.as_view()),
 ]
 
