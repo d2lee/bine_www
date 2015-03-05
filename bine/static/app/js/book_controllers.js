@@ -13,4 +13,4 @@ bineApp.controller('bookListControl', ['$scope', '$http', 'authService', functio
     }
 
     $scope.load_book_list();
-} ]);
+}]);

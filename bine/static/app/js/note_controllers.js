@@ -2,6 +2,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
     "$http", "authService",
     function ($rootScope, $scope, $sce, $http, authService) {
         $scope.init = function () {
+            $scope.http_status = -1;
             $rootScope.note = null;
             $scope.user = authService.get_user();
 
@@ -12,7 +13,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             });
         }
 
-        $scope.iteration_done = function() {
+        $scope.iteration_done = function () {
             $scope.loading = false;
         }
 
@@ -113,7 +114,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
                 $scope.note = data;
                 $scope.loading = false;
 
-            }).error(function() {
+            }).error(function () {
                 $scope.loading = false;
             })
         }
@@ -254,34 +255,31 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
     "$http", "authService",
     function ($rootScope, $scope, $upload, $http, authService) {
 
-        /*
-         New Control이 불리어졌을 때 실행되는 부분.
-         */
-        // check the authentication
-        if (!authService.check_auth_and_set_user($scope)) {
-            return;
-        }
+        $scope.init = function () {
+            $scope.user = authService.get_user();
+            $scope.http_status = -1;
 
-        if (!$rootScope.note) { // 새 노트를 생성하려면 기본 값을 채운 노트를 하나 만든다.
-            var today = new Date();
+            if (!$rootScope.note) { // 새 노트를 생성하려면 기본 값을 채운 노트를 하나 만든다.
+                var today = new Date();
 
-            $scope.note = {
-                'user': {'id': $scope.user.id},
-                'preference': 3,
-                'share_to': 'F',
-                'read_date_from': today,
-                'read_date_to': today,
-            };
-            $scope.book_title = "";
-        }
-        else {
-            $scope.note = $rootScope.note;
-            $scope.book_title = $scope.note.book.title;
+                $scope.note = {
+                    'user': {'id': $scope.user.id},
+                    'preference': 3,
+                    'share_to': 'F',
+                    'read_date_from': today,
+                    'read_date_to': today,
+                };
+                $scope.book_title = "";
+            }
+            else {
+                $scope.note = $rootScope.note;
+                $scope.book_title = $scope.note.book.title;
 
-            // convert string date to date object to initialize input date
-            // object.
-            $scope.note.read_date_from = new Date($scope.note.read_date_from);
-            $scope.note.read_date_to = new Date($scope.note.read_date_to);
+                // convert string date to date object to initialize input date
+                // object.
+                $scope.note.read_date_from = new Date($scope.note.read_date_from);
+                $scope.note.read_date_to = new Date($scope.note.read_date_to);
+            }
         }
 
         $scope.strip_book_title = function (book) {
@@ -291,6 +289,8 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
         }
 
         $scope.upload = function (url, data, file) {
+            $scope.http_status = -1;
+
             $upload.upload({
                 url: url,
                 method: 'POST',
@@ -298,14 +298,13 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 fileFormDataName: 'attach',
                 file: file
             }).progress(function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                // console.log('progress: ' + progressPercentage + '% ' +
-                // evt.config.file.name);
+
             }).success(function (data, status, headers, config) {
-                alert('성공적으로 저장되었습니다.');
-                // console.log('file ' + config.file.name + 'uploaded.
-                // Response: ' + data);
-            });
+                $scope.http_status = status;
+
+            }).error(function (data, status) {
+                $scope.http_status = status;
+            })
         };
 
         /*
@@ -352,7 +351,7 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             $scope.note.preference = pref;
         }
 
-        $scope.set_preference($scope.note.preference);
+
 
         $scope.search_book = function () {
             var title = $scope.book_title;
@@ -363,7 +362,8 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             }
             else {
                 var url = "https://apis.daum.net/search/book";
-                var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e";
+                //var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
+                var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
 
                 url += "?output=json&result=10&sort=popular";
                 url += "&apikey=" + api_key;
@@ -443,6 +443,20 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             return year + '-' + month + '-' + day;
         }
 
+        $scope.go_back = function () {
+            window.history.back();
+        }
 
+        $scope.reset = function (clear) {
+            if (clear) {
+                $scope.init();
+            }
+            else {
+                $scope.http_status = -1;
+            }
+        }
+
+        // init 함수 호출
+        $scope.init();
     }
 ]);

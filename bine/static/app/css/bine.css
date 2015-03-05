@@ -257,3 +257,7 @@
     width: 100px;
     height: auto;
 }
+
+.panel-error-msg p {
+    margin-bottom: 8px;
+}
