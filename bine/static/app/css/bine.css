@@ -85,7 +85,7 @@
 
 .login-user {
     padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-left: 0 !important;
 }
 
 .login-user img {
@@ -93,7 +93,6 @@
     height: 32px;
     border-radius: 50%;
     border: 0;
-    margin-left: 8px;
     margin-top: 5px;
 }
 

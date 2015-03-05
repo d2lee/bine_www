@@ -10,24 +10,35 @@
             </li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
+       <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
             <li>
-                <a class="login-user" href="#/user/">
-                    <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
-
-                            {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
-                </a>
+                <div class="dropdown pull-right ">
+                    <div class="float-menu dropdown-toggle login-user" data-toggle="dropdown" aria-expanded="true">
+                        <a href=""><img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중"
+                                        ng-src="{{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
+                        </a>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="#/user/">{{ user.fullname }}</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">기본 정보 수정</a></li>
+                        <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">활동 보기</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
+                    </ul>
+                </div>
             </li>
         </uL>
 
         <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
-            <li >
+            <li class="active">
                 <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
             </li>
             <li>
                 <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
             </li>
-            <li class="active">
+            <li>
                 <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
             </li>
             <li>
@@ -37,17 +48,17 @@
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                   href="#/note/new">{{ user.fullname }}</a></li>
+                                                   href="#/user/">{{ user.fullname }}</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">기본 정보 수정</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">활동 보기</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">로그아웃</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">기본 정보 수정</a></li>
+                        <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">활동 보기</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">내 친구</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">친구 대기</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/friend/">내친구</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">친구 요청</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">친구 찾기</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">새 친구 추천</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">새친구 추천</a></li>
                     </ul>
                 </div>
             </li>

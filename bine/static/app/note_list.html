@@ -12,14 +12,22 @@
 
         <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
             <li>
-                <a class="login-user" href="#/user/">
-                    <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
-
-
-
-
-                            {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
-                </a>
+                <div class="dropdown pull-right ">
+                    <div class="float-menu dropdown-toggle login-user" data-toggle="dropdown" aria-expanded="true">
+                        <a href=""><img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중"
+                                        ng-src="{{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
+                        </a>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="#/user/">{{ user.fullname }}</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">기본 정보 수정</a></li>
+                        <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">활동 보기</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
+                    </ul>
+                </div>
             </li>
         </uL>
 
@@ -40,11 +48,12 @@
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                   href="#/note/new">{{ user.fullname }}</a></li>
+                                                   href="#/user/">{{ user.fullname }}</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">기본 정보 수정</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">활동 보기</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">로그아웃</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">기본 정보 수정</a></li>
+                        <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">활동 보기</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">독서노트 작성</a></li>
 
@@ -80,9 +89,9 @@
             </h4>
         </div>
         <div class="panel-body">
-            이번 주에 읽은 책은 10권입니다.  <br>
+            이번 주에 읽은 책은 10권입니다. <br>
             목표한 100권까지는 이제 10권 남았습니다. <br>
-            친구들은 10명이 책을 읽었네요.  <br>
+            친구들은 10명이 책을 읽었네요. <br>
 
         </div>
     </div>
@@ -145,27 +154,4 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="list-item panel panel-default" ng-repeat="note in notes">
-        <div class="panel-heading">
-        </div>
-        <div class="panel-body">
-            <a href='#/note/{{ note.id }}'> <img class="book-photo"
-                                                 ng-src="{{ note.book.photo }}" align="left">
-            </a>
-
-            <h4 class="panel-title">
-                <a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
-
-            <div class='panel-detail'>
-                <span>{{ note.user.fullname }}</span> |
-                <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
-                <span ng-bind-html="make_html_preference(note.preference)"></span>
-                <span ng-bind-html="make_html_attach(note.attach)"></span>
-            </div>
-            <p class="panel-content">{{ note.content | truncate: 256 }}</p>
-        </div>
-
-    </div>
-    -->
 </div>
