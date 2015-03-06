@@ -66,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     updated_on = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    last_login_on = models.DateTimeField(blank=True)
+    last_login_on = models.DateTimeField(null=True)
 
     friends = models.ManyToManyField('self', through='Friendship',
                                      symmetrical=False,

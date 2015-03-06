@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from django.views.generic.base import View
 from django.shortcuts import render
 
-from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, FriendRelation
+from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, Friendship
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer
 
 
@@ -120,18 +120,18 @@ class FriendView(APIView):
         action = request.GET.get('type')
 
         if action == 'recommend':
-            friends = FriendRelation.get_recommended_friends(user)
+            friends = Friendship.get_recommended_friends(user)
         elif action == 'search':
             query = request.data.get('q')
             if query is None:
                 return Response(status=HTTP_400_BAD_REQUEST)
             friends = user.search_friend(query)
         elif action == 'from':
-            friends = FriendRelation.get_from_friends(user)
+            friends = Friendship.get_from_friends(user)
         elif action == 'to':
-            friends = FriendRelation.get_to_friends(user)
+            friends = Friendship.get_to_friends(user)
         elif action == 'confirm':
-            friends = FriendRelation.get_confirmed_friends(user)
+            friends = Friendship.get_confirmed_friends(user)
         else:
             return Response(status=HTTP_400_BAD_REQUEST)
 
@@ -148,7 +148,7 @@ class FriendView(APIView):
         if friend is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        relation = FriendRelation.confirm_friend(request.user, friend)
+        relation = Friendship.confirm_friend(request.user, friend)
         if relation:
             return Response(status=HTTP_200_OK)
         else:
@@ -175,7 +175,7 @@ class FriendView(APIView):
         if friend is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        FriendRelation.reject_friend(request.user, friend)
+        Friendship.reject_friend(request.user, friend)
 
         return Response(data=friend.to_json())
 
