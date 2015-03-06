@@ -66,17 +66,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     updated_on = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    last_login_on = models.DateTimeField(blank=True)
 
-    friends = models.ManyToManyField('self', through='FriendRelation',
+    friends = models.ManyToManyField('self', through='Friendship',
                                      symmetrical=False,
-                                     related_name='related_to+')
+                                     related_name='+',
+                                     through_fields=('from_user', 'to_user'))
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'fullname', 'birthday', 'sex']
 
     def add_friend(self, friend, symm=False):
-        friend_relation, created = FriendRelation.objects.get_or_create(
+        friend_relation, created = Friendship.objects.get_or_create(
             from_user=self,
             to_user=friend)
         if symm:
@@ -85,7 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return friend_relation
 
     def remove_friend(self, friend, symm=False):
-        FriendRelation.objects.filter(
+        Friendship.objects.filter(
             from_user=self,
             to_user=friend).delete()
         if symm:
@@ -96,6 +98,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         users = User.objects.filter(Q(username__contains=query) | Q(fullname__contains=query))
 
         # Exclude self from search_list
+        return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
+
+    def search_friends(self):
+        users = User.objects.filter(id != self.id)
+
+        # Exclude self and self's friends
         return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
 
     def get_user_and_friend_notes(self):
@@ -133,9 +141,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 'users'
 
 
-class FriendRelation(models.Model):
-    from_user = ForeignKey(User, related_name='from_user')
-    to_user = ForeignKey(User, related_name='to_people')
+class Friendship(models.Model):
+    from_user = ForeignKey(User, related_name='friendship_from_user')
+    to_user = ForeignKey(User, related_name='friendship_to_user')
 
     STATUS_CHOICES = (
         ('D', '대기'),
@@ -143,51 +151,47 @@ class FriendRelation(models.Model):
         ('N', '취소'),
     )
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='D', blank=False)
+    updated_on = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @staticmethod
     def get_to_friends(user):
-        friend_relations = FriendRelation.objects.filter(to_user=user, status='D')
+        friend_relations = Friendship.objects.filter(to_user=user, status='D')
         return list(map(lambda x: x.from_user, friend_relations))
 
     @staticmethod
     def get_from_friends(user):
-        friend_relations = FriendRelation.objects.filter(from_user=user, status='D')
+        friend_relations = Friendship.objects.filter(from_user=user, status='D')
         return list(map(lambda x: x.to_user, friend_relations))
 
     @staticmethod
     def get_confirmed_friends(user):
-        friend_relations = FriendRelation.objects.filter(Q(from_user=user) | Q(to_user=user), status='Y')
+        friend_relations = Friendship.objects.filter(Q(from_user=user) | Q(to_user=user), status='Y')
         return list(map(lambda x: x.from_user, friend_relations))
 
     @staticmethod
     def confirm_friend(user, friend):
-        relation = FriendRelation.objects.get(to_user=user, from_user=friend)
+        relation = Friendship.objects.get(to_user=user, from_user=friend)
         if relation:
             relation.status = 'Y'
             relation.save()
         return relation
 
+
+
     @staticmethod
     def reject_friend(user, friend):
-        relation = FriendRelation.objects.get(to_user=user, from_user=friend)
+        relation = Friendship.objects.get(to_user=user, from_user=friend)
         if relation:
             relation.status = 'N'
             relation.save()
         return relation
 
-    @staticmethod
-    def get_recommended_friends(user):
-        users = User.objects.all()
-
-        # Exclude self and self's friends
-        return users.exclude(Q(id=user.id) | Q(friends__id=user.id)).all()
-
     def __str__(self):
         return self.from_user.username + " - " + self.to_user.username
 
     class Meta:
-        db_table = 'friend_relations'
+        db_table = 'friendships'
         unique_together = ('from_user', 'to_user')
 
 

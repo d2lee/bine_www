@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -18,10 +17,10 @@ from django.shortcuts import render
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, FriendRelation
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer
 
+
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def register(request):
-
     serializer = UserSerializer(data=request.data)
 
     if serializer.is_valid():
@@ -113,7 +112,7 @@ class BookList(APIView):
         return Response(status=HTTP_400_BAD_REQUEST)
 
 
-class FriendList(APIView):
+class FriendView(APIView):
     @staticmethod
     def get(request):
         user = request.user
@@ -121,7 +120,7 @@ class FriendList(APIView):
         action = request.GET.get('type')
 
         if action == 'recommend':
-            friends = FriendRelation.get_recommended_friends()
+            friends = FriendRelation.get_recommended_friends(user)
         elif action == 'search':
             query = request.data.get('q')
             if query is None:
@@ -164,7 +163,7 @@ class FriendList(APIView):
         if friend is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        friend.add_friend(request.user, True)
+        request.user.add_friend(friend)
 
         return Response(data=friend.to_json())
 
@@ -176,7 +175,7 @@ class FriendList(APIView):
         if friend is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        friend.remove_friend(request.user, True)
+        FriendRelation.reject_friend(request.user, friend)
 
         return Response(data=friend.to_json())
 

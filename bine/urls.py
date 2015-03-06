@@ -4,7 +4,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from bine import views
 from bine.views import BookList, BookNoteList, BookNoteDetail, \
-    BookNoteLikeItUpdate, BookNoteReplyDetail, BookNoteReplyList, IndexView, FriendList, BookDetail, UserView
+    BookNoteLikeItUpdate, BookNoteReplyDetail, BookNoteReplyList, IndexView, BookDetail, UserView, \
+    FriendView
 
 
 urlpatterns = [
@@ -16,8 +17,8 @@ urlpatterns = [
     url(r'^api/book/$', BookList.as_view()),
     url(r'^api/book/(?P<pk>[0-9]+)/$', BookDetail.as_view()),
     url(r'^api/book/isbn13/(?P<isbn13>[0-9a-zA-Z]+)/$', BookDetail.as_view()),
-    url(r'^api/friend/$', FriendList.as_view()),
-    url(r'^api/friend/(?P<pk>[0-9]+)/$', FriendList.as_view()),
+    url(r'^api/friend/$', FriendView.as_view()),
+    url(r'^api/friend/(?P<pk>[0-9]+)/$', FriendView.as_view()),
     url(r'^api/user/$', UserView.as_view()),  # duplication check
     url(r'^api/user/check/(?P<username>.*)/$', views.check_username_duplication),  # duplication check
     url(r'^api/user/register/$', views.register),  # register
