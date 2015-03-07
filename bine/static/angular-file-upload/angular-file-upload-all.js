@@ -243,11 +243,10 @@
             var files = [], fileList, i;
             fileList = evt.__files_ || (evt.target && evt.target.files);
             updateModel(fileList, attr, ngModel, scope, evt);
-        };
-
+        }
         var fileElem = elem;
         if (!isInputTypeFile()) {
-            fileElem = angular.element('<input type="file">')
+            fileElem = angular.element('<input type="file">');
             if (attr['multiple']) fileElem.attr('multiple', attr['multiple']);
             if (attr['accept']) fileElem.attr('accept', attr['accept']);
             if (attr['capture']) fileElem.attr('capture', attr['capture']);
@@ -263,7 +262,7 @@
                 .css('overflow', 'hidden').attr('tabindex', '-1').css('opacity', 0).attr('__afu_gen__', true);
             elem.attr('__refElem__', true);
             fileElem[0].__refElem__ = elem[0];
-            elem.parent()[0].insertBefore(fileElem[0], elem[0])
+            elem.parent()[0].insertBefore(fileElem[0], elem[0]);
             elem.css('overflow', 'hidden');
             elem.bind('click', function (e) {
                 if (!resetAndClick(e)) {
@@ -336,7 +335,7 @@
             }
             if (ngModel) {
                 $timeout(function () {
-                    if (scope[attr.ngModel]) scope[attr.ngModel].value = files
+                    if (scope[attr.ngModel]) scope[attr.ngModel].value = files;
                     scope[attr.ngModel] = files;
                     ngModel && ngModel.$setViewValue(files != null && files.length == 0 ? '' : files);
                     if (attr['ngModelRejected']) {
@@ -639,12 +638,11 @@
             if (navigator.mimeTypes['application/x-shockwave-flash'] != undefined) return true;
         }
         return false;
-    }
+    };
 
     function patchXHR(fnName, newFn) {
         window.XMLHttpRequest.prototype[fnName] = newFn(window.XMLHttpRequest.prototype[fnName]);
-    };
-
+    }
     if ((window.XMLHttpRequest && !window.FormData) || (window.FileAPI && FileAPI.forceLoad)) {
         var initializeUploadListener = function (xhr) {
             if (!xhr.__listeners) {
@@ -656,7 +654,7 @@
                     origAddEventListener && origAddEventListener.apply(this, arguments);
                 };
             }
-        }
+        };
 
         patchXHR('open', function (orig) {
             return function (m, url, b) {
@@ -766,7 +764,7 @@
                             xhr.__loaded = e.loaded;
                             if (e.total === e.loaded) {
                                 // fix flash issue that doesn't call complete if there is no response text from the server
-                                var _this = this
+                                var _this = this;
                                 setTimeout(function () {
                                     if (!xhr.__completed) {
                                         xhr.getAllResponseHeaders = function () {
@@ -777,9 +775,9 @@
                             }
                         },
                         headers: xhr.__requestHeaders
-                    }
+                    };
                     config.data = {};
-                    config.files = {}
+                    config.files = {};
                     for (var i = 0; i < formData.data.length; i++) {
                         var item = formData.data[i];
                         if (item.val != null && item.val.name != null && item.val.size != null && item.val.type != null) {
@@ -860,13 +858,13 @@
                 }
                 (evt.__files_ || evt.target.files).item = function (i) {
                     return (evt.__files_ || evt.target.files)[i] || null;
-                }
+                };
                 if (fn) fn.apply(this, [evt]);
             };
         };
         var isFileChange = function (elem, e) {
             return (e.toLowerCase() === 'change' || e.toLowerCase() === 'onchange') && elem.getAttribute('type') == 'file';
-        }
+        };
         if (HTMLInputElement.prototype.addEventListener) {
             HTMLInputElement.prototype.addEventListener = (function (origAddEventListener) {
                 return function (e, fn, b, d) {
@@ -939,7 +937,7 @@
                 } else {
                     for (i = 0; i < allScripts.length; i++) {
                         src = allScripts[i].src;
-                        index = src.search(/\/angular\-file\-upload[\-a-zA-z0-9\.]*\.js/)
+                        index = src.search(/\/angular\-file\-upload[\-a-zA-z0-9\.]*\.js/);
                         if (index > -1) {
                             basePath = src.substring(0, index + 1);
                             break;
@@ -1011,13 +1009,13 @@
             };
             this.readAsArrayBuffer = function (file) {
                 FileAPI.readAsBinaryString(file, listener);
-            }
+            };
             this.readAsBinaryString = function (file) {
                 FileAPI.readAsBinaryString(file, listener);
-            }
+            };
             this.readAsDataURL = function (file) {
                 FileAPI.readAsDataURL(file, listener);
-            }
+            };
             this.readAsText = function (file) {
                 FileAPI.readAsText(file, listener);
             }

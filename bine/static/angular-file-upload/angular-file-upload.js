@@ -243,11 +243,10 @@
             var files = [], fileList, i;
             fileList = evt.__files_ || (evt.target && evt.target.files);
             updateModel(fileList, attr, ngModel, scope, evt);
-        };
-
+        }
         var fileElem = elem;
         if (!isInputTypeFile()) {
-            fileElem = angular.element('<input type="file">')
+            fileElem = angular.element('<input type="file">');
             if (attr['multiple']) fileElem.attr('multiple', attr['multiple']);
             if (attr['accept']) fileElem.attr('accept', attr['accept']);
             if (attr['capture']) fileElem.attr('capture', attr['capture']);
@@ -263,7 +262,7 @@
                 .css('overflow', 'hidden').attr('tabindex', '-1').css('opacity', 0).attr('__afu_gen__', true);
             elem.attr('__refElem__', true);
             fileElem[0].__refElem__ = elem[0];
-            elem.parent()[0].insertBefore(fileElem[0], elem[0])
+            elem.parent()[0].insertBefore(fileElem[0], elem[0]);
             elem.css('overflow', 'hidden');
             elem.bind('click', function (e) {
                 if (!resetAndClick(e)) {
@@ -336,7 +335,7 @@
             }
             if (ngModel) {
                 $timeout(function () {
-                    if (scope[attr.ngModel]) scope[attr.ngModel].value = files
+                    if (scope[attr.ngModel]) scope[attr.ngModel].value = files;
                     scope[attr.ngModel] = files;
                     ngModel && ngModel.$setViewValue(files != null && files.length == 0 ? '' : files);
                     if (attr['ngModelRejected']) {

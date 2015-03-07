@@ -15,7 +15,7 @@ from django.views.generic.base import View
 from django.shortcuts import render
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, Friendship
-from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer
+from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer
 
 
 @api_view(['POST'])
@@ -93,12 +93,15 @@ class BookDetail(APIView):
 class BookList(APIView):
     @staticmethod
     def get(request):
+        """
         title = request.GET.get('title', None)
 
         if title is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
         books = Book.objects.filter(title__icontains=title)[:10]
+        """
+        books = Book.objects.all().order_by('-created_at')
         serializer = BookSerializer(books, many=True)
 
         return Response(serializer.data)
@@ -120,26 +123,32 @@ class FriendView(APIView):
         action = request.GET.get('type')
 
         if action == 'recommend':
-            friends = Friendship.get_recommended_friends(user)
+            friends = user.get_recommended_friends()
         elif action == 'search':
             query = request.data.get('q')
             if query is None:
                 return Response(status=HTTP_400_BAD_REQUEST)
             friends = user.search_friend(query)
-        elif action == 'from':
-            friends = Friendship.get_from_friends(user)
-        elif action == 'to':
-            friends = Friendship.get_to_friends(user)
+        elif action == 'me':
+            friends = user.get_friends_by_me()
+        elif action == 'others':
+            friends = user.get_friends_by_others()
         elif action == 'confirm':
-            friends = Friendship.get_confirmed_friends(user)
+            friends = user.get_friends()
         else:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        return Response(UserSerializer(friends, many=True).data, content_type="application/json")
+        if action == 'recommend':
+            serializer = FriendSerializer(friends, many=True)
+        else:
+            serializer = UserSerializer(friends, many=True)
+
+        return Response(serializer.data, content_type="application/json")
 
     @staticmethod
     def put(request, pk):
         friend_id = pk
+        friend_status = request.GET.get('status', None)
 
         if friend_id is None:
             return Response(status=HTTP_400_BAD_REQUEST)
@@ -148,7 +157,11 @@ class FriendView(APIView):
         if friend is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        relation = Friendship.confirm_friend(request.user, friend)
+        if friend_status == 'A':
+            relation = request.user.approve_friend(friend)
+        elif friend_status == 'R':
+            relation = request.user.reject_friend(friend)
+
         if relation:
             return Response(status=HTTP_200_OK)
         else:
@@ -175,7 +188,7 @@ class FriendView(APIView):
         if friend is None:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-        Friendship.reject_friend(request.user, friend)
+        request.user.remove_friend(friend)
 
         return Response(data=friend.to_json())
 
@@ -186,7 +199,17 @@ class BookNoteList(APIView):
         """
         현재 사용자와 친구들의 책 노트 목록을 보여준다.
         """
-        notes = request.user.get_user_and_friend_notes()
+        type = request.GET['type']
+
+        user = request.user
+
+        if type == 'all':
+            notes = user.get_user_and_friend_notes()
+        elif type == 'me':
+            notes = user.get_user_notes()
+        else:
+            Response(status=status.HTTP_400_BAD_REQUEST)
+
         return Response(BookNoteSerializer(notes, many=True).data)
 
     @staticmethod

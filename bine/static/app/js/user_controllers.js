@@ -4,9 +4,9 @@ bineApp.controller('UserControl', ['$scope', '$http', 'authService',
 
             // check the authentication
             if (!authService.check_auth_and_set_user($scope)) {
-                return;
+
             }
-        }
+        };
 
         $scope.init();
     }

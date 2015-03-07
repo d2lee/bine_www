@@ -34,18 +34,6 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/friend/', {
         templateUrl: '/static/app/friend_list.html',
         controller: 'friendListControl'
-    }).when('/friend/confirmed/', {
-        templateUrl: '/static/app/friend_confirmed.html',
-        controller: 'friendConfirmedListControl'
-    }).when('/friend/unconfirmed/', {
-        templateUrl: '/static/friend_unconfirmed.html',
-        controller: 'friendUnconfirmedListControl'
-    }).when('/friend/search', {
-        templateUrl: '/static/app/friend_search.html',
-        controller: 'friendSearchControl'
-    }).when('/friend/recommend', {
-        templateUrl: '/static/app/friend_recommend.html',
-        controller: 'friendRecommendControl'
     }).otherwise({
         redirectTo: '/note/'
     });
@@ -58,12 +46,12 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
         this.clear = function () {
             this.set_user(null);
             this.set_token(null);
-        }
+        };
 
         this.check_auth_and_set_user = function ($scope) {
             $scope.user = $rootScope.user;
             return true;
-        }
+        };
 
         this.isTokenExpired = function () {
             var token = this.get_token();
@@ -79,7 +67,7 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
             }
 
             return isExpired;
-        }
+        };
 
         this.refresh_token_if_expired_soon = function () {
             var token = this.get_token();
@@ -108,27 +96,27 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
 
                 })
             }
-        }
+        };
 
         this.set_token_and_user_info = function (data) {
             this.set_token(data.token);
             this.set_user(data.user);
-        }
+        };
 
         this.set_token = function (token) {
             if (token)
                 $window.sessionStorage.token = token;
             else
                 delete $window.sessionStorage.token;
-        }
+        };
 
         this.get_token = function () {
             return $window.sessionStorage.token;
-        }
+        };
 
         this.get_user = function () {
             return angular.fromJson($window.sessionStorage.user);
-        }
+        };
 
         this.set_user = function (user) {
             if (user)
@@ -146,7 +134,7 @@ bineApp.config(function Config($httpProvider, jwtInterceptorProvider) {
         }];
 
     $httpProvider.interceptors.push('jwtInterceptor');
-})
+});
 
 
 // 페이지가 변경될 떄마다 token 만료 시간이 얼마남지 않았으면 새로 refresh하고 만료되었으면 login화면으로 이동한다.

@@ -91,7 +91,7 @@ directive.dropdownToggle =
                                 element.parent().removeClass('open');
                                 close = null;
                                 openElement = null;
-                            }
+                            };
 
                             $document.on('click', close);
                         }
@@ -108,8 +108,7 @@ directive.syntax = function () {
                 return '<a href="' + link + '" class="btn syntax-' + type + '" target="_blank" rel="nofollow">' +
                     '<span class="' + icon + '"></span> ' + text +
                     '</a>';
-            };
-
+            }
             var html = '';
             var types = {
                 'github': {
@@ -135,8 +134,6 @@ directive.syntax = function () {
                     html += makeLink(type, data.text, link, data.icon);
                 }
             }
-            ;
-
             var nav = document.createElement('nav');
             nav.className = 'syntax-links';
             nav.innerHTML = html;
@@ -146,7 +143,7 @@ directive.syntax = function () {
             par.insertBefore(nav, node);
         }
     }
-}
+};
 
 directive.tabbable = function () {
     return {

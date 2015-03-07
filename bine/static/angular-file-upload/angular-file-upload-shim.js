@@ -15,12 +15,11 @@
             if (navigator.mimeTypes['application/x-shockwave-flash'] != undefined) return true;
         }
         return false;
-    }
+    };
 
     function patchXHR(fnName, newFn) {
         window.XMLHttpRequest.prototype[fnName] = newFn(window.XMLHttpRequest.prototype[fnName]);
-    };
-
+    }
     if ((window.XMLHttpRequest && !window.FormData) || (window.FileAPI && FileAPI.forceLoad)) {
         var initializeUploadListener = function (xhr) {
             if (!xhr.__listeners) {
@@ -32,7 +31,7 @@
                     origAddEventListener && origAddEventListener.apply(this, arguments);
                 };
             }
-        }
+        };
 
         patchXHR('open', function (orig) {
             return function (m, url, b) {
@@ -142,7 +141,7 @@
                             xhr.__loaded = e.loaded;
                             if (e.total === e.loaded) {
                                 // fix flash issue that doesn't call complete if there is no response text from the server
-                                var _this = this
+                                var _this = this;
                                 setTimeout(function () {
                                     if (!xhr.__completed) {
                                         xhr.getAllResponseHeaders = function () {
@@ -153,9 +152,9 @@
                             }
                         },
                         headers: xhr.__requestHeaders
-                    }
+                    };
                     config.data = {};
-                    config.files = {}
+                    config.files = {};
                     for (var i = 0; i < formData.data.length; i++) {
                         var item = formData.data[i];
                         if (item.val != null && item.val.name != null && item.val.size != null && item.val.type != null) {
@@ -236,13 +235,13 @@
                 }
                 (evt.__files_ || evt.target.files).item = function (i) {
                     return (evt.__files_ || evt.target.files)[i] || null;
-                }
+                };
                 if (fn) fn.apply(this, [evt]);
             };
         };
         var isFileChange = function (elem, e) {
             return (e.toLowerCase() === 'change' || e.toLowerCase() === 'onchange') && elem.getAttribute('type') == 'file';
-        }
+        };
         if (HTMLInputElement.prototype.addEventListener) {
             HTMLInputElement.prototype.addEventListener = (function (origAddEventListener) {
                 return function (e, fn, b, d) {
@@ -315,7 +314,7 @@
                 } else {
                     for (i = 0; i < allScripts.length; i++) {
                         src = allScripts[i].src;
-                        index = src.search(/\/angular\-file\-upload[\-a-zA-z0-9\.]*\.js/)
+                        index = src.search(/\/angular\-file\-upload[\-a-zA-z0-9\.]*\.js/);
                         if (index > -1) {
                             basePath = src.substring(0, index + 1);
                             break;
@@ -387,13 +386,13 @@
             };
             this.readAsArrayBuffer = function (file) {
                 FileAPI.readAsBinaryString(file, listener);
-            }
+            };
             this.readAsBinaryString = function (file) {
                 FileAPI.readAsBinaryString(file, listener);
-            }
+            };
             this.readAsDataURL = function (file) {
                 FileAPI.readAsDataURL(file, listener);
-            }
+            };
             this.readAsText = function (file) {
                 FileAPI.readAsText(file, listener);
             }

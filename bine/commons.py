@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
-from datetime import date
+from datetime import date, timedelta
+from datetime import datetime
 
 
 def calculate_age(born):
@@ -17,3 +18,12 @@ def get_category(birthday):
         category = "어린이(초등)"
 
     return category
+
+
+def get_this_week_range():
+    today = datetime.today()
+    year, week, dow = date.isocalendar()
+
+    start_date = today - timedelta(dow - 1)  # assume that the first day of week is Monday
+    end_date = start_date + timedelta(6)
+    return start_date, end_date

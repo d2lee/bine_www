@@ -16,7 +16,7 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
             }).error(function (data) {
                 alert('로그인이 실패했습니다. 사용자 정보를 다시 확인하십시오.');
             });
-        }
+        };
 
         /*
          사용자 아이디 중복 검사
@@ -34,7 +34,7 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
             }).error(function (data) {
                 $scope.user_duplicated = false;
             });
-        }
+        };
 
         /*
          새 사용자 등록 함수
@@ -54,14 +54,14 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
                 'birthday': $scope.birthday,
                 'sex': $scope.sex,
                 'password': $scope.password1,
-            }
+            };
 
             $http.post(url, data).success(function (data) {
                 authService.set_token_and_user_info(data);
                 $scope.register_step1 = false;
                 $scope.register_step2 = true;
             });
-        }
+        };
 
         $scope.make_birthday = function () {
             var year = $scope.birth_year;
@@ -74,15 +74,15 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
             else {
                 $scope.birthday = '';
             }
-        }
+        };
 
         $scope.equal_password = function () {
             return $scope.password1 == $scope.password2;
-        }
+        };
 
         $scope.set_sex = function (sex) {
             $scope.sex = sex;
-        }
+        };
 
         $scope.date_range = function (min, max, step) {
             // parameters validation for method overloading
@@ -119,7 +119,7 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
             $scope.year_list = $scope.date_range((new Date()).getFullYear(), 1910);
             $scope.month_list = $scope.date_range(1, 12);
             $scope.day_list = $scope.date_range(1, 31);
-        }
+        };
 
         $scope.init_birthday();
 

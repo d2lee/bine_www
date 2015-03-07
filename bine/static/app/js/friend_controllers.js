@@ -1,29 +1,27 @@
-
-
 bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 'authService', function ($scope, Friends, Users, $http, authService) {
 
     $scope.init = function () {
 
         $scope.user = authService.get_user();
         $scope.fetch_unconfirmed_friends();
-    }
+    };
 
     $scope.fetch_confirmed_friends = function () {
         $scope.current_menu = "menu1";
 
         $scope.loading = true;
-        $scope.friends = Friends.get_confirmed_friends(null, function () {
+        $scope.friends = Friends.get_friends(null, function () {
             $scope.loading = false;
         }, function () {
             $scope.loading = false;
         });
-    }
+    };
 
     $scope.fetch_unconfirmed_friends = function () {
         $scope.current_menu = "menu2";
         $scope.loading = true;
-        $scope.friends = Friends.get_waiting_friends(null, function () {
-            $scope.request_friends = Friends.get_requesting_friends(null, function () {
+        $scope.friends = Friends.get_friends_by_others(null, function () {
+            $scope.request_friends = Friends.get_friends_by_me(null, function () {
                 $scope.loading = false;
             }, function () {
                 $scope.loading = false;
@@ -32,7 +30,7 @@ bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 
         }, function () {
             $scope.loading = false;
         });
-    }
+    };
 
     $scope.fetch_recommended_friends = function () {
         $scope.current_menu = "menu3";
@@ -42,7 +40,7 @@ bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 
         }, function () {
             $scope.loading = false;
         });
-    }
+    };
 
     $scope.search_friends = function () {
         if (!$scope.friend_form.$valid)
@@ -50,7 +48,7 @@ bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 
 
         var username = $scope.username;
         $scope.friends = Users.query({q: username});
-    }
+    };
 
     $scope.add_friend = function (friend, index) {
         var new_friend = new Friends({friend: friend.id});
@@ -59,19 +57,28 @@ bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 
             $scope.friends.splice(index, 1);
         });
 
-    }
+    };
 
-    $scope.remove_friend = function (friend, index) {
-        friend.$delete(null, function () {
-            alert(friend.fullname + "님을 친구목록에서 삭제하였습니다.");
+    $scope.reject_friend = function (friend, index) {
+        friend.$reject_friend(null, function () {
+            alert(friend.fullname + "님의 친구요청을 거절하였습니다.");
             $scope.friends.splice(index, 1);
         })
-    }
+    };
 
-    $scope.confirm_friend = function (friend, index) {
-        friend.$confirm_friend();
-        $scope.friends.splice(index, 1);
-    }
+    $scope.approve_friend = function (friend, index) {
+        friend.$approve_friend(null, function () {
+            alert(friend.fullname + "님을 친구목록에 추가하였습니다.");
+            $scope.friends.splice(index, 1);
+        })
+    };
+
+    $scope.delete_friend = function (friend, index) {
+        friend.$delete(null, function () {
+            alert(friend.fullname + "님을 친구요청을 취소했습니다.");
+            $scope.request_friends.splice(index, 1);
+        })
+    };
 
     $scope.init();
 }]);

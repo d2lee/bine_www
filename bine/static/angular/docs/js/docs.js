@@ -402,7 +402,7 @@ angular.module('search', [])
         // It should only be used where the browser does support WebWorkers
         function webWorkerSearchFactory($q, $rootScope, NG_PAGES) {
 
-            console.log('Using WebWorker Search Index')
+            console.log('Using WebWorker Search Index');
 
             var searchIndex = $q.defer();
             var results;

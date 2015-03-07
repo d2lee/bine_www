@@ -19,7 +19,7 @@
             this.authPrefix = 'Bearer ';
             this.tokenGetter = function () {
                 return null;
-            }
+            };
 
             var config = this;
 
@@ -84,7 +84,7 @@
                     }
                 }
                 return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
-            }
+            };
 
 
             this.decodeToken = function (token) {
@@ -100,7 +100,7 @@
                 }
 
                 return JSON.parse(decoded);
-            }
+            };
 
             this.getTokenExpirationDate = function (token) {
                 var decoded;

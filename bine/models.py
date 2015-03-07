@@ -2,15 +2,14 @@
 
 import os.path
 from time import strftime, gmtime
+
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.db.models.fields import CharField, DateField, TextField, \
     DateTimeField
 from django.db.models.fields.related import ForeignKey
 from django.db.models.fields.files import ImageField
-
-from bine.commons import get_category
 
 
 class UserManager(BaseUserManager):
@@ -68,31 +67,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     last_login_on = models.DateTimeField(null=True)
 
-    friends = models.ManyToManyField('self', through='Friendship',
-                                     symmetrical=False,
-                                     related_name='+',
-                                     through_fields=('from_user', 'to_user'))
+    friends_by_me = models.ManyToManyField('self', through='Friendship',
+                                           symmetrical=False,
+                                           related_name='friends_by_others',
+                                           through_fields=('inviter', 'invitee'))
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'fullname', 'birthday', 'sex']
-
-    def add_friend(self, friend, symm=False):
-        friend_relation, created = Friendship.objects.get_or_create(
-            from_user=self,
-            to_user=friend)
-        if symm:
-            # avoid recursion by passing `symm=False`
-            friend.add_friend(self, False)
-        return friend_relation
-
-    def remove_friend(self, friend, symm=False):
-        Friendship.objects.filter(
-            from_user=self,
-            to_user=friend).delete()
-        if symm:
-            # avoid recursion by passing `symm=False`
-            friend.remove_friend(self, False)
 
     def search(self, query):
         users = User.objects.filter(Q(username__contains=query) | Q(fullname__contains=query))
@@ -110,7 +92,64 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
             현재 사용자와 친구들의 노트 목록을 리턴한다.
         """
-        return BookNote.objects.filter(Q(user=self) | Q(user__friends=self)).order_by('-created_at')[0:10]
+        users = self.get_friends()
+        return BookNote.objects.filter(user__in=users).order_by('-updated_on')[0:10]
+
+    def get_user_notes(self):
+        """
+            현재 사용자의 노트 목록을 리턴한다.
+        """
+        return self.booknotes.order_by('-updated_on')[0:10]
+
+    def add_friend(self, friend):
+        friendship = Friendship(inviter=self, invitee=friend)
+        if friendship:
+            friendship.save()
+        return friendship
+
+    def remove_friend(self, friend):
+        friendship = Friendship.objects.get(inviter=self, invitee=friend)
+        if friendship:
+            friendship.delete()
+        return friendship
+
+    def approve_friend(self, friend):
+        friendship = Friendship.objects.get(inviter=friend, invitee=self)
+        if friendship:
+            friendship.status = 'A'
+            friendship.save()
+
+        return friendship
+
+    def reject_friend(self, friend):
+        friendship = Friendship(inviter=friend, invitee=self)
+        if friendship:
+            friendship.status = 'R'
+            friendship.save()
+
+        return friendship
+
+    def get_friends(self):
+        confirmed_friends = self.friends_by_others.filter(friendship_by_me__status='A') | \
+                            self.friends_by_me.filter(friendship_by_others__status='A')
+        return confirmed_friends.order_by('fullname')
+
+    def get_friends_by_me(self):
+        return self.friends_by_me.filter(friendship_by_others__status='N')
+
+    def get_friends_by_others(self):
+        return self.friends_by_others.filter(friendship_by_me__status='N')
+
+    def get_recommended_friends(self):
+        my_friends = self.get_friends()
+
+        my_friends_id_list = my_friends.values_list('id', flat=True)
+
+        friends = User.objects.filter(Q(friends_by_me__id__in=my_friends_id_list) |
+                                      Q(friends_by_others__id__in=my_friends_id_list)) \
+                      .exclude(id=self.id) \
+                      .annotate(cnt=Count('username')).order_by('-cnt')[0:10]
+        return friends
 
     def to_json(self):
         json_data = {}
@@ -142,26 +181,26 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Friendship(models.Model):
-    from_user = ForeignKey(User, related_name='friendship_from_user')
-    to_user = ForeignKey(User, related_name='friendship_to_user')
+    inviter = ForeignKey(User, related_name='friendship_by_me')
+    invitee = ForeignKey(User, related_name='friendship_by_others')
 
     STATUS_CHOICES = (
-        ('D', '대기'),
-        ('Y', '승락'),
-        ('N', '취소'),
+        ('N', '요청'),
+        ('A', '승락'),
+        ('R', '거절'),
     )
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='D', blank=False)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='N', blank=False)
     updated_on = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @staticmethod
     def get_to_friends(user):
-        friend_relations = Friendship.objects.filter(to_user=user, status='D')
+        friend_relations = Friendship.objects.filter(to_user=user, status='N')
         return list(map(lambda x: x.from_user, friend_relations))
 
     @staticmethod
     def get_from_friends(user):
-        friend_relations = Friendship.objects.filter(from_user=user, status='D')
+        friend_relations = Friendship.objects.filter(from_user=user, status='N')
         return list(map(lambda x: x.to_user, friend_relations))
 
     @staticmethod
@@ -177,8 +216,6 @@ class Friendship(models.Model):
             relation.save()
         return relation
 
-
-
     @staticmethod
     def reject_friend(user, friend):
         relation = Friendship.objects.get(to_user=user, from_user=friend)
@@ -188,11 +225,11 @@ class Friendship(models.Model):
         return relation
 
     def __str__(self):
-        return self.from_user.username + " - " + self.to_user.username
+        return self.inviter.username + " - " + self.invitee.username
 
     class Meta:
         db_table = 'friendships'
-        unique_together = ('from_user', 'to_user')
+        unique_together = ('inviter', 'invitee')
 
 
 class BookCategory(models.Model):

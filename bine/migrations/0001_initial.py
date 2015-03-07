@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import bine.models
-from django.conf import settings
 import django.utils.timezone
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -17,10 +17,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(default=django.utils.timezone.now, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(verbose_name='superuser status', default=False, help_text='Designates that this user has all permissions without explicitly assigning them.')),
+                ('last_login', models.DateTimeField(verbose_name='last login', default=django.utils.timezone.now)),
+                ('is_superuser', models.BooleanField(default=False, verbose_name='superuser status', help_text='Designates that this user has all permissions without explicitly assigning them.')),
                 ('username', models.CharField(max_length=40, unique=True)),
                 ('email', models.EmailField(max_length=75, unique=True)),
                 ('fullname', models.CharField(max_length=80)),
@@ -35,16 +35,16 @@ class Migration(migrations.Migration):
                 ('last_login_on', models.DateTimeField(null=True)),
             ],
             options={
-                'verbose_name': 'user',
                 'db_table': 'users',
                 'verbose_name_plural': 'users',
+                'verbose_name': 'user',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Book',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('title', models.CharField(max_length=128)),
                 ('category', models.CharField(max_length=128, blank=True)),
                 ('isbn', models.CharField(max_length=10, blank=True)),
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BookCategory',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('name', models.CharField(max_length=50)),
                 ('updated_on', models.DateTimeField(auto_now=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BookNote',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('read_date_from', models.DateField()),
                 ('read_date_to', models.DateField()),
                 ('content', models.TextField(blank=True)),
@@ -104,7 +104,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BookNoteLikeit',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('note', models.ForeignKey(related_name='likeit', to='bine.BookNote')),
                 ('user', models.ForeignKey(related_name='likeit', to=settings.AUTH_USER_MODEL)),
@@ -117,7 +117,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BookNoteReply',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('content', models.CharField(max_length=258)),
                 ('updated_on', models.DateTimeField(auto_now=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
@@ -132,12 +132,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Friendship',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('status', models.CharField(max_length=1, choices=[('D', '대기'), ('Y', '승락'), ('N', '취소')], default='D')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('status', models.CharField(max_length=1, choices=[('N', '요청'), ('A', '승락'), ('R', '거절')], default='N')),
                 ('updated_on', models.DateTimeField(auto_now=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('from_user', models.ForeignKey(related_name='friendship_from_user', to=settings.AUTH_USER_MODEL)),
-                ('to_user', models.ForeignKey(related_name='friendship_to_user', to=settings.AUTH_USER_MODEL)),
+                ('invitee', models.ForeignKey(related_name='friendship_by_others', to=settings.AUTH_USER_MODEL)),
+                ('inviter', models.ForeignKey(related_name='friendship_by_me', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'friendships',
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='friendship',
-            unique_together=set([('from_user', 'to_user')]),
+            unique_together=set([('inviter', 'invitee')]),
         ),
         migrations.AlterUniqueTogether(
             name='booknotelikeit',
@@ -154,20 +154,20 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='user',
-            name='friends',
-            field=models.ManyToManyField(through='bine.Friendship', related_name='+', to=settings.AUTH_USER_MODEL),
+            name='friends_by_me',
+            field=models.ManyToManyField(related_name='friends_by_others', to=settings.AUTH_USER_MODEL, through='bine.Friendship'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='user',
             name='groups',
-            field=models.ManyToManyField(related_query_name='user', blank=True, verbose_name='groups', to='auth.Group', related_name='user_set', help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.'),
+            field=models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', verbose_name='groups', help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='user',
             name='user_permissions',
-            field=models.ManyToManyField(related_query_name='user', blank=True, verbose_name='user permissions', to='auth.Permission', related_name='user_set', help_text='Specific permissions for this user.'),
+            field=models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', verbose_name='user permissions', help_text='Specific permissions for this user.', blank=True),
             preserve_default=True,
         ),
     ]
