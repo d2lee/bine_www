@@ -204,9 +204,9 @@ class BookNoteList(APIView):
         user = request.user
 
         if type == 'all':
-            notes = user.get_user_and_friend_notes()
+            notes = user.get_my_and_friends_notes()
         elif type == 'me':
-            notes = user.get_user_notes()
+            notes = user.get_notes()
         else:
             Response(status=status.HTTP_400_BAD_REQUEST)
 
