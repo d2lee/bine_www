@@ -88,12 +88,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Exclude self and self's friends
         return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
 
-    def get_my_and_friends_notes(self):
+    def get_all_notes(self):
         """
             현재 사용자와 친구들의 노트 목록을 리턴한다.
         """
         users = self.get_friends()
-        return BookNote.objects.filter(user__in=users).order_by('-updated_on')[0:10]
+        notes = BookNote.objects.filter(Q(user__in=users) | Q(user=self))
+
+        return notes.order_by('-updated_on')[0:10]
 
     def get_notes(self):
         """

@@ -204,7 +204,7 @@ class BookNoteList(APIView):
         user = request.user
 
         if type == 'all':
-            notes = user.get_my_and_friends_notes()
+            notes = user.get_all_notes()
         elif type == 'me':
             notes = user.get_notes()
         else:
