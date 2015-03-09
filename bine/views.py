@@ -48,7 +48,7 @@ def check_username_duplication(request, username):
 def auth_response_payload_handler(token, user=None):
     return {
         'token': token,
-        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex},
+        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex, 'photo': user.photo},
     }
 
 

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/urls.py" afterPath="$PROJECT_DIR$/bine/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/views.py" afterPath="$PROJECT_DIR$/bine/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -62,11 +61,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bine/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="5880">
-              <caret line="19" column="97" selection-start-line="19" selection-start-column="97" selection-end-line="19" selection-end-column="97" />
+            <state vertical-scroll-proportion="0.64144737" vertical-offset="360" max-vertical-offset="5880">
+              <caret line="50" column="95" selection-start-line="50" selection-start-column="95" selection-end-line="50" selection-end-column="95" />
               <folding>
                 <element signature="e#24#68#0" expanded="true" />
               </folding>
@@ -128,11 +127,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46875" vertical-offset="0" max-vertical-offset="608">
-              <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+              <caret line="15" column="70" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
               <folding>
                 <element signature="e#24#56#0" expanded="true" />
               </folding>
@@ -199,8 +198,8 @@
         <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/static/app/user.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
-        <option value="$PROJECT_DIR$/bine/views.py" />
         <option value="$PROJECT_DIR$/bine/urls.py" />
+        <option value="$PROJECT_DIR$/bine/views.py" />
       </list>
     </option>
   </component>
@@ -814,7 +813,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425904139738</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제">
+      <created>1425904280024</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1425904280024</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -884,7 +889,8 @@
     <MESSAGE value="친구와 나의 노트를 리턴하는 함수(get_all_notes)가 자신의 노트는 보여주는 못하는 문제 해결" />
     <MESSAGE value="사용자 기본 정보 수정 기능 및 추가 정보에서 사용자 사진 올리는 기능 구현" />
     <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 삭제" />
-    <option name="LAST_COMMIT_MESSAGE" value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 삭제" />
+    <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1317,22 +1323,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/views.py">
+    <entry file="file://$PROJECT_DIR$/bine/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="5880">
-          <caret line="19" column="97" selection-start-line="19" selection-start-column="97" selection-end-line="19" selection-end-column="97" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+          <caret line="15" column="70" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
           <folding>
-            <element signature="e#24#68#0" expanded="true" />
+            <element signature="e#24#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/urls.py">
+    <entry file="file://$PROJECT_DIR$/bine/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46875" vertical-offset="0" max-vertical-offset="608">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.64144737" vertical-offset="360" max-vertical-offset="5880">
+          <caret line="50" column="95" selection-start-line="50" selection-start-column="95" selection-end-line="50" selection-end-column="95" />
           <folding>
-            <element signature="e#24#56#0" expanded="true" />
+            <element signature="e#24#68#0" expanded="true" />
           </folding>
         </state>
       </provider>
