@@ -64,8 +64,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bine/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64144737" vertical-offset="360" max-vertical-offset="5880">
-              <caret line="50" column="95" selection-start-line="50" selection-start-column="95" selection-end-line="50" selection-end-column="95" />
+            <state vertical-scroll-proportion="0.9" vertical-offset="672" max-vertical-offset="5955">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="e#24#68#0" expanded="true" />
               </folding>
@@ -819,7 +819,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425904280024</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="login과 register후에 user.photo값을 리턴하도록 수정&#10;&#10;- 이 값을 브라우저에 보내야 user photo 표시">
+      <created>1425904511125</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1425904511125</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -829,7 +835,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3085622" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37421384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37421384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39937106" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4764151" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -865,7 +871,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Migrate old bine sources to this new one" />
     <MESSAGE value="빠진 파일이 있어서 추가함" />
     <MESSAGE value="virtualenv을 위한 env폴더를 삭제하고 대신에 requirements.txt 파일을 추가한다." />
     <MESSAGE value="사용자 등록(/#/register)로 이동시 login화면으로 redirect하는 문제 해결 &#10;" />
@@ -890,7 +895,8 @@
     <MESSAGE value="사용자 기본 정보 수정 기능 및 추가 정보에서 사용자 사진 올리는 기능 구현" />
     <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 삭제" />
     <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제" />
-    <option name="LAST_COMMIT_MESSAGE" value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제" />
+    <MESSAGE value="login과 register후에 user.photo값을 리턴하도록 수정&#10;&#10;- 이 값을 브라우저에 보내야 user photo 표시" />
+    <option name="LAST_COMMIT_MESSAGE" value="login과 register후에 user.photo값을 리턴하도록 수정&#10;&#10;- 이 값을 브라우저에 보내야 user photo 표시" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -902,8 +908,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/bine/views.py</url>
-          <line>105</line>
+          <line>110</line>
           <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/bine/views.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="100" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -913,7 +924,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="100" />
+      <option name="time" value="101" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1086,6 +1097,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="257" max-vertical-offset="1005">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1335,8 +1347,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64144737" vertical-offset="360" max-vertical-offset="5880">
-          <caret line="50" column="95" selection-start-line="50" selection-start-column="95" selection-end-line="50" selection-end-column="95" />
+        <state vertical-scroll-proportion="0.9" vertical-offset="672" max-vertical-offset="5955">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="e#24#68#0" expanded="true" />
           </folding>
