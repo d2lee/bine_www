@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from bine import views
 from bine.views import BookList, BookNoteList, BookNoteDetail, \
     BookNoteLikeItUpdate, BookNoteReplyDetail, BookNoteReplyList, IndexView, BookDetail, UserView, \
-    FriendView, redirect_media
+    FriendView
 
 
 urlpatterns = [

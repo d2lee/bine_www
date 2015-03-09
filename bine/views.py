@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
-from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from django.http.response import HttpResponseBadRequest
@@ -14,10 +14,11 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, \
     HTTP_200_OK
 from rest_framework.response import Response
 from django.views.generic.base import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer
+
 
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
