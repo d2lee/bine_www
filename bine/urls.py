@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^api/user/register/$', views.register),  # register
     url(r'^api/user/login/$', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^api/user/refresh_token/$', 'rest_framework_jwt.views.refresh_jwt_token'),
-    url(r'^media/(?P<target_url>.+)$', redirect_media),
     url(r'^.*$', IndexView.as_view()),
 ]
 

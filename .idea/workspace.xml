@@ -2,31 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/FileAPI.flash.swf" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/FileAPI.flash.swf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/FileAPI.min.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/FileAPI.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-all.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-all.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-all.min.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-all.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-shim.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-shim.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-shim.min.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload-shim.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload.min.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/angular-file-upload.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/app.js" afterPath="$PROJECT_DIR$/bine/static/app/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/css/bine.css" afterPath="$PROJECT_DIR$/bine/static/app/css/bine.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/templates/bine.html" afterPath="$PROJECT_DIR$/bine/templates/bine.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/book_list.html" afterPath="$PROJECT_DIR$/bine/static/app/book_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/friend_list.html" afterPath="$PROJECT_DIR$/bine/static/app/friend_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/login.html" afterPath="$PROJECT_DIR$/bine/static/app/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/models.py" afterPath="$PROJECT_DIR$/bine/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/ng-file-upload-all.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/ng-file-upload-all.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/angular-file-upload/ng-file-upload-all.min.js" afterPath="$PROJECT_DIR$/bine/static/angular-file-upload/ng-file-upload-all.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/resources.js" afterPath="$PROJECT_DIR$/bine/static/app/js/resources.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/serializers.py" afterPath="$PROJECT_DIR$/bine/serializers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/urls.py" afterPath="$PROJECT_DIR$/bine/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/user.html" afterPath="$PROJECT_DIR$/bine/static/app/user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/views.py" afterPath="$PROJECT_DIR$/bine/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -85,10 +61,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bine/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="5865">
+            <state vertical-scroll-proportion="0.5180921" vertical-offset="0" max-vertical-offset="5865">
               <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="e#24#68#0" expanded="true" />
@@ -130,8 +106,8 @@
       <file leaf-file-name="user.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.875" vertical-offset="3747" max-vertical-offset="4740">
-              <caret line="298" column="77" selection-start-line="298" selection-start-column="67" selection-end-line="298" selection-end-column="77" />
+            <state vertical-scroll-proportion="-25.666666" vertical-offset="3254" max-vertical-offset="4740">
+              <caret line="300" column="54" selection-start-line="300" selection-start-column="54" selection-end-line="300" selection-end-column="54" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
@@ -141,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6243243" vertical-offset="2679" max-vertical-offset="3105">
-              <caret line="194" column="49" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3105">
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -154,8 +130,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="465">
-              <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -220,8 +196,8 @@
         <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/static/app/user.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
-        <option value="$PROJECT_DIR$/bine/urls.py" />
         <option value="$PROJECT_DIR$/bine/views.py" />
+        <option value="$PROJECT_DIR$/bine/urls.py" />
       </list>
     </option>
   </component>
@@ -336,6 +312,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -801,17 +799,23 @@
       <option name="project" value="LOCAL" />
       <updated>1425732453459</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="사용자 기본 정보 수정 기능 및 추가 정보에서 사용자 사진 올리는 기능 구현">
+      <created>1425896080284</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1425896080284</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="728" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="728" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3085622" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37421384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37421384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39937106" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4764151" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -869,7 +873,8 @@
     <MESSAGE value="기본적인 동작이 되도록 book과 friend, note쪽 수정" />
     <MESSAGE value="노트 관련 함수명 수정" />
     <MESSAGE value="친구와 나의 노트를 리턴하는 함수(get_all_notes)가 자신의 노트는 보여주는 못하는 문제 해결" />
-    <option name="LAST_COMMIT_MESSAGE" value="친구와 나의 노트를 리턴하는 함수(get_all_notes)가 자신의 노트는 보여주는 못하는 문제 해결" />
+    <MESSAGE value="사용자 기본 정보 수정 기능 및 추가 정보에서 사용자 사진 올리는 기능 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="사용자 기본 정보 수정 기능 및 추가 정보에서 사용자 사진 올리는 기능 구현" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1274,16 +1279,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="5865">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#68#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5802" max-vertical-offset="6210">
@@ -1292,10 +1287,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3105">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.875" vertical-offset="3747" max-vertical-offset="4740">
-          <caret line="298" column="77" selection-start-line="298" selection-start-column="67" selection-end-line="298" selection-end-column="77" />
+        <state vertical-scroll-proportion="-25.666666" vertical-offset="3254" max-vertical-offset="4740">
+          <caret line="300" column="54" selection-start-line="300" selection-start-column="54" selection-end-line="300" selection-end-column="54" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
@@ -1306,17 +1309,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="465">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
+    <entry file="file://$PROJECT_DIR$/bine/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6243243" vertical-offset="2679" max-vertical-offset="3105">
-          <caret line="194" column="49" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
-          <folding />
+        <state vertical-scroll-proportion="0.5180921" vertical-offset="0" max-vertical-offset="5865">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#68#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
