@@ -16,7 +16,9 @@ bineApp.factory('Friends', ['$resource', function ($resource) {
     User 객체
  */
 bineApp.factory('Users', ['$resource', function ($resource) {
-    return $resource('/api/user/', null, {}, {stripTrailingSlashes: false});
+    return $resource('/api/user/:id/', {id: '@id'}, {
+        'update': {method:'POST'}
+    }, {stripTrailingSlashes: false});
 }]);
 
 /*

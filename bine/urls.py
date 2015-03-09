@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from bine import views
 from bine.views import BookList, BookNoteList, BookNoteDetail, \
     BookNoteLikeItUpdate, BookNoteReplyDetail, BookNoteReplyList, IndexView, BookDetail, UserView, \
-    FriendView
+    FriendView, redirect_media
 
 
 urlpatterns = [
@@ -20,10 +20,12 @@ urlpatterns = [
     url(r'^api/friend/$', FriendView.as_view()),
     url(r'^api/friend/(?P<pk>[0-9]+)/$', FriendView.as_view()),
     url(r'^api/user/$', UserView.as_view()),  # duplication check
+    url(r'^api/user/(?P<pk>[0-9]+)/$', UserView.as_view()),
     url(r'^api/user/check/(?P<username>.*)/$', views.check_username_duplication),  # duplication check
     url(r'^api/user/register/$', views.register),  # register
     url(r'^api/user/login/$', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^api/user/refresh_token/$', 'rest_framework_jwt.views.refresh_jwt_token'),
+    url(r'^media/(?P<target_url>.+)$', redirect_media),
     url(r'^.*$', IndexView.as_view()),
 ]
 

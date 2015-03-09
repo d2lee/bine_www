@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
+from django.contrib.auth import authenticate
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
+from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from django.http.response import HttpResponseBadRequest
@@ -12,11 +14,10 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, \
     HTTP_200_OK
 from rest_framework.response import Response
 from django.views.generic.base import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, Friendship
+from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer
-
 
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
@@ -57,15 +58,75 @@ class IndexView(View):
 
 
 class UserView(APIView):
+    parser_classes = (MultiPartParser, FormParser,)
+
     @staticmethod
-    def get(request):
-        query = request.GET['q']
-        if not (query and len(query) >= 2):
+    def get(request, pk):
+        if pk:
+            user = User.objects.get(pk=pk)
+            if user != request.user:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                serializer = UserSerializer(user)
+        else:
+            query = request.GET['q']
+            if not (query and len(query) >= 2):
+                return Response(status=HTTP_400_BAD_REQUEST)
+
+            users = request.user.search(query)
+            serializer = UserSerializer(users, many=True)
+
+        return Response(serializer.data, content_type="application/json")
+
+    @staticmethod
+    def post(request, pk):
+        """
+        사용자 정보를 업데이트한다.
+        """
+
+        # PK 값으로 현재 사용자와 로그인 사용자가 같은지 확인한다.
+        if pk:
+            user = User.objects.get(pk=pk)
+            if user != request.user:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            user = request.user
+
+        # 사진을 업로드하는 경우에는 action 값이 photo로 정의되어 있다.
+        action = request.GET.get('action', None)
+        if action and action == 'photo':
+            data = {'photo': request.FILES.get('file', None)}
+            serializer = UserSerializer(user, data=data)
+            # serializer = UserSerializer(user, files=request.FILES)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    data = {'photo': user.photo.url}
+                    return Response(data=data, status=status.HTTP_200_OK)
+                else:
+                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        # 암호를 변경하는 경우엔 current_password값이 현재 암호로 정의되어 있다.
+        username = request.data.get('username', None)
+        current_password = request.data.get("current_password", None)
+        new_password = request.data.get("password", None)
+        if username and current_password and new_password:
+            user = authenticate(username=username, password=current_password)
+            if user is None:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        else:
             return Response(status=HTTP_400_BAD_REQUEST)
-
-        users = request.user.search(query)
-
-        return Response(UserSerializer(users, many=True).data, content_type="application/json")
 
 
 class BookDetail(APIView):

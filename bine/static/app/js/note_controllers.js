@@ -5,9 +5,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             $scope.http_status = -1;
             $rootScope.note = null;
             $scope.user = authService.get_user();
-
             $scope.show_notes_by_all();
-
         };
 
         $scope.show_notes_by_all = function() {

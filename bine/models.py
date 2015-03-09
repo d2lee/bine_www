@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, blank=False)
     tagline = models.CharField(max_length=128, blank=True)
-    photo = models.ImageField(upload_to='authentication/%Y/%m/%d', blank=True)
+    photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

@@ -96,17 +96,17 @@
     margin-top: 5px;
 }
 
-.page-menu {
+.page-left {
     padding-right: 16px;
 }
 
-.page-content {
+.page-right {
     background: #fff;
     border-radius: 4px;
     padding-bottom: 16px;
 }
 
-.page-content .list-title {
+.page-right .list-title {
     margin-left: 4px;
     border-bottom: solid 1px #ddd;
     padding-bottom: 8px;
@@ -187,18 +187,30 @@
     height: auto;
 }
 
-.detail-item .book-photo {
-    padding: 4px 4px 4px 8px;
-    width: 100px;
-    height: auto;
-}
-
 .list-item .panel-footer {
     padding-top: 2px;
 }
 
 .list-item .panel-footer a {
     color: #595959;
+}
+
+.list-item .form-horizontal {
+    margin-top: 15px;
+}
+
+.list-item .birthday-control {
+    width: auto;
+    float: left;
+    margin-top: 4pt;
+    margin-bottom: 4pt !important;
+    margin-right: 2pt;
+}
+
+.detail-item .book-photo {
+    padding: 4px 4px 4px 8px;
+    width: 100px;
+    height: auto;
 }
 
 .note-new-panel {
@@ -268,4 +280,9 @@
 
 .list-title .form-inline {
     margin-top: 8px;
+}
+
+.list-item .http-error .alert {
+    margin-top: 8px;
+    padding-left: 8px;
 }

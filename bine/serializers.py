@@ -5,7 +5,7 @@ import datetime
 from rest_framework import serializers
 from django.contrib.auth import update_session_auth_hash, authenticate
 from rest_framework.exceptions import ValidationError
-from rest_framework.fields import IntegerField
+from rest_framework.fields import IntegerField, ImageField
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 
@@ -18,12 +18,18 @@ SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
+    photo = serializers.FileField(allow_empty_file=False, use_url=False)
+    email = serializers.EmailField(required=False)
+    birthday = serializers.DateField(required=False)
+    sex = serializers.ChoiceField(choices=[('M', '남자'), ('F', '여자')], required=False)
+    fullname = serializers.CharField(required=False, max_length=80)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'fullname', 'email', 'birthday', 'sex', 'tagline',
+        fields = ('id', 'username', 'fullname', 'email', 'birthday', 'sex', 'tagline', 'photo',
                   'created_at', 'updated_on', 'password', 'confirm_password')
-        read_only_fields = ('created_at', 'updated_on',)
+        read_only_fields = ('id', 'username',)
+        write_only_fields = ('password', 'confirm_password', )
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -34,16 +40,16 @@ class UserSerializer(serializers.ModelSerializer):
         instance.birthday = validated_data.get('birthday', instance.birthday)
         instance.sex = validated_data.get('sex', instance.sex)
         instance.tagline = validated_data.get('tagline', instance.tagline)
+        instance.photo = validated_data.get('photo', instance.photo)
 
         instance.save()
 
         password = validated_data.get('password', None)
-        confirm_password = validated_data.get('confirm_password', None)
 
-        if password and confirm_password and password == confirm_password:
+        if password:
             instance.set_password(password)
-            instance.save()
-            update_session_auth_hash(self.context.get('request'), instance)
+
+        # update_session_auth_hash(self.context.get('request'), instance)
 
         return instance
 
