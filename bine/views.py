@@ -1,12 +1,11 @@
 # -*- coding: UTF-8 -*-
 from django.contrib.auth import authenticate
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from django.http.response import HttpResponseBadRequest
@@ -16,8 +15,8 @@ from rest_framework.response import Response
 from django.views.generic.base import View
 from django.shortcuts import render
 
-from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit
-from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer
+from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
+from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
 
 
 @api_view(['POST'])
@@ -64,7 +63,7 @@ class IndexView(View):
 
 
 class UserView(APIView):
-    parser_classes = (MultiPartParser, FormParser,)
+    parser_classes = (MultiPartParser, FormParser, JSONParser,)
 
     @staticmethod
     def get(request, pk):
@@ -113,6 +112,9 @@ class UserView(APIView):
                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            if request.data.get('photo'):
+                request.data.pop('photo')  # make sure that photo should be in the json data.
 
         # 암호를 변경하는 경우엔 current_password값이 현재 암호로 정의되어 있다.
         username = request.data.get('username', None)
@@ -260,19 +262,19 @@ class FriendView(APIView):
         return Response(data=friend.to_json())
 
 
-class BookNoteList(APIView):
+class BookNoteView(APIView):
     @staticmethod
     def get(request):
         """
         현재 사용자와 친구들의 책 노트 목록을 보여준다.
         """
-        type = request.GET['type']
+        list_type = request.GET.get('type')
 
         user = request.user
 
-        if type == 'all':
+        if list_type == 'all':
             notes = user.get_all_notes()
-        elif type == 'me':
+        elif list_type == 'me':
             notes = user.get_notes()
         else:
             Response(status=status.HTTP_400_BAD_REQUEST)
@@ -280,44 +282,55 @@ class BookNoteList(APIView):
         return Response(BookNoteSerializer(notes, many=True).data)
 
     @staticmethod
-    @csrf_exempt
-    def post(request):
-        # set current user to the user although user is sent from client.
-        request.POST['user'] = request.user.id
-
-        serializer = BookNoteSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+    def get(request, pk=None):
+        if pk:
+            try:
+                note = BookNote.objects.get(pk=pk)
+            except ObjectDoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            serializer = BookNoteSerializer(note)
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            list_type = request.GET.get('type')
 
+            user = request.user
 
-class BookNoteDetail(APIView):
-    @staticmethod
-    def get(request, pk):
-        try:
-            note = BookNote.objects.get(pk=pk)
-        except ObjectDoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            if list_type == 'count':
+                data = user.get_count_list()
+                return Response(data=data)
 
-        serializer = BookNoteSerializer(note)
+            if list_type == 'all':
+                notes = user.get_all_notes()
+            elif list_type == 'me':
+                notes = user.get_notes()
+            else:
+                Response(status=status.HTTP_400_BAD_REQUEST)
+
+            serializer = BookNoteSerializer(notes, many=True)
+
         return Response(serializer.data)
 
     @staticmethod
-    def post(request, pk):
-        note = BookNote.objects.get(pk=pk)
-        if note is None:
-            return HttpResponseBadRequest()
+    @csrf_exempt
+    def post(request, pk=None):
+        if pk:
+            note = BookNote.objects.get(pk=pk)
+            if note is None:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            else:
+                serializer = BookNoteSerializer(note, data=request.data)
+        else:
+            # set current user to the user although user is sent from client.
+            # request.POST['user'] = request.user.id
+            serializer = BookNoteSerializer(data=request.data)
 
-        serializer = BookNoteSerializer(instance=note, data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
-        note = serializer.save()
-
-        if note:
-            return Response(serializer.data)
+        if serializer.is_valid():
+            note = serializer.save()
+            if note:
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     @staticmethod
     def delete(request, pk):
@@ -328,6 +341,19 @@ class BookNoteDetail(APIView):
         note.delete()
 
         return Response(status=HTTP_200_OK)
+
+
+class SchoolView(APIView):
+    @staticmethod
+    def get(request):
+        query = request.GET.get('q')
+
+        if query:
+            schools = School.objects.filter(name__contains=query)[:10]
+            serializers = SchoolSerializer(schools, many=True)
+            return Response(serializers.data)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class BookNoteLikeItUpdate(APIView):

@@ -199,7 +199,7 @@
     margin-top: 15px;
 }
 
-.list-item .birthday-control {
+.list-item .inline-control {
     width: auto;
     float: left;
     margin-top: 4pt;
@@ -251,7 +251,7 @@
     color: #555;
 }
 
-.user-info-container .birthday-control {
+.user-info-container .inline-control {
     width: auto;
     float: left;
     margin-top: 4pt;
@@ -274,8 +274,8 @@
 }
 
 .list-item .user-photo {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: auto;
 }
 
 .list-title .form-inline {
@@ -285,4 +285,9 @@
 .list-item .http-error .alert {
     margin-top: 8px;
     padding-left: 8px;
+}
+
+.list-item .form-group .input-group {
+    padding-left: 8px;
+    padding-right: 8px;
 }

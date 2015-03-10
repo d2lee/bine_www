@@ -5,6 +5,8 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             $scope.http_status = -1;
             $rootScope.note = null;
             $scope.user = authService.get_user();
+            $scope.count_set = BookNotes.get_notes_count();
+
             $scope.show_notes_by_all();
         };
 
@@ -377,8 +379,8 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             }
             else {
                 var url = "https://apis.daum.net/search/book";
-                var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
-                //var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
+                //var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
+                var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
 
                 url += "?output=json&result=10&sort=popular";
                 url += "&apikey=" + api_key;

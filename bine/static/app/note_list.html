@@ -12,7 +12,7 @@
 
         <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
             <li>
-                <div class="dropdown pull-right ">
+                <div class="dropdown pull-right">
                     <div class="float-menu dropdown-toggle login-user" data-toggle="dropdown" aria-expanded="true">
                         <a href=""><img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중"
                                         ng-src="{{ user.photo | photo: user.sex }}">
@@ -85,9 +85,9 @@
             </h4>
         </div>
         <div class="panel-body">
-            이번 주에 읽은 책은 10권입니다. <br>
-            목표한 100권까지는 이제 10권 남았습니다. <br>
-            친구들은 10명이 책을 읽었네요. <br>
+            지금까지 읽은 책: {{ count_set.total_count }}권 <br>
+            이번주에 읽은 책: {{ count_set.week_count }}권<br>
+            목표권수: {{ count_set.target_count }}/{{ count_set.target_max }}
 
         </div>
     </div>

@@ -1,8 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-import os.path
-from time import strftime, gmtime
-
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.db.models import Q, Count
@@ -10,6 +7,8 @@ from django.db.models.fields import CharField, DateField, TextField, \
     DateTimeField
 from django.db.models.fields.related import ForeignKey
 from django.db.models.fields.files import ImageField
+
+from bine.commons import get_category, get_file_name, get_this_week_range
 
 
 class UserManager(BaseUserManager):
@@ -47,6 +46,47 @@ class UserManager(BaseUserManager):
         return self.create_user(username, password, True, True, **kwargs)
 
 
+class School(models.Model):
+    SCHOOL_LEVEL = (
+        ('A', '초등학교'),
+        ('B', '중학교'),
+        ('C', '고등학교'),
+        ('D', '특수학교'),
+        ('E', '고등기술학교'),
+        ('F', '고등공민학교'),
+        ('G', '각종학교'),
+    )
+
+    level = CharField(max_length=1, choices=SCHOOL_LEVEL, blank=False)
+
+    HIGH_SCHOOL_CATEGORY = (
+        ('A', '일반고'),
+        ('B', '자율고'),
+        ('C', '특성화고(직업)'),
+        ('D', '특성화고(대안)'),
+        ('E', '특수목적고'),
+    )
+    high_school_category = CharField(max_length=1, choices=HIGH_SCHOOL_CATEGORY, blank=True)
+    city = CharField(max_length=30, null=False)
+    name = CharField(max_length=128, null=False)
+
+    SCHOOL_MAKER = (
+        ('A', '공립'),
+        ('B', '사립'),
+        ('C', '국립'),
+    )
+
+    maker = models.CharField(max_length=1, choices=SCHOOL_MAKER, blank=False)
+    zipcode = CharField(max_length=6, null=False)
+    address = CharField(max_length=512, null=False)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'schools'
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(unique=True, blank=False)
@@ -57,15 +97,21 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('F', '여자'),
     )
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, blank=False)
-    tagline = models.CharField(max_length=128, blank=True)
-    photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True)
+    tagline = models.CharField(max_length=512, blank=True, null=True)
+    photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True, null=True)
+    school = models.ForeignKey(School, null=True)
+    company = models.CharField(max_length=128, blank=True, null=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     updated_on = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    last_login_on = models.DateTimeField(null=True)
+    last_login_on = models.DateTimeField(null=True, blank=True)
+
+    target_from = models.DateField(null=True, blank=True)
+    target_to = models.DateField(null=True, blank=True)
+    target_books = models.SmallIntegerField(null=True)
 
     friends_by_me = models.ManyToManyField('self', through='Friendship',
                                            symmetrical=False,
@@ -152,6 +198,17 @@ class User(AbstractBaseUser, PermissionsMixin):
                       .exclude(id=self.id) \
                       .annotate(cnt=Count('username')).order_by('-cnt')[0:10]
         return friends
+
+    def get_count_list(self):
+        all_count = self.booknotes.count()
+        week_count = self.booknotes.filter(created_at__range=get_this_week_range()).count()
+        if self.target_from and self.target_to and self.target_books > 0:
+            target_count = self.booknotes.filter(created_at__range=(self.target_from, self.target_to)).count()
+        else:
+            target_count = 0
+
+        return {'total_count': all_count, 'week_count': week_count, 'target_count': target_count,
+                'target_max': self.target_books}
 
     def to_json(self):
         json_data = {}
@@ -290,13 +347,6 @@ class Book(models.Model):
 
     class Meta:
         db_table = 'books'
-
-
-def get_file_name(instance, filename):
-    time = gmtime()
-    path = strftime("note/%Y/%m/%d/", time)
-    new_file_name = strftime("%Y%m%d-%X", time) + "-" + instance.user.username + os.path.splitext(filename)[1]
-    return os.path.join(path, new_file_name)
 
 
 class BookNote(models.Model):

@@ -9,38 +9,89 @@ from rest_framework.fields import IntegerField, ImageField
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 
-from bine.models import User, Book, BookNote, BookNoteReply
+from bine.models import User, Book, BookNote, BookNoteReply, School
 
 
 SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
 
 
+class SchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        fields = ('id', 'level', 'high_school_category', 'name', 'address')
+
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
-    photo = serializers.FileField(allow_empty_file=False, use_url=False)
+    photo = serializers.FileField(allow_empty_file=False, use_url=False, required=False)
     email = serializers.EmailField(required=False)
     birthday = serializers.DateField(required=False)
     sex = serializers.ChoiceField(choices=[('M', '남자'), ('F', '여자')], required=False)
     fullname = serializers.CharField(required=False, max_length=80)
+    school = SchoolSerializer(required=False, read_only=True)
+    tagline = serializers.CharField(max_length=512, required=False, allow_blank=True)
+    company = serializers.CharField(required=False, allow_blank=True)
+    target_from = serializers.DateField(required=False)
+    target_from = serializers.DateField(required=False)
+    target_books = serializers.IntegerField(required=False)
 
     class Meta:
         model = User
         fields = ('id', 'username', 'fullname', 'email', 'birthday', 'sex', 'tagline', 'photo',
-                  'created_at', 'updated_on', 'password', 'confirm_password')
+                  'created_at', 'updated_on', 'password', 'confirm_password', 'school', 'company',
+                  'target_from', 'target_to', 'target_books')
         read_only_fields = ('id', 'username',)
         write_only_fields = ('password', 'confirm_password', )
+        depth = 1
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.email = validated_data.get('email', instance.username)
-        instance.fullname = validated_data.get('fullname', instance.fullname)
-        instance.birthday = validated_data.get('birthday', instance.birthday)
-        instance.sex = validated_data.get('sex', instance.sex)
-        instance.tagline = validated_data.get('tagline', instance.tagline)
+        email = validated_data.get('email', None)
+        if email != instance.email:
+            instance.email = email
+            
+        fullname = validated_data.get('fullname', None)
+        if fullname != instance.fullname:
+            instance.fullname = fullname
+            
+        birthday = validated_data.get('birthday', None)
+        if birthday != instance.birthday:
+            instance.birthday = birthday
+            
+        sex = validated_data.get('sex', None)
+        if sex != instance.sex:
+            instance.sex = sex
+
+        tagline = validated_data.get('tagline', None)
+        if tagline != instance.tagline:
+            instance.tagline = tagline
+
+        company = validated_data.get('company', None)
+        if company != instance.company:
+            instance.company = company
+            
+        target_from = validated_data.get('target_from', None)
+        if target_from != instance.target_from:
+            instance.target_from = target_from
+            
+        target_to = validated_data.get('target_to', None)
+        if target_to != instance.target_to:
+            instance.target_to = target_to
+
+        target_books = validated_data.get('target_books', None)
+        if target_books != instance.target_books:
+            instance.target_books = target_books
+
         instance.photo = validated_data.get('photo', instance.photo)
+        school_data = self.initial_data.get('school')
+        if school_data:
+            school_id = school_data.get('id')
+            school = School.objects.get(pk=school_id)
+            if school:
+                instance.school = school
 
         instance.save()
 

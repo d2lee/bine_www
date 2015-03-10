@@ -1,3 +1,41 @@
+<div class="modal fade school-search-modal" id="school_search_modal"
+     tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">학교 검색</h4>
+
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="school_name"
+                           placeholder="학교 이름" ng-keyup="$event.keyCode == 13 ? search_schools() : null"> <span
+                        class="input-group-btn">
+						<button class="btn btn-primary" type="submit"
+                                ng-click="search_schools()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+					</span>
+                </div>
+
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="school in schools"><a href=""
+                                                                                 ng-click="select_school(school)">{{ school.name }}
+                    </a> | {{ school.address }}</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#/note/">Bine</a>
@@ -48,10 +86,23 @@
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                   href="#/user/">{{ user.fullname }}</a></li>
+                                                   href="">{{ user.fullname }} <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중"
+                                        ng-src="{{ user.photo | photo: user.sex }}"></a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="#/login/">로그아웃</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">기본 정보 수정</a></li>
-                        <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">활동 보기</a>
+                        <li role="presentation" ng-class="{'active': current_menu=='account' }"><a role="menuitem"
+                                                                                                   tabindex="-1" href=""
+                                                                                                   ng-click="show_account()">기본정보</a>
+                        </li>
+                        <li role="presentation" ng-class="{'active': current_menu=='profile' }"><a role="menuitem"
+                                                                                                   tabindex="-1" href=""
+                                                                                                   ng-click="show_profile()">추가정보</a>
+                        </li>
+                        <li role="presentation" ng-class="{'active': current_menu=='read_target' }"><a role="menuitem"
+                                                                                                       tabindex="-1"
+                                                                                                       href=""
+                                                                                                       ng-click="show_read_target()">독서목표</a>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +137,8 @@
                ng-click="show_account()">기본정보</a>
             <a href="" class="list-group-item" ng-class="{'active': current_menu=='profile' }"
                ng-click="show_profile()">추가정보</a>
-            <a href="" class="list-group-item">활동보기</a>
+            <a href="" class="list-group-item" ng-class="{'active': current_menu=='read_target'}"
+               ng-click="show_read_target()">독서목표</a>
         </div>
     </div>
 </div>
@@ -94,7 +146,7 @@
 <div class="col-xs-15 col-sm-11 col-md-12 page-right">
     <div class="col-xs-15">
         <div class="list-title">
-            <h4>기본 정보 수정</h4>
+            <h4>{{ page_title }}</h4>
         </div>
 
     </div>
@@ -154,17 +206,17 @@
 
                             <div class="col-sm-13">
                                 <select
-                                        class="form-control birthday-control"
+                                        class="form-control inline-control"
                                         ng-model="birth_year" name="birth_year" required>
                                     <option value="">년도</option>
                                     <option value="{{ item }}" ng-repeat="item in year_list">{{ item }}</option>
                                 </select>
-                                <select class="form-control birthday-control"
+                                <select class="form-control inline-control"
                                         ng-model="birth_month" name="birth_month" required>
                                     <option value="">월</option>
                                     <option value="{{ item }}" ng-repeat="item in month_list">{{ item }}</option>
                                 </select>
-                                <select class="form-control birthday-control"
+                                <select class="form-control inline-control"
                                         ng-model="birth_day" name="birth_day" required>
                                     <option value="">일</option>
                                     <option value="{{ item }}" ng-repeat="item in day_list">{{ item }}</option>
@@ -316,27 +368,83 @@
                                           name="tagline" placeholder="자신을 소개하세요." rows="3"></textarea>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="tagline">학교:</label>
+                            <label class="col-sm-2 control-label" for="school_name">학교:</label>
 
-                            <div class="col-sm-13">
-                                <select class="form-control">
-                                    <option>지역</option>
-                                </select>
-                                <select class="form-control">
-                                    <option>유치원/초/중/고</option>
-                                </select>
-                                <select class="form-control">
-                                    <option>학교</option>
-                                </select>
+                            <div class="col-sm-13 input-group">
+                                <input type="text" class="form-control" ng-model="school_name" placeholder="학교 검색"
+                                       ng-keyup="$event.keyCode == 13 ? show_school_search_dlg() : null">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"
+                                            ng-click="show_school_search_dlg()">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                </span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="tagline">회사:</label>
+                            <label class="col-sm-2 control-label" for="company">회사:</label>
 
                             <div class="col-sm-13">
-                                <input class="form-control" type="text"/>
+                                <input class="form-control" type="text" ng-model="user.company"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2">
+                            <button type="submit" class="btn btn-md btn-primary"
+                                    ng-click="update_user_profile()">저장하기
+                            </button>
+                            <div class="http-error">
+                                <div class="alert alert-success" ng-show="http_status==200">
+                                    사용자 정보가 정상적으로 저장되었습니다.
+                                </div>
+                                <div class="alert alert-danger" ng-show="http_status==500">
+                                    서버에 문제가 있어 사용자 정보를 저장하지 못했습니다. 다시 시도하거나 사이트 관리자에게 문의하시기 바랍니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+        <div ng-show="current_menu=='read_target'">
+            <form name="read_target_form" class="form-horizontal" novalidate>
+                <div class="row">
+                    <div class="col-sm-15">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="photo">기간:</label>
+
+                            <div class="col-sm-13">
+                                <input type="date" class="form-control inline-control" ng-model="target_from">
+
+                                <label class="form-control-static inline-control"> ~ </label>
+
+                                <input type="date" class="form-control inline-control" ng-model="target_to">
+
+                                <div class="form-control-static inline-control">예제: 2015-02-01</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="tagline">목표:</label>
+
+                            <div class="col-sm-13">
+                                <input type="text" class="form-control" ng-model="user.target_books"
+                                       placeholder="기간내에 읽을 책 수">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-2">
+                            <button type="submit" class="btn btn-md btn-primary"
+                                    ng-click="update_user()">저장하기
+                            </button>
+                            <div class="http-error">
+                                <div class="alert alert-success" ng-show="http_status==200">
+                                    정상적으로 저장되었습니다.
+                                </div>
+                                <div class="alert alert-danger" ng-show="http_status==500">
+                                    서버에 문제가 있어 저장하지 못했습니다. 잠시 후에 다시 시도하거나 사이트 관리자에게 문의하시기 바랍니다.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -346,7 +454,6 @@
 
         </div>
     </div>
-
 </div>
 
 
