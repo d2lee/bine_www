@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/css/bine.css" afterPath="$PROJECT_DIR$/bine/static/app/css/bine.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -87,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="note_list.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="note_list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23423423" vertical-offset="1227" max-vertical-offset="3030">
-              <caret line="87" column="56" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
+            <state vertical-scroll-proportion="-6.375" vertical-offset="1227" max-vertical-offset="3030">
+              <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -119,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bine.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bine.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4128" max-vertical-offset="4530">
-              <caret line="294" column="25" selection-start-line="294" selection-start-column="25" selection-end-line="294" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.30405405" vertical-offset="330" max-vertical-offset="4530">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -223,8 +221,8 @@
         <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/resources.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
-        <option value="$PROJECT_DIR$/bine/static/app/css/bine.css" />
         <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/css/bine.css" />
       </list>
     </option>
   </component>
@@ -962,7 +960,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425978477093</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="독서노트 수를 보여주는 UI에 progress bar를 추가">
+      <created>1425979415304</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1425979415304</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -973,7 +977,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4256866" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37124804" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37124804" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39937106" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4764151" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1032,7 +1036,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="virtualenv을 위한 env폴더를 삭제하고 대신에 requirements.txt 파일을 추가한다." />
     <MESSAGE value="사용자 등록(/#/register)로 이동시 login화면으로 redirect하는 문제 해결 &#10;" />
     <MESSAGE value="사용자 등록이 안되는 문제를 해결&#10;&#10;- request.data에 birthday값이 문자열타입인데 serializer에서는 datetime타입을 원해서 문제가 발생&#10;- UserSerializer의 validated_data를 통해 스트링을 datetime값으로 변환하도록 하여 문제를 타입 문제를 해결&#10; - view에 있던 register기능을 UserSerializer에  register함수를 추가하여 구현&#10;" />
     <MESSAGE value="register에서 저장시 module에 utcnow property값이 없다는 에러 처리" />
@@ -1057,7 +1060,8 @@
     <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제" />
     <MESSAGE value="login과 register후에 user.photo값을 리턴하도록 수정&#10;&#10;- 이 값을 브라우저에 보내야 user photo 표시" />
     <MESSAGE value="1. 사용자 추가정보 및 독서 목표 저장하는 기능 완성&#10;2. 노트 화면에서 독서노트 총 수를 보여주는 기능 완성" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 사용자 추가정보 및 독서 목표 저장하는 기능 완성&#10;2. 노트 화면에서 독서노트 총 수를 보여주는 기능 완성" />
+    <MESSAGE value="독서노트 수를 보여주는 UI에 progress bar를 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="독서노트 수를 보여주는 UI에 progress bar를 추가" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1474,14 +1478,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4128" max-vertical-offset="4530">
-          <caret line="294" column="25" selection-start-line="294" selection-start-column="25" selection-end-line="294" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6666666" vertical-offset="30" max-vertical-offset="7305">
@@ -1492,11 +1488,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23423423" vertical-offset="1227" max-vertical-offset="3030">
-          <caret line="87" column="56" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
+        <state vertical-scroll-proportion="-6.375" vertical-offset="1227" max-vertical-offset="3030">
+          <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30405405" vertical-offset="330" max-vertical-offset="4530">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
