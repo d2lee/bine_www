@@ -291,3 +291,7 @@
     padding-left: 8px;
     padding-right: 8px;
 }
+
+.panel-body .progress-bar {
+    color: #777;
+}

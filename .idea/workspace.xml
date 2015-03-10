@@ -3,17 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/css/bine.css" afterPath="$PROJECT_DIR$/bine/static/app/css/bine.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/commons.py" afterPath="$PROJECT_DIR$/bine/commons.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/models.py" afterPath="$PROJECT_DIR$/bine/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/resources.js" afterPath="$PROJECT_DIR$/bine/static/app/js/resources.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/serializers.py" afterPath="$PROJECT_DIR$/bine/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/urls.py" afterPath="$PROJECT_DIR$/bine/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/user.html" afterPath="$PROJECT_DIR$/bine/static/app/user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/views.py" afterPath="$PROJECT_DIR$/bine/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -74,10 +65,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4135135" vertical-offset="4227" max-vertical-offset="6345">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4227" max-vertical-offset="6345">
               <caret line="292" column="47" selection-start-line="292" selection-start-column="47" selection-end-line="292" selection-end-column="47" />
               <folding>
                 <element signature="e#24#68#0" expanded="true" />
@@ -86,32 +77,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5802" max-vertical-offset="6210">
-              <caret line="406" column="0" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="note_controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8888888" vertical-offset="0" max-vertical-offset="7260">
-              <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+            <state vertical-scroll-proportion="-1.6666666" vertical-offset="30" max-vertical-offset="7305">
+              <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="note_list.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="note_list.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.75" vertical-offset="1095" max-vertical-offset="2835">
-              <caret line="87" column="35" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
-              <folding />
+            <state vertical-scroll-proportion="0.23423423" vertical-offset="1227" max-vertical-offset="3030">
+              <caret line="87" column="56" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,6 +114,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
               <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bine.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4128" max-vertical-offset="4530">
+              <caret line="294" column="25" selection-start-line="294" selection-start-column="25" selection-end-line="294" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -221,7 +214,6 @@
         <option value="$PROJECT_DIR$/bine_www/settings.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
         <option value="dbtable:/105c6dee/aed27275-0559-4a0b-9589-33b0887e34fe/bine..users" />
-        <option value="$PROJECT_DIR$/bine/static/app/css/bine.css" />
         <option value="$PROJECT_DIR$/bine/serializers.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/user.html" />
@@ -229,9 +221,10 @@
         <option value="$PROJECT_DIR$/bine/views.py" />
         <option value="$PROJECT_DIR$/bine/commons.py" />
         <option value="$PROJECT_DIR$/bine/models.py" />
-        <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/resources.js" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
+        <option value="$PROJECT_DIR$/bine/static/app/css/bine.css" />
+        <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
       </list>
     </option>
   </component>
@@ -963,7 +956,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425904811106</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="1. 사용자 추가정보 및 독서 목표 저장하는 기능 완성&#10;2. 노트 화면에서 독서노트 총 수를 보여주는 기능 완성">
+      <created>1425978477093</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1425978477093</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -978,6 +977,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39937106" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4764151" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -988,7 +988,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1033,7 +1032,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="빠진 파일이 있어서 추가함" />
     <MESSAGE value="virtualenv을 위한 env폴더를 삭제하고 대신에 requirements.txt 파일을 추가한다." />
     <MESSAGE value="사용자 등록(/#/register)로 이동시 login화면으로 redirect하는 문제 해결 &#10;" />
     <MESSAGE value="사용자 등록이 안되는 문제를 해결&#10;&#10;- request.data에 birthday값이 문자열타입인데 serializer에서는 datetime타입을 원해서 문제가 발생&#10;- UserSerializer의 validated_data를 통해 스트링을 datetime값으로 변환하도록 하여 문제를 타입 문제를 해결&#10; - view에 있던 register기능을 UserSerializer에  register함수를 추가하여 구현&#10;" />
@@ -1058,7 +1056,8 @@
     <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 삭제" />
     <MESSAGE value="테스트를 위해 필요했던 /media 파일을 redirect하는 함수 import파일 삭제" />
     <MESSAGE value="login과 register후에 user.photo값을 리턴하도록 수정&#10;&#10;- 이 값을 브라우저에 보내야 user photo 표시" />
-    <option name="LAST_COMMIT_MESSAGE" value="login과 register후에 user.photo값을 리턴하도록 수정&#10;&#10;- 이 값을 브라우저에 보내야 user photo 표시" />
+    <MESSAGE value="1. 사용자 추가정보 및 독서 목표 저장하는 기능 완성&#10;2. 노트 화면에서 독서노트 총 수를 보여주는 기능 완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 사용자 추가정보 및 독서 목표 저장하는 기능 완성&#10;2. 노트 화면에서 독서노트 총 수를 보여주는 기능 완성" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1363,14 +1362,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12873134" vertical-offset="2856" max-vertical-offset="4485">
-          <caret line="195" column="1" selection-start-line="195" selection-start-column="1" selection-end-line="195" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/user_controllers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16891892" vertical-offset="1460" max-vertical-offset="2550">
@@ -1429,22 +1420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75" vertical-offset="1095" max-vertical-offset="2835">
-          <caret line="87" column="35" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8888888" vertical-offset="0" max-vertical-offset="7260">
-          <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/resources.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="765">
@@ -1491,10 +1466,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4135135" vertical-offset="4227" max-vertical-offset="6345">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4227" max-vertical-offset="6345">
           <caret line="292" column="47" selection-start-line="292" selection-start-column="47" selection-end-line="292" selection-end-column="47" />
           <folding>
             <element signature="e#24#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4128" max-vertical-offset="4530">
+          <caret line="294" column="25" selection-start-line="294" selection-start-column="25" selection-end-line="294" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.6666666" vertical-offset="30" max-vertical-offset="7305">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23423423" vertical-offset="1227" max-vertical-offset="3030">
+          <caret line="87" column="56" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

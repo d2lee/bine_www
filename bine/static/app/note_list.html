@@ -87,7 +87,20 @@
         <div class="panel-body">
             지금까지 읽은 책: {{ count_set.total_count }}권 <br>
             이번주에 읽은 책: {{ count_set.week_count }}권<br>
-            목표권수: {{ count_set.target_count }}/{{ count_set.target_max }}
+
+            <div ng-show="count_set && count_set.target_max">
+                목표대비 읽은 책: {{ count_set.target_max }} 중에 {{ count_set.target_count }}권
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ count_set.target_count }}"
+                         aria-valuemin="0" aria-valuemax="{{ count_set.target_max }}"
+                         style="width: {{ count_set.target_percent }}%">
+                        {{ count_set.target_percent }}%
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-info" ng-show="count_set && !count_set.target_max">
+                 아직 독서 목표을 설정하지 않았습니다. <a href="#/user/">여기</a>를 눌러 독서 목표를 설정하시기 바랍니다.
+            </div>
 
         </div>
     </div>

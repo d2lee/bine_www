@@ -5,12 +5,15 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             $scope.http_status = -1;
             $rootScope.note = null;
             $scope.user = authService.get_user();
-            $scope.count_set = BookNotes.get_notes_count();
+            $scope.count_set = BookNotes.get_notes_count(null, function () {
+                if ($scope.count_set.target_max)
+                    $scope.count_set.target_percent = $scope.count_set.target_count / $scope.count_set.target_max * 100;
+            })
 
             $scope.show_notes_by_all();
         };
 
-        $scope.show_notes_by_all = function() {
+        $scope.show_notes_by_all = function () {
             $scope.loading = true;
             $scope.current_menu = "menu1";
 
@@ -22,7 +25,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             });
         };
 
-        $scope.show_notes_by_me = function() {
+        $scope.show_notes_by_me = function () {
             $scope.loading = true;
             $scope.current_menu = "menu2";
 
