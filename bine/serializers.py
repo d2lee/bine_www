@@ -22,7 +22,7 @@ class SchoolSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=True)
+    username = serializers.CharField(required=False)
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
     photo = serializers.FileField(allow_empty_file=False, use_url=False, required=False)
@@ -51,53 +51,55 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         email = validated_data.get('email', None)
-        if email != instance.email:
+        if email and email != instance.email:
             instance.email = email
             
         fullname = validated_data.get('fullname', None)
-        if fullname != instance.fullname:
+        if fullname and fullname != instance.fullname:
             instance.fullname = fullname
             
         birthday = validated_data.get('birthday', None)
-        if birthday != instance.birthday:
+        if birthday and birthday != instance.birthday:
             instance.birthday = birthday
             
         sex = validated_data.get('sex', None)
-        if sex != instance.sex:
+        if sex and sex != instance.sex:
             instance.sex = sex
 
         tagline = validated_data.get('tagline', None)
-        if tagline != instance.tagline:
+        if tagline and tagline != instance.tagline:
             instance.tagline = tagline
 
         company = validated_data.get('company', None)
-        if company != instance.company:
+        if company and company != instance.company:
             instance.company = company
             
         target_from = validated_data.get('target_from', None)
-        if target_from != instance.target_from:
+        if target_from and target_from != instance.target_from:
             instance.target_from = target_from
             
         target_to = validated_data.get('target_to', None)
-        if target_to != instance.target_to:
+        if target_to and target_to != instance.target_to:
             instance.target_to = target_to
 
         target_books = validated_data.get('target_books', None)
-        if target_books != instance.target_books:
+        if target_books and target_books != instance.target_books:
             instance.target_books = target_books
 
-        instance.photo = validated_data.get('photo', instance.photo)
+        photo = validated_data.get('photo', instance.photo)
+        if photo and photo != instance.photo:
+            instance.photo = validated_data.get('photo', instance.photo)
+
         school_data = self.initial_data.get('school')
         if school_data:
             school_id = school_data.get('id')
             school = School.objects.get(pk=school_id)
-            if school:
+            if school and school != instance.school:
                 instance.school = school
 
         instance.save()
 
         password = validated_data.get('password', None)
-
         if password:
             instance.set_password(password)
 
