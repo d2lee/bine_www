@@ -6,6 +6,18 @@ import os
 from time import gmtime, strftime
 
 
+def auth_response_payload_handler(token, user=None):
+    if user.photo:
+        photo_url = user.photo.url
+    else:
+        photo_url = ''
+
+    return {
+        'token': token,
+        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex, 'photo': photo_url},
+    }
+
+
 def calculate_age(born):
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))

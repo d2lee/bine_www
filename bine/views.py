@@ -8,12 +8,13 @@ from rest_framework.decorators import permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
-from django.http.response import HttpResponseBadRequest
 from rest_framework.status import HTTP_400_BAD_REQUEST, \
     HTTP_200_OK
 from rest_framework.response import Response
 from django.views.generic.base import View
 from django.shortcuts import render
+from rest_framework_jwt.serializers import JSONWebTokenSerializer
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, jwt_response_payload_handler
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
@@ -25,41 +26,101 @@ def register(request):
     serializer = UserSerializer(data=request.data)
 
     if serializer.is_valid():
-        response_data = serializer.register()
-
-    if response_data is None:
-        return Response(status=HTTP_400_BAD_REQUEST)
+        data = serializer.register()
+        if data:
+            return Response(data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
-        return Response(response_data)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    pass
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((AllowAny, ))
-def check_username_duplication(request, username):
+def check_username_duplication(request):
     """
-        if duplication, return OK; otherwise, return error.
+        if duplication, return OK with no content -status code:204; otherwise,
+        return not found error -status code:404.
     """
-    # assume that it returns HTTP error if error happens
-    User.objects.get(username=username)
-    return Response(data={'username': username})
 
-
-def auth_response_payload_handler(token, user=None):
-    if user.photo:
-        photo_url = user.photo.url
+    username = request.data.get('username')
+    if username and len(username) >= 5:
+        users = User.objects.filter(username=username)
+        if len(users) == 1:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     else:
-        photo_url = ''
-
-    return {
-        'token': token,
-        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex, 'photo': photo_url},
-    }
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class IndexView(View):
     @staticmethod
     def get(request):
         return render(request, 'bine.html')
+
+
+class AuthView(APIView):
+    permission_classes = (AllowAny,)
+
+    @staticmethod
+    def check_username(username):
+        """
+            if duplication, return OK with no content -status code:204; otherwise,
+            return not found error -status code:404.
+        """
+
+        if username and len(username) >= 5:
+            users = User.objects.filter(username=username)
+            if len(users) == 1:
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        pass
+
+    @staticmethod
+    def register(request_data):
+        serializer = UserSerializer(data=request_data)
+
+        if serializer.is_valid():
+            data = serializer.register()
+            if data:
+                return Response(data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        pass
+
+    @staticmethod
+    def login(request):
+        serializer = JSONWebTokenSerializer(data=request.DATA)
+
+        if serializer.is_valid():
+            user = serializer.object.get('user') or request.user
+
+            token = serializer.object.get('token')
+            response_data = jwt_response_payload_handler(token, user)
+
+            return Response(response_data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, action):
+        if action == 'check':
+            username = request.data.get('username')
+            return self.check_username(username)
+        elif action == 'login':
+            return self.login(request)
+        elif action == 'register':
+            return self.register(request.data)
+        elif action == 'refresh':
+            return refresh_jwt_token(request)
+        pass
 
 
 class UserView(APIView):

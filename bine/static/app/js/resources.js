@@ -22,6 +22,18 @@ bineApp.factory('Users', ['$resource', function ($resource) {
 }]);
 
 /*
+    Authentication 객체
+ */
+bineApp.factory('Authentication', ['$resource', function ($resource) {
+    return $resource('/api/auth/:action/', {action: 'action'}, {
+        'check': {method:'POST', params: {action:'check'}},
+        'login': {method:'POST', params: {action:'login'}},
+        'refresh': {method: 'POST', params: {action:'refresh'}},
+        'register': {method: 'POST', params: {action:'register'}}
+    }, {stripTrailingSlashes: false});
+}]);
+
+/*
     BookNote 객체
  */
 bineApp.factory('BookNotes', ['$resource', function ($resource) {

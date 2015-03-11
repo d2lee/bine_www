@@ -8,6 +8,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import IntegerField, ImageField
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
+from bine.commons import auth_response_payload_handler
 
 from bine.models import User, Book, BookNote, BookNoteReply, School
 
@@ -154,10 +155,10 @@ class UserSerializer(serializers.ModelSerializer):
                     datetime.datetime.utcnow().utctimetuple()
                 )
 
-            return {
-                'token': jwt_encode_handler(payload),
-                'user': self.data
-            }
+            token = jwt_encode_handler(payload)
+
+            return auth_response_payload_handler(token, self.instance)
+
         return None
 
 

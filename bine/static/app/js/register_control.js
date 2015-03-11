@@ -1,39 +1,31 @@
-bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
-    function ($scope, $http, authService) {
-
-        authService.clear();
-
-        $scope.register_step1 = true;
-
-        // login check
-        $scope.login = function () {
-            $http.post('/api/user/login/', {
-                'username': $scope.username,
-                'password': $scope.password
-            }).success(function (data) {
-                authService.set_token_and_user_info(data);
-                location.href = "#/note/";
-            }).error(function (data) {
-                alert('로그인이 실패했습니다. 사용자 정보를 다시 확인하십시오.');
-            });
-        };
+bineApp.controller('RegisterControl', ['$scope', '$http', 'authService', 'Authentication',
+    function ($scope, $http, authService, Authentication) {
+        $scope.init = function () {
+            authService.clear();
+            $scope.step = "step1";
+            $scope.init_birthday();
+            $scope.page_title = "Bine 회원가입"
+        }
 
         /*
          사용자 아이디 중복 검사
          */
-        $scope.check_duplicate_userid = function () {
+        $scope.check_user_duplication = function () {
             if (!$scope.username) {
                 return;
             }
 
-            var url = "/api/user/check/" + $scope.username + "/";
-            $scope.user_duplicated = undefined;
+            var data = {
+                'username': $scope.username
+            }
+            Authentication.check(data,
+                function (data) {
+                    $scope.user_duplicated = true;
 
-            $http.get(url).success(function (data) {
-                $scope.user_duplicated = true;
-            }).error(function (data) {
-                $scope.user_duplicated = false;
-            });
+                },
+                function (data) {
+                    $scope.user_duplicated = false;
+                })
         };
 
         /*
@@ -47,19 +39,27 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
 
             $scope.make_birthday();
 
-            data = {
+            var data = {
                 'username': $scope.username,
                 'fullname': $scope.fullname,
                 'email': $scope.email,
                 'birthday': $scope.birthday,
                 'sex': $scope.sex,
-                'password': $scope.password1,
+                'password': $scope.password1
             };
 
-            $http.post(url, data).success(function (data) {
+            $scope.http_status = undefined;
+
+            $scope.step = "step1";
+            Authentication.register(data, function (data) {
                 authService.set_token_and_user_info(data);
-                $scope.register_step1 = false;
-                $scope.register_step2 = true;
+                $scope.step = "step2";
+                $scope.page_title = "Bine 회원가입 완료";
+                $scope.http_status = data.status;
+
+            }, function (data) {
+                $scope.step = "step1";
+                $scope.http_status = data.status;
             });
         };
 
@@ -121,7 +121,6 @@ bineApp.controller('UserAuthControl', ['$scope', '$http', 'authService',
             $scope.day_list = $scope.date_range(1, 31);
         };
 
-        $scope.init_birthday();
-
+        $scope.init();
     }])
 ;

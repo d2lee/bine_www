@@ -15,10 +15,10 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'NoteListControl'
     }).when('/login/', {
         templateUrl: '/static/app/login.html',
-        controller: 'UserAuthControl'
+        controller: 'LoginControl'
     }).when('/register/', {
         templateUrl: '/static/app/register.html',
-        controller: 'UserAuthControl'
+        controller: 'RegisterControl'
     }).when('/user/', {
         templateUrl: '/static/app/user.html',
         controller: 'UserControl'

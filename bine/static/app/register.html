@@ -4,23 +4,27 @@
     <div class="site-wrapper-inner">
         <div class="cover-container">
             <div class="inner cover">
-                <div class="alert alert-info"><span class="glyphicon glyphicon-alert" ></span> Bine 회원 가입을 위해선 최소한 아래 정보가 필요로 합니다. <br>
-                회원 정보는 안전하게 서버에 저장됩니다. </div>
-                <div class="panel panel-primary register" ng-show="register_step1">
+                <div class="page-header">
+                    <h2>{{ page_title }}
+                        <small></small>
+                    </h2>
+                </div>
+                <div class="panel panel-primary register" ng-show="step=='step1'">
                     <div class="panel-heading">
-                        <h4 class="panel-caption">STEP 1 - 회원 가입</h4>
+                        <h4 class="panel-caption">STEP 1 - 필수 정보</h4>
                     </div>
                     <div class="panel-body">
                         <form name="reg_form" novalidate>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="username" ng-change="user_duplicated=undefined"
+                                    <input type="text" class="form-control" ng-model="username"
+                                           ng-change="user_duplicated=undefined"
                                            ng-minlength="5" name="username" placeholder="아이디" required>
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button"
-                                                ng-click="check_duplicate_userid()">
+                                                ng-click="check_user_duplication()">
                                            <span class="glyphicon glyphicon-ok" aria-hidden="true">
-                                            </span>  중복 확인
+                                            </span> 중복 확인
                                         </button>
                                  </span>
                                 </div>
@@ -39,7 +43,8 @@
                                     <span class='glyphicon glyphicon-info-sign'></span>입력하신 아이디에 대한 중복검사를 해 주시기 바랍니다.
                                 </div>
                                 <div ng-show="user_duplicated == true">
-                                    <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 이미 사용중인 아이디입니다. 다른 아이디를 입력하시기 바랍니다.
+                                    <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 이미 사용중인 아이디입니다.
+                                    다른 아이디를 입력하시기 바랍니다.
                                 </div>
                                 <div ng-show="user_duplicated == false">
                                     <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 사용 가능한 아이디입니다.
@@ -153,25 +158,25 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="alert alert-warning" ng-show="http_status && (http_status != 201)">
+                                <span class="glyphicon glyphicon-warning-sign"></span>서버에 이상이 있어 가입이 실패하였습니다. 잠시 후 다시 시도해 주시기 바랍니다.
+                            </div>
                             <button type="submit" class="btn btn-md btn-primary btn-block"
                                     ng-click="register()">가입하기
                             </button>
                         </form>
                     </div>
                 </div>
-                <div class="panel panel-primary register" ng-show="register_step2">
-                    <div class="panel-heading">
-                        <h4 class="panel-caption">STEP 2 - 회원 추가 정보 입력</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="alert alert-info">
-                            <h3>{{ fullname }} 님, Bine 회원이 되신걸 환영합니다!</h3>
+                <div ng-show="step=='step2'">
+                    <div class="alert alert-warning">
+                        <h3>{{ fullname }} 님, Bine 회원이 되신걸 환영합니다!</h3>
 
-                            <p>친구찾기, 연령대에 맞는 책을 추천 받으시려면 아래 정보를 입력해 주시기 바랍니다. 추후에도 입력하거나 수정할 수 있습니다.</p>
-                        </div>
-                        <a href="#/note/">메인 화면으로 이동</a>
+                        <p><a href="#/note/">메인 화면으로 이동</a></p>
                     </div>
+
                 </div>
+
+
             </div>
         </div>
 
