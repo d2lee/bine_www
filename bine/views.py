@@ -3,8 +3,6 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.decorators import permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
@@ -14,46 +12,10 @@ from rest_framework.response import Response
 from django.views.generic.base import View
 from django.shortcuts import render
 from rest_framework_jwt.serializers import JSONWebTokenSerializer
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, jwt_response_payload_handler
+from rest_framework_jwt.views import refresh_jwt_token, jwt_response_payload_handler
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
-
-
-@api_view(['POST'])
-@permission_classes((AllowAny, ))
-def register(request):
-    serializer = UserSerializer(data=request.data)
-
-    if serializer.is_valid():
-        data = serializer.register()
-        if data:
-            return Response(data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    pass
-
-
-@api_view(['POST'])
-@permission_classes((AllowAny, ))
-def check_username_duplication(request):
-    """
-        if duplication, return OK with no content -status code:204; otherwise,
-        return not found error -status code:404.
-    """
-
-    username = request.data.get('username')
-    if username and len(username) >= 5:
-        users = User.objects.filter(username=username)
-        if len(users) == 1:
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-    else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class IndexView(View):
@@ -62,11 +24,11 @@ class IndexView(View):
         return render(request, 'bine.html')
 
 
+# noinspection PyMethodMayBeStatic
 class AuthView(APIView):
     permission_classes = (AllowAny,)
 
-    @staticmethod
-    def check_username(username):
+    def check_username(self, username):
         """
             if duplication, return OK with no content -status code:204; otherwise,
             return not found error -status code:404.
@@ -82,8 +44,7 @@ class AuthView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         pass
 
-    @staticmethod
-    def register(request_data):
+    def register(self, request_data):
         serializer = UserSerializer(data=request_data)
 
         if serializer.is_valid():
@@ -96,8 +57,7 @@ class AuthView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         pass
 
-    @staticmethod
-    def login(request):
+    def login(self, request):
         serializer = JSONWebTokenSerializer(data=request.DATA)
 
         if serializer.is_valid():
@@ -123,11 +83,18 @@ class AuthView(APIView):
         pass
 
 
+# noinspection PyAttributeOutsideInit
 class UserView(APIView):
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
 
+    post_actions = ('photo')
+
     @staticmethod
-    def get(request, pk):
+    def get(request, pk=None):
+        query = request.GET.get('q', None)
+        if pk and query:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         if pk:
             user = User.objects.get(pk=pk)
             if user != request.user:
@@ -135,7 +102,6 @@ class UserView(APIView):
             else:
                 serializer = UserSerializer(user)
         else:
-            query = request.GET['q']
             if not (query and len(query) >= 2):
                 return Response(status=HTTP_400_BAD_REQUEST)
 
@@ -144,58 +110,91 @@ class UserView(APIView):
 
         return Response(serializer.data, content_type="application/json")
 
-    @staticmethod
-    def post(request, pk):
-        """
-        사용자 정보를 업데이트한다.
-        """
-
-        # PK 값으로 현재 사용자와 로그인 사용자가 같은지 확인한다.
-        if pk:
-            user = User.objects.get(pk=pk)
-            if user != request.user:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
-        else:
-            user = request.user
-
-        # 사진을 업로드하는 경우에는 action 값이 photo로 정의되어 있다.
-        action = request.GET.get('action', None)
-        if action and action == 'photo':
-            data = {'photo': request.FILES.get('file', None)}
-            serializer = UserSerializer(user, data=data)
-            # serializer = UserSerializer(user, files=request.FILES)
-            if serializer.is_valid():
-                user = serializer.save()
-                if user:
-                    data = {'photo': user.photo.url}
-                    return Response(data=data, status=status.HTTP_200_OK)
-                else:
-                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    def update_photo(self, request):
+        data = {'photo': request.FILES.get('file', None)}
+        serializer = UserSerializer(self.user, data=data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user and user.photo:
+                data = {'photo': user.photo.url}
+                return Response(data=data, status=status.HTTP_200_OK)
             else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            if request.data.get('photo'):
-                request.data.pop('photo')  # make sure that photo should be in the json data.
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        # 암호를 변경하는 경우엔 current_password값이 현재 암호로 정의되어 있다.
-        username = request.data.get('username', None)
-        current_password = request.data.get("current_password", None)
-        new_password = request.data.get("password", None)
-        if username and current_password and new_password:
-            user = authenticate(username=username, password=current_password)
-            if user is None:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+    def check_invalid_password(self, request):
+        # intentionally changed the password name to cp and np for strong security
+        current_password = request.data.get("cp", None)
+        new_password = request.data.get("np", None)
 
-        serializer = UserSerializer(user, data=request.data)
+        # change the key name of password to serialize
+        if current_password:
+            request.DATA.pop('np')
+
+        if new_password:
+            request.DATA.pop('cp')
+
+        # if current_password and new_password is not defined, we can proceed update
+        # otherwise, we need to check password with current password.
+        if not (current_password and new_password):
+            return False
+
+        username = self.user.username
+
+        if authenticate(username=username, password=current_password):
+            request.DATA['password'] = new_password
+            return False
+        else:
+            return True
+
+    def update_user(self, request):
+        def remove_photo_from_request(request):
+            if request.data.get('photo') is not None:
+                request.DATA.pop('photo')
+
+        if self.check_invalid_password(request):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        remove_photo_from_request(request)
+
+        serializer = UserSerializer(self.user, data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             if user:
                 return Response(status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
         else:
             return Response(status=HTTP_400_BAD_REQUEST)
+
+    def check_user_authentication(self, request, pk):
+        self.user = None
+        try:
+            user = User.objects.get(pk=pk)
+            if user == request.user:
+                self.user = user
+        except User.DoesNotExist:
+            self.user = None
+
+    def check_invalid_parameters_for_post(self, request, pk):
+        self.action = request.GET.get('action', None)
+        return pk is None or (self.action and self.action not in self.post_actions)
+
+    def post(self, request, pk):
+        if self.check_invalid_parameters_for_post(request, pk):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        # PK 값으로 현재 사용자와 로그인 사용자가 같은지 확인한다.
+        self.check_user_authentication(request, pk)
+        if self.user is None:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        if self.action == 'photo':
+            return self.update_photo(request)
+        else:
+            return self.update_user(request)
+        pass
 
 
 class BookDetail(APIView):
@@ -250,7 +249,7 @@ class FriendView(APIView):
     def get(request):
         user = request.user
 
-        action = request.GET.get('type')
+        action = request.GET.get('type', None)
 
         if action == 'recommend':
             friends = user.get_recommended_friends()
@@ -329,7 +328,7 @@ class BookNoteView(APIView):
         """
         현재 사용자와 친구들의 책 노트 목록을 보여준다.
         """
-        list_type = request.GET.get('type')
+        list_type = request.GET.get('type', None)
 
         user = request.user
 
@@ -351,7 +350,7 @@ class BookNoteView(APIView):
                 return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = BookNoteSerializer(note)
         else:
-            list_type = request.GET.get('type')
+            list_type = request.GET.get('type', None)
 
             user = request.user
 
@@ -407,7 +406,7 @@ class BookNoteView(APIView):
 class SchoolView(APIView):
     @staticmethod
     def get(request):
-        query = request.GET.get('q')
+        query = request.GET.get('q', None)
 
         if query:
             schools = School.objects.filter(name__contains=query)[:10]

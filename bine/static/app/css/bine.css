@@ -36,6 +36,7 @@
 .navbar-nav > li {
     font-size: 17px;
     font-weight: 500;
+    padding: 0;
 }
 
 .navbar-nav > li > a {
@@ -83,17 +84,12 @@
     margin-right: 2px;
 }
 
-.login-user {
-    padding-top: 0 !important;
-    padding-left: 0 !important;
-}
-
-.login-user img {
-    width: 32px;
-    height: 32px;
+.login-icon {
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50%;
     border: 0;
-    margin-top: 5px;
+    margin: 2px;
 }
 
 .page-left {
@@ -294,4 +290,19 @@
 
 .panel-body .progress-bar {
     color: #777;
+}
+
+.page-menu-button {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #E91E63;
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+    margin-right: -6px;
+}
+
+.page-menu-button a, a:hover, a:active, a:link {
+    color: white;
 }

@@ -189,7 +189,7 @@ bineApp.filter('truncate', function () {
 bineApp.filter('photo', function () {
     return function (content, sex) {
         if (content && content != null) {
-            return '/media/' + content;
+            return content;
         }
         else if (sex == 'M') {
             return '/static/app/images/male.jpg';

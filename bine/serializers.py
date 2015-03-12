@@ -3,13 +3,12 @@ from calendar import timegm
 import datetime
 
 from rest_framework import serializers
-from django.contrib.auth import update_session_auth_hash, authenticate
+from django.contrib.auth import authenticate
 from rest_framework.exceptions import ValidationError
-from rest_framework.fields import IntegerField, ImageField
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
-from bine.commons import auth_response_payload_handler
 
+from bine.commons import auth_response_payload_handler
 from bine.models import User, Book, BookNote, BookNoteReply, School
 
 
@@ -26,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=False)
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
-    photo = serializers.FileField(allow_empty_file=False, use_url=False, required=False)
+    photo = serializers.FileField(allow_empty_file=False, use_url=True, required=False)
     email = serializers.EmailField(required=False)
     birthday = serializers.DateField(required=False)
     sex = serializers.ChoiceField(choices=[('M', '남자'), ('F', '여자')], required=False)
@@ -41,7 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'fullname', 'email', 'birthday', 'sex', 'tagline', 'photo',
-                  'created_at', 'updated_on', 'password', 'confirm_password', 'school', 'company',
+                  'password', 'confirm_password', 'school', 'company',
                   'target_from', 'target_to', 'target_books')
         read_only_fields = ('id', 'username',)
         write_only_fields = ('password', 'confirm_password', )
@@ -51,58 +50,28 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
-        email = validated_data.get('email', None)
-        if email and email != instance.email:
-            instance.email = email
-            
-        fullname = validated_data.get('fullname', None)
-        if fullname and fullname != instance.fullname:
-            instance.fullname = fullname
-            
-        birthday = validated_data.get('birthday', None)
-        if birthday and birthday != instance.birthday:
-            instance.birthday = birthday
-            
-        sex = validated_data.get('sex', None)
-        if sex and sex != instance.sex:
-            instance.sex = sex
+        field_count_changed = 0
+        for field_name in validated_data:
+            if field_name == 'password':
+                password = validated_data.get('password', None)
+                if password:
+                    instance.set_password(password)
+                    field_count_changed += 1
+            else:
+                field_value = validated_data.get(field_name, None)
+                if field_value and field_value != getattr(instance, field_name, None):
+                    setattr(instance, field_name, field_value)
+                    field_count_changed += 1
 
-        tagline = validated_data.get('tagline', None)
-        if tagline and tagline != instance.tagline:
-            instance.tagline = tagline
-
-        company = validated_data.get('company', None)
-        if company and company != instance.company:
-            instance.company = company
-            
-        target_from = validated_data.get('target_from', None)
-        if target_from and target_from != instance.target_from:
-            instance.target_from = target_from
-            
-        target_to = validated_data.get('target_to', None)
-        if target_to and target_to != instance.target_to:
-            instance.target_to = target_to
-
-        target_books = validated_data.get('target_books', None)
-        if target_books and target_books != instance.target_books:
-            instance.target_books = target_books
-
-        photo = validated_data.get('photo', instance.photo)
-        if photo and photo != instance.photo:
-            instance.photo = validated_data.get('photo', instance.photo)
-
-        school_data = self.initial_data.get('school')
-        if school_data:
-            school_id = school_data.get('id')
+        school_id = self.initial_data.get('school')
+        if school_id and school_id.isdigit():
             school = School.objects.get(pk=school_id)
             if school and school != instance.school:
                 instance.school = school
+                field_count_changed += 1
 
-        instance.save()
-
-        password = validated_data.get('password', None)
-        if password:
-            instance.set_password(password)
+        if field_count_changed > 0:
+            instance.save()
 
         # update_session_auth_hash(self.context.get('request'), instance)
 
@@ -220,6 +189,7 @@ class BookNoteSerializer(serializers.ModelSerializer):
         model = BookNote
         fields = ('id', 'user', 'book', 'content', 'read_date_from', 'read_date_to', 'preference',
                   'attach', 'share_to', 'created_at')
+        read_only = 'created_at'
         depth = 1
 
 

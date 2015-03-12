@@ -1,9 +1,12 @@
 # -*- coding: UTF-8 -*-
+from calendar import timegm
 
 from datetime import timedelta, date
 from datetime import datetime
 import os
 from time import gmtime, strftime
+from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 
 
 def auth_response_payload_handler(token, user=None):
@@ -48,3 +51,22 @@ def get_file_name(instance, filename):
     path = strftime("note/%Y/%m/%d/", time)
     new_file_name = strftime("%Y%m%d-%X", time) + "-" + instance.user.username + os.path.splitext(filename)[1]
     return os.path.join(path, new_file_name)
+
+
+def date_to_iso_string(date_obj):
+    return date_obj.isoformat()
+
+
+# It's for testing purpose
+def login_without_password(user):
+    payload = jwt_payload_handler(user)  # Include original issued at time for a brand new token,
+    # to allow token refresh
+    if api_settings.JWT_ALLOW_REFRESH:
+        payload['orig_iat'] = timegm(
+            datetime.utcnow().utctimetuple()
+        )
+
+    return {
+        'token': jwt_encode_handler(payload),
+        'user': user
+    }

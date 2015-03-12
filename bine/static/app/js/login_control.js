@@ -1,5 +1,8 @@
 bineApp.controller('LoginControl', ['$scope', '$http', 'authService', 'Authentication',
     function ($scope, $http, authService, Authentication) {
+        $scope.init = function() {
+            authService.clear();
+        }
         // login check
         $scope.login = function () {
             var data = {
@@ -21,5 +24,7 @@ bineApp.controller('LoginControl', ['$scope', '$http', 'authService', 'Authentic
         $scope.reset_error = function () {
             $scope.http_status = undefined;
         }
+
+        $scope.init();
     }])
 ;

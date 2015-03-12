@@ -126,13 +126,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         users = User.objects.filter(Q(username__contains=query) | Q(fullname__contains=query))
 
         # Exclude self from search_list
-        return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
+        friends = self.get_friends()
+        friends_id_list = [self.id]
+        if friends and len(friends) > 0:
+            friends_id_list.extend(friends.values_list('id', flat=True).order_by('id'))
 
-    def search_friends(self):
-        users = User.objects.filter(id != self.id)
-
-        # Exclude self and self's friends
-        return users.exclude(Q(id=self.id) | Q(friends__id=self.id)).all()
+        return users.exclude(id__in=friends_id_list).all().order_by('fullname')
 
     def get_all_notes(self):
         """
@@ -162,25 +161,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         return friendship
 
     def approve_friend(self, friend):
-        friendship = Friendship.objects.get(inviter=friend, invitee=self)
-        if friendship:
-            friendship.status = 'A'
-            friendship.save()
-
-        return friendship
+        friendships = Friendship.objects.filter(inviter=friend, invitee=self)
+        if len(friendships) == 1:
+            friendships[0].status = 'A'
+            friendships[0].save()
+            return friendships[0]
 
     def reject_friend(self, friend):
-        friendship = Friendship(inviter=friend, invitee=self)
-        if friendship:
-            friendship.status = 'R'
-            friendship.save()
-
-        return friendship
+        friendships = Friendship.objects.filter(inviter=friend, invitee=self)
+        if len(friendships) == 1:
+            friendships[0].status = 'R'
+            friendships[0].save()
+            return friendships[0]
 
     def get_friends(self):
         confirmed_friends = self.friends_by_others.filter(friendship_by_me__status='A') | \
                             self.friends_by_me.filter(friendship_by_others__status='A')
-        return confirmed_friends.order_by('fullname')
+        return confirmed_friends.distinct().order_by('fullname')
 
     def get_friends_by_me(self):
         return self.friends_by_me.filter(friendship_by_others__status='N')
