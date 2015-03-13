@@ -233,7 +233,7 @@ bineApp.filter('escape', function () {
     return function (content) {
         if (content && content != null) {
             content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
-            // content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
+            content = content.replace(/[(&quot;;b&quot;)(&quot;/b&quot)]/g, '');
         }
         return content;
     };

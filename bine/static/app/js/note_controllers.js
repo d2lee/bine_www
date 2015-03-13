@@ -252,7 +252,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
 bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
-    "$http", "login_user","navbar", "escapeFilter",
+    "$http", "login_user", "navbar", "escapeFilter",
     function ($rootScope, $scope, $upload, $http, login_user, navbar, escapeFilter) {
 
         $scope.init = function () {
@@ -283,15 +283,15 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 $scope.note.read_date_to = new Date($scope.note.read_date_to);
             }
         };
-/*
-        $scope.stripEscape = function (content) {
-            if (content) {
-                content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
-                content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
-            }
-            return content;
-        };
-*/
+        /*
+         $scope.stripEscape = function (content) {
+         if (content) {
+         content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
+         content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
+         }
+         return content;
+         };
+         */
         $scope.upload = function (url, data, file) {
             $scope.http_status = -1;
 
@@ -365,8 +365,8 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             }
             else {
                 var url = "https://apis.daum.net/search/book";
-                var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
-                //var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
+                //var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
+                var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
 
                 url += "?output=json&result=10&sort=popular";
                 url += "&apikey=" + api_key;
@@ -375,7 +375,7 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 $scope.book_http_status = -1;
                 $http.jsonp(url).
                     success(function (data, status, headers, config) {
-                        $scope.books = data.channel.item;
+                        $scope.books = $scope.strip_escaped_characters(data.channel.item);
                         $('#book_search_modal').modal('show');
                         $scope.book_http_status = 200;
                     }).
@@ -384,6 +384,18 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                     });
             }
         };
+
+        $scope.strip_escaped_characters = function (books) {
+            var jsonText = angular.toJson(books);
+
+            // remove double quote for json
+            jsonText = jsonText.replace(/&quot;/g, '\\"');
+
+            jsonText = $('<div/>').html(jsonText).text();
+            jsonText = $('<div/>').html(jsonText).text();
+
+            return angular.fromJson(jsonText);
+        }
 
         $scope.add_dash_to_date = function (d) {
             return d.substr(0, 4) + "-" + d.substr(4, 2) + "-" + d.substr(6, 2)

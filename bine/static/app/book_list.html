@@ -49,12 +49,12 @@
     <spinner></spinner>
     <div class="list-item media col-xs-15" ng-repeat="book in books | filter:book_title">
         <div class="media-left">
-            <a href="#/note/{{ note.id }}">
+            <a href="">
                 <img class="media-object" ng-src="{{ book.photo }}" alt="{{ book.title }}">
             </a>
         </div>
         <div class="media-body">
-            <h4 class="media-heading"><a href="#/book/{{ note.id }}">{{ book.title }}</a></h4>
+            <h4 class="media-heading"><a href="">{{ book.title }}</a></h4>
 
             <div class='panel-detail'>
                 <span>저자: {{ book.author }}</span> |
