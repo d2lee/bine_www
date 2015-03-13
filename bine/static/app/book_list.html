@@ -32,7 +32,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href=""><span
                             class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#/note/new">책 추천</a></li>
+                        <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#/note/new">책
+                            추천</a></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -45,35 +46,36 @@
         </div>
     </div>
 
-
     <spinner></spinner>
-    <div class="list-item media col-xs-15" ng-repeat="book in books | filter:book_title">
-        <div class="media-left">
-            <a href="">
-                <img class="media-object" ng-src="{{ book.photo }}" alt="{{ book.title }}">
-            </a>
-        </div>
-        <div class="media-body">
-            <h4 class="media-heading"><a href="">{{ book.title }}</a></h4>
-
-            <div class='panel-detail'>
-                <span>저자: {{ book.author }}</span> |
-                <span>출판사: {{ book.publisher }}</span> |
-                <span>ISBN: {{ book.isbn }}</span> |
-                <span>출판일: {{ book.pub_date | date:"yyyy/MM/dd" }}</span>
+    <resource>
+        <div class="list-item media col-xs-15" ng-repeat="book in books | filter:book_title">
+            <div class="media-left">
+                <a href="">
+                    <img class="media-object" ng-src="{{ book.photo }}" alt="{{ book.title }}">
+                </a>
             </div>
-            <p class="panel-content">{{ book.description | truncate: 256 }}</p>
+            <div class="media-body">
+                <h4 class="media-heading"><a href="">{{ book.title }}</a></h4>
 
-            <div class="panel-action">
-                <div ng-show="note.user.id != user.id">
-                    <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
-                    <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
+                <div class='panel-detail'>
+                    <span>저자: {{ book.author }}</span> |
+                    <span>출판사: {{ book.publisher }}</span> |
+                    <span>ISBN: {{ book.isbn }}</span> |
+                    <span>출판일: {{ book.pub_date | date:"yyyy/MM/dd" }}</span>
                 </div>
-                <div ng-show="note.user.id == user.id">
-                    <a href="" ng-click="edit_note(note)">수정</a> |
-                    <a href="" ng-click="delete_note(note, $index)">삭제</a>
+                <p class="panel-content">{{ book.description | truncate: 256 }}</p>
+
+                <div class="panel-action">
+                    <div ng-show="note.user.id != user.id">
+                        <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
+                        <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
+                    </div>
+                    <div ng-show="note.user.id == user.id">
+                        <a href="" ng-click="edit_note(note)">수정</a> |
+                        <a href="" ng-click="delete_note(note, $index)">삭제</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </resource>
 </div>

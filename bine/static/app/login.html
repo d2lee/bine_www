@@ -16,11 +16,12 @@
                 </blockquote>
                 <p class="lead">
 
-                <form class="form-signin" method="post">
+                <form class="form-signin" method="post" novalidate>
                     <label for="alias" class="sr-only">아이디</label> <input type="text"
                                                                           ng-model="username" name="username"
                                                                           class="form-control" placeholder="아이디"
                                                                           ng-change = "reset_error()"
+                                                                          autoFocus
                                                                           required>
                     <label for="password" class="sr-only">암호</label> <input
                         type="password" ng-model="password" name="password" class="form-control"

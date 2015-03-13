@@ -360,7 +360,7 @@ class BookNote(models.Model):
     read_date_to = DateField(null=False)
 
     content = TextField(blank=True)
-    preference = CharField(max_length=1, blank=False, default=3)
+    rating = CharField(max_length=1, blank=False, default=3)
     attach = ImageField(upload_to=get_file_name, blank=True, null=True)
 
     SHARE_CHOICES = (
@@ -386,7 +386,7 @@ class BookNote(models.Model):
                                    'title': self.book.title,
                                    'photo': self.book.photo.url, },
                           'content': self.content,
-                          'preference': self.preference,
+                          'rating': self.rating,
                           'read_date_from': self.read_date_from,
                           'read_date_to': self.read_date_to,
                           'share_to': self.share_to,

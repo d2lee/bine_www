@@ -100,51 +100,52 @@
                 <div class="clearfix"></div>
             </div>
 
-
         </div>
         <div class="page-info">
             <div class="alert alert-info" ng-show="note_state && !note_state.target_max">
-                <span class="glyphicon glyphicon-info-sign"></span> 금년에 몇권을 읽을 지 목표를 세워보세요. <a href="#/user/m3/">여기</a>를 눌러 목표를 설정할 수 있습니다.
+                <span class="glyphicon glyphicon-info-sign"></span> 금년에 몇권을 읽을 지 목표를 세워보세요. <a href="#/user/m3/">여기</a>를
+                눌러 목표를 설정할 수 있습니다.
             </div>
 
             <div class="ng-hide alert alert-info" ng-show="!notes.length">
                 <span class="glyphicon glyphicon-alert"></span> 책을 읽고나서 독서감상문을 작성해보세요. 그리고 친구랑 공유해보세요. 책을 읽는 즐거움이 배가됩니다.
                 <a
-                       독서 감상문은 href="#/note/new/">여기</a>서 작성할 수 있습니다.
+                        독서 감상문은 href="#/note/new/">여기</a>서 작성할 수 있습니다.
             </div>
         </div>
 
         <spinner></spinner>
-
-        <div class="list-item media col-xs-15" ng-repeat="note in notes | filter:book_title"
-             repeat_done="iteration_done()">
-            <div class="media-left">
-                <a href="#/note/{{ note.id }}">
-                    <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
-                </a>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
-
-                <div class='panel-detail'>
-                    <span>{{ note.user.fullname }}</span> |
-                    <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
-                    <span ng-bind-html="make_html_preference(note.preference)"></span>
-                    <span ng-bind-html="make_html_attach(note.attach)"></span>
+        <resource>
+            <div class="list-item media col-xs-15" ng-repeat="note in notes | filter:book_title"
+                 repeat_done="iteration_done()">
+                <div class="media-left">
+                    <a href="#/note/{{ note.id }}">
+                        <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
+                    </a>
                 </div>
-                <p class="panel-content">{{ note.content | truncate: 256 }}</p>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
 
-                <div class="panel-action">
-                    <div ng-show="note.user.id != user.id">
-                        <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
-                        <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
+                    <div class='panel-detail'>
+                        <span>{{ note.user.fullname }}</span> |
+                        <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
+                        <star-rating rating-value="note.rating" max="5"></star-rating>
+                        <span ng-bind-html="make_html_attach(note.attach)"></span>
                     </div>
-                    <div ng-show="note.user.id == user.id">
-                        <a href="" ng-click="edit_note(note)">수정</a> |
-                        <a href="" ng-click="delete_note(note, $index)">삭제</a>
+                    <p class="panel-content">{{ note.content | truncate: 256 }}</p>
+
+                    <div class="panel-action">
+                        <div ng-show="note.user.id != user.id">
+                            <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
+                            <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
+                        </div>
+                        <div ng-show="note.user.id == user.id">
+                            <a href="" ng-click="edit_note(note)">수정</a> |
+                            <a href="" ng-click="delete_note(note, $index)">삭제</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </resource>
     </div>
+</div>

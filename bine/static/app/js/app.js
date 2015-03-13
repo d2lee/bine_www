@@ -150,7 +150,7 @@ bineApp.service('login_user', ['$http', '$window', '$rootScope', 'jwtHelper',
             if (user) {
                 $window.sessionStorage.user = angular.toJson(user);
                 $rootScope.user = user;
-            }else
+            } else
                 delete $window.sessionStorage.user;
         }
     }]);
@@ -233,5 +233,62 @@ bineApp.directive('spinner', function () {
     var spinner_html = "<div class='col-xs-offset-7 col-xs-1'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>";
     return {
         template: spinner_html
+    };
+});
+
+bineApp.directive('resource', function () {
+    var template = "<div ng-hide='spinner' ng-cloak><div ng-transclude></div></div>";
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: {},
+        template: template
+    };
+})
+
+bineApp.directive('autoFocus', function ($timeout) {
+    return {
+        restrict: 'AC',
+        link: function (_scope, _element) {
+            $timeout(function () {
+                _element[0].focus();
+            }, 1500);
+        }
+    };
+});
+
+bineApp.directive("starRating", function () {
+    return {
+        restrict: "E",
+        template: "<ul>" +
+        "<li ng-repeat='star in stars' ng-class='star' ng-click='toggle($index)'>" +
+        "<span class='glyphicon glyphicon-star'></span></li>" +
+        "</ul>",
+        scope: {
+            ratingValue: "=",
+            max: "=",
+            onRatingSelected: "&"
+        },
+        link: function (scope, elem, attrs) {
+            var updateStars = function () {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+            };
+            scope.toggle = function (index) {
+                scope.ratingValue = index + 1;
+                scope.onRatingSelected({
+                    rating: index + 1
+                });
+            };
+            scope.$watch("ratingValue", function (oldVal, newVal) {
+                if (newVal) {
+                    updateStars();
+                }
+            });
+        }
     };
 });

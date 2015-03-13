@@ -26,16 +26,6 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
         };
 
 
-        $scope.make_html_preference = function (preference) {
-            var spanHtml = "";
-
-            for (i = 0; i < preference; i++) {
-                spanHtml = spanHtml + "<span class='glyphicon glyphicon-star'></span>";
-            }
-
-            return $sce.trustAsHtml(spanHtml);
-        };
-
         $scope.edit_note = function (note) {
             $rootScope.note = note;
             location.href = "#/note/new/"
@@ -96,7 +86,6 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
     function ($rootScope, $scope, $sce, $routeParams, $http, login_user, navbar) {
         $scope.init = function () {
             navbar.set_menu('note');
-            $scope.user = login_user.get_user();
 
             // 노트 ID 읽기
             var note_id = $routeParams.note_id;
@@ -109,7 +98,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             $scope.note_id = note_id;
             $scope.new_reply_content = "";
             $scope.current_reply = "";
-
+            //$scope.note = {rating: "5"}
             $scope.fetch_note_detail(note_id);
             // $scope.fetch_note_reply(note_id);
         };
@@ -211,16 +200,6 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             $('#reply_modal').modal('show');
         };
 
-        $scope.make_html_preference = function (preference) {
-            var spanHtml = "";
-
-            for (i = 0; i < preference; i++) {
-                spanHtml = spanHtml + "<span class='glyphicon glyphicon-star'></span>";
-            }
-
-            return $sce.trustAsHtml(spanHtml);
-        };
-
         $scope.make_html_share = function (share_to) {
             var text = "";
             switch (share_to) {
@@ -266,7 +245,7 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
 
                 $scope.note = {
                     'user': {'id': $scope.user.id},
-                    'preference': 3,
+                    'rating': 3,
                     'share_to': 'F',
                     'read_date_from': today,
                     'read_date_to': today,
@@ -322,7 +301,7 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 'content': note.content,
                 'read_date_from': $scope.format_date(note.read_date_from),
                 'read_date_to': $scope.format_date(note.read_date_to),
-                'preference': note.preference,
+                'rating': note.rating,
                 'share_to': note.share_to
             };
 
@@ -334,18 +313,6 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
 
             $scope.upload(url, data, $scope.note.attach)
         };
-
-        $scope.set_preference = function (pref) {
-            for (var i = 1; i <= 5; i++) {
-                if (i <= pref)
-                    $('#pref-' + i).css('color', '#337ab7');
-                else
-                    $('#pref-' + i).css('color', '#333');
-            }
-
-            $scope.note.preference = pref;
-        };
-
 
         $scope.search_book = function () {
             var title = $scope.book_title;

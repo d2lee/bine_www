@@ -36,13 +36,16 @@
                             class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownm1">
                         <li role="presentation" ng-class="{'active': current_menu =='m1'}"><a role="menuitem"
-                                                                                              tabindex="-1" href="#/friend/m1/">내
+                                                                                              tabindex="-1"
+                                                                                              href="#/friend/m1/">내
                             친구</a></li>
                         <li role="presentation" ng-class="{'active': current_menu =='m2'}"><a role="menuitem"
-                                                                                              tabindex="-1" href="#/friend/m2/">친구
+                                                                                              tabindex="-1"
+                                                                                              href="#/friend/m2/">친구
                             요청</a></li>
                         <li role="presentation" ng-class="{'active': current_menu =='m3'}"><a role="menuitem"
-                                                                                              tabindex="-1" href="#/friend/m3/">새친구
+                                                                                              tabindex="-1"
+                                                                                              href="#/friend/m3/">새친구
                             찾기</a></li>
                     </ul>
                 </div>
@@ -86,72 +89,76 @@
         </div>
 
         <spinner></spinner>
-        <div class="list-item media col-xs-15" ng-repeat="friend in friends | filter: username">
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object user-photo" ng-src="{{ friend.photo | photo: friend.sex }}"
-                             alt="{{ friend.fullname }}">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ friend.fullname }}</h4>
-
-                    <div class="panel-detail">
-                        <div>아이디: {{ friend.username }} | 생일: {{ friend.birthday }}</div>
-                        <div ng-show="current_menu == 'm3'">{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
+        <resource>
+            <div class="list-item media col-xs-15" ng-repeat="friend in friends | filter: username">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object user-photo" ng-src="{{ friend.photo | photo: friend.sex }}"
+                                 alt="{{ friend.fullname }}">
+                        </a>
                     </div>
-                    <div class="panel-body">
-                        {{ friend.tagline }}
-                    </div>
-                    <div class="panel-action">
-                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
-                                ng-show="current_menu=='m3'">친구 요청
-                        </button>
-                        <button class="btn btn-xs btn-default" ng-click="approve_friend(friend, $index)"
-                                ng-show="current_menu=='m2'">친구 승락
-                        </button>
-                        <button class="btn btn-xs btn-default" ng-click="reject_friend(friend, $index)"
-                                ng-show="current_menu=='m2'">친구 취소
-                        </button>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ friend.fullname }}</h4>
 
+                        <div class="panel-detail">
+                            <div>아이디: {{ friend.username }} | 생일: {{ friend.birthday }}</div>
+                            <div ng-show="current_menu == 'm3'">{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
+                        </div>
+                        <div class="panel-body">
+                            {{ friend.tagline }}
+                        </div>
+                        <div class="panel-action">
+                            <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
+                                    ng-show="current_menu=='m3'">친구 요청
+                            </button>
+                            <button class="btn btn-xs btn-default" ng-click="approve_friend(friend, $index)"
+                                    ng-show="current_menu=='m2'">친구 승락
+                            </button>
+                            <button class="btn btn-xs btn-default" ng-click="reject_friend(friend, $index)"
+                                    ng-show="current_menu=='m2'">친구 취소
+                            </button>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </resource>
     </div>
 
     <div class="col-xs-15" ng-show="current_menu == 'm2'">
         <h4 class="list-title">내가 친구맺기를 원한 사람들</h4>
 
-
         <div class="ng-hide alert alert-info" ng-show="(current_menu == 'm2') && !spinner && !request_friends.length">
             <span class="glyphicon glyphicon-info"></span> 새로운 친구 신청이 없었습니다.
         </div>
 
-
-        <div class="list-item media col-xs-15" ng-repeat="friend in request_friends | filter:username">
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object user-photo" ng-src="{{ friend.photo | photo: friend.sex }}"
-                             alt="{{ friend.fullname }}">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ friend.fullname }}</h4>
-
-                    <div class="panel-detail">
-                        <div>{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
+        <spinner></spinner>
+        <resource>
+            <div class="list-item media col-xs-15" ng-repeat="friend in request_friends | filter:username">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object user-photo" ng-src="{{ friend.photo | photo: friend.sex }}"
+                                 alt="{{ friend.fullname }}">
+                        </a>
                     </div>
-                    <div class="panel-action">
-                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
-                                ng-show="current_menu=='m3'">친구 요청
-                        </button>
-                        <button class="btn btn-xs btn-default" ng-click="delete_friend(friend, $index)">친구 취소</button>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ friend.fullname }}</h4>
+
+                        <div class="panel-detail">
+                            <div>{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
+                        </div>
+                        <div class="panel-action">
+                            <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
+                                    ng-show="current_menu=='m3'">친구 요청
+                            </button>
+                            <button class="btn btn-xs btn-default" ng-click="delete_friend(friend, $index)">친구 취소
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </resource>
     </div>
 </div>

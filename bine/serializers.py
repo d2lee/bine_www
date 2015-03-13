@@ -187,7 +187,7 @@ class BookNoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookNote
-        fields = ('id', 'user', 'book', 'content', 'read_date_from', 'read_date_to', 'preference',
+        fields = ('id', 'user', 'book', 'content', 'read_date_from', 'read_date_to', 'rating',
                   'attach', 'share_to', 'created_at')
         read_only = 'created_at'
         depth = 1

@@ -4,7 +4,9 @@
 
 /* always show srollbar  */
 
-body    {overflow-y:scroll;}
+body {
+    overflow-y: scroll;
+}
 
 @media screen and (max-width: 480px) {
     .menu_caption {
@@ -158,7 +160,7 @@ body    {overflow-y:scroll;}
 }
 
 .list-item .panel-detail, .detail-item .panel-detail {
-    font-size: 8pt;
+    font-size: 8pt !important;
     color: #595959;
 }
 
@@ -214,10 +216,6 @@ body    {overflow-y:scroll;}
     padding: 4px 4px 4px 8px;
     width: 100px;
     height: auto;
-}
-
-.note-new-panel {
-    margin-top: 10px;
 }
 
 .book-search-modal .book-photo {
@@ -341,4 +339,42 @@ body    {overflow-y:scroll;}
 
 .page-info .alert {
     margin-bottom: 8px;
+}
+
+.note-new-panel .inline-control {
+    width: auto;
+    float: left;
+    margin-top: 4pt;
+    margin-bottom: 4pt !important;
+    margin-right: 2pt;
+}
+
+.note-new-panel star-rating {
+    font-size: 18px;
+}
+
+star-rating {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+star-rating ul {
+    margin: 0;
+    padding: 0;
+}
+
+star-rating li {
+    padding: 1px;
+    color: #a9a9a9;
+    text-align: center;
+    font-weight: bold;
+    font-size: inherit;
+    list-style-type: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+star-rating li.filled {
+    color: #2196f3;
 }

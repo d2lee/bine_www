@@ -4,48 +4,51 @@
         <li class="active">자세히보기</li>
     </ol>
 
-    <div class="col-xs-offset-7 col-xs-1" ng-show="loading">
-        <img src="/static/app/images/loading.gif" width="50px" height="50px">
-    </div>
+    <spinner></spinner>
+    <resource>
 
-    <div class="panel panel-default detail-item" ng-show="!loading" ng-cloak>
-        <div class="panel-heading">
-            <h4 class="panel-title">{{ note.book.title }}</h4>
-        </div>
-        <div class="panel-body">
-            <img class="book-photo" ng-src="{{ note.book.photo }}" align="right">
-            <div class='panel-detail'>
-                <span>작가: {{ note.book.author }}</span> |
-                <span>번역가: {{ note.book.translator }}</span> |
-                <span>출판일: {{ note.book.pub_date | date:"yyyy-MM-dd" }}</span> |
-                <span>출판사: {{ note.book.publisher }}</span> |
-                <span>ISBN: {{ note.book.isbn }}</span> |
-                <span>카테고리: {{ note.book.category }}</span>
+        <div class="panel panel-default detail-item" ng-cloak>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{ note.book.title }}</h4>
             </div>
-            <p class="panel-content">{{ note.book.description }} <a href="{{ note.book.link }}"> 더 보기</a></p>
-        </div>
-        <div class="panel-footer" ng-show="note.user.id != user.id">
-            <a href="" ng-click="edit_note(note)">나도 읽었어요</a> | <a href="" ng-click="edit_note(note)">읽고 싶어요</a>
-        </div>
-    </div>
-    <div class="panel panel-default detail-item" ng-show="!loading" ng-cloak>
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a href="#/note/{{ note.id }}">{{ note.user.id === user.id ? '나' : note.user.fullname }}의 독후감</a></h4>
-        </div>
-        <div class="panel-body">
-            <div class='panel-detail'>
-                <span>{{ note.created_at | date:"yyyy-MM-dd h:mm a" }}</span> |
-                <span ng-bind-html="make_html_preference(note.preference)"></span> |
-                <span>{{ make_html_share(note.share_to) }}</span>
-                <span ng-bind-html="make_html_attach(note.attach)"></span>
+            <div class="panel-body">
+                <img class="book-photo" ng-src="{{ note.book.photo }}" align="right">
+
+                <div class='panel-detail'>
+                    <span>작가: {{ note.book.author }}</span> |
+                    <span>번역가: {{ note.book.translator }}</span> |
+                    <span>출판일: {{ note.book.pub_date | date:"yyyy-MM-dd" }}</span> |
+                    <span>출판사: {{ note.book.publisher }}</span> |
+                    <span>ISBN: {{ note.book.isbn }}</span> |
+                    <span>카테고리: {{ note.book.category }}</span>
+                </div>
+                <p class="panel-content">{{ note.book.description }} <a href="{{ note.book.link }}"> 더 보기</a></p>
             </div>
-            <p class="panel-content">{{ note.content }}</p>
+            <div class="panel-footer" ng-show="note.user.id != user.id">
+                <a href="" ng-click="edit_note(note)">나도 읽었어요</a> | <a href="" ng-click="edit_note(note)">읽고 싶어요</a>
+            </div>
         </div>
-        <div class="panel-footer" ng-show="note.user.id == user.id">
-            <a href="" ng-click="edit_note()">수정</a> | <a href="" ng-click="delete_note()">삭제</a>
+        <div class="panel panel-default detail-item" ng-cloak>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="#/note/{{ note.id }}">{{ note.user.id === user.id ? '나' : note.user.fullname }}의 독후감</a>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class='panel-detail'>
+                    <span>{{ note.created_at | date:"yyyy-MM-dd h:mm a" }}</span> |
+                    <star-rating rating-value="note.rating" max="5"></star-rating>
+                    |
+                    <span>{{ make_html_share(note.share_to) }}</span>
+                    <span ng-bind-html="make_html_attach(note.attach)"></span>
+                </div>
+                <p class="panel-content">{{ note.content }}</p>
+            </div>
+            <div class="panel-footer" ng-show="note.user.id == user.id">
+                <a href="" ng-click="edit_note()">수정</a> | <a href="" ng-click="delete_note()">삭제</a>
+            </div>
         </div>
-    </div>
+    </resource>
 </div>
 
 <!-- New Review Modal -->
