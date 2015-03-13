@@ -207,6 +207,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         return {'total_count': all_count, 'week_count': week_count, 'target_count': target_count,
                 'target_max': self.target_books}
 
+    def get_friends_count(self):
+        friends_count = self.get_friends().count()
+        friends_by_others_count = self.get_friends_by_others().count()
+
+        return {'friends': friends_count, 'friends_by_others': friends_by_others_count}
+
     def to_json(self):
         json_data = {}
         if self.photo:

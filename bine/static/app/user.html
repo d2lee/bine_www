@@ -1,5 +1,3 @@
-<ng-include src="'/static/app/nav_bar.html'"></ng-include>
-
 <div class="hidden-xs col-sm-4 col-md-3 page-left">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -8,12 +6,9 @@
             </h4>
         </div>
         <div class="list-group">
-            <a href="" class="list-group-item" ng-class="{'active': current_menu=='account' }"
-               ng-click="show_account()">계정정보</a>
-            <a href="" class="list-group-item" ng-class="{'active': current_menu=='profile' }"
-               ng-click="show_profile()">추가정보</a>
-            <a href="" class="list-group-item" ng-class="{'active': current_menu=='read_target'}"
-               ng-click="show_read_target()">독서목표</a>
+            <a href="#/user/m1/" class="list-group-item" ng-class="{'active': current_menu=='m1' }">사용자정보</a>
+            <a href="#/user/m2/" class="list-group-item" ng-class="{'active': current_menu=='m2' }">추가정보</a>
+            <a href="#/user/m3/" class="list-group-item" ng-class="{'active': current_menu=='m3' }">독서목표</a>
         </div>
     </div>
 </div>
@@ -28,18 +23,18 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href=""><span
                             class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation" ng-class="{'active': current_menu=='account' }"><a role="menuitem"
+                        <li role="presentation" ng-class="{'active': current_menu=='m1' }"><a role="menuitem"
                                                                                                    tabindex="-1" href=""
-                                                                                                   ng-click="show_account()">기본정보</a>
+                                                                                                   ng-click="show_m1()">사용자정보</a>
                         </li>
-                        <li role="presentation" ng-class="{'active': current_menu=='profile' }"><a role="menuitem"
+                        <li role="presentation" ng-class="{'active': current_menu=='m2' }"><a role="menuitem"
                                                                                                    tabindex="-1" href=""
-                                                                                                   ng-click="show_profile()">추가정보</a>
+                                                                                                   ng-click="show_m2()">추가정보</a>
                         </li>
-                        <li role="presentation" ng-class="{'active': current_menu=='read_target' }"><a role="menuitem"
+                        <li role="presentation" ng-class="{'active': current_menu=='m3' }"><a role="menuitem"
                                                                                                        tabindex="-1"
                                                                                                        href=""
-                                                                                                       ng-click="show_read_target()">독서목표</a>
+                                                                                                       ng-click="show_m3()">독서목표</a>
                         </li>
                     </ul>
                 </div>
@@ -54,7 +49,7 @@
     </div>
 
     <div class="list-item col-xs-15">
-        <div ng-show="current_menu=='account'" ng-show="http_status==200">
+        <div ng-show="current_menu=='m1'" ng-show="http_status==200">
             <form name="user_form" class="form-horizontal" novalidate>
                 <div class="row">
                     <div class="col-sm-15">
@@ -242,8 +237,8 @@
 
             </form>
         </div>
-        <div ng-show="current_menu=='profile'">
-            <form name="profile_form" class="form-horizontal" novalidate>
+        <div ng-show="current_menu=='m2'">
+            <form name="m2_form" class="form-horizontal" novalidate>
                 <div class="row">
                     <div class="col-sm-15">
                         <div class="form-group">
@@ -315,8 +310,8 @@
             </form>
 
         </div>
-        <div ng-show="current_menu=='read_target'">
-            <form name="read_target_form" class="form-horizontal" novalidate>
+        <div ng-show="current_menu=='m3'">
+            <form name="m3_form" class="form-horizontal" novalidate>
                 <div class="row">
                     <div class="col-sm-15">
                         <div class="form-group">

@@ -1,42 +1,28 @@
 bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
-    "$http", "authService", "BookNotes",
-    function ($rootScope, $scope, $sce, $http, authService, BookNotes) {
+    "$http", "login_user", "navbar", "BookNotes",
+    function ($rootScope, $scope, $sce, $http, login_user, navbar, BookNotes) {
         $scope.init = function () {
-            $scope.navbarMenu = 'note';
+            navbar.set_menu('note');
 
             $scope.http_status = -1;
             $rootScope.note = null;
-            $scope.user = authService.get_user();
-            $scope.count_set = BookNotes.get_notes_count(null, function () {
-                if ($scope.count_set.target_max)
-                    $scope.count_set.target_percent = $scope.count_set.target_count / $scope.count_set.target_max * 100;
+            $scope.user = login_user.get_user();
+            $scope.note_state = BookNotes.get_notes_count(null, function () {
+                if ($scope.note_state.target_max)
+                    $scope.note_state.target_percent = $scope.note_state.target_count / $scope.note_state.target_max * 100;
             })
 
             $scope.show_notes_by_all();
         };
 
         $scope.show_notes_by_all = function () {
-            $scope.loading = true;
             $scope.current_menu = "menu1";
-
-            $scope.notes = BookNotes.get_notes_by_all(null, function () {
-                $scope.noData = !$scope.notes.length;
-                $scope.loading = false;
-            }, function () {
-                $scope.loading = false;
-            });
+            $scope.notes = BookNotes.get_notes_by_all();
         };
 
         $scope.show_notes_by_me = function () {
-            $scope.loading = true;
             $scope.current_menu = "menu2";
-
-            $scope.notes = BookNotes.get_notes_by_me(null, function () {
-                $scope.noData = !$scope.notes.length;
-                $scope.loading = false;
-            }, function () {
-                $scope.loading = false;
-            });
+            $scope.notes = BookNotes.get_notes_by_me();
         };
 
 
@@ -106,11 +92,11 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
  자세히 보기 컨트롤러
  */
 bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$routeParams",
-    "$http", "authService",
-    function ($rootScope, $scope, $sce, $routeParams, $http, authService) {
+    "$http", "login_user", "navbar",
+    function ($rootScope, $scope, $sce, $routeParams, $http, login_user, navbar) {
         $scope.init = function () {
-            $scope.navbarMenu = 'note';
-            $scope.user = authService.get_user();
+            navbar.set_menu('note');
+            $scope.user = login_user.get_user();
 
             // 노트 ID 읽기
             var note_id = $routeParams.note_id;
@@ -124,8 +110,6 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             $scope.new_reply_content = "";
             $scope.current_reply = "";
 
-            $scope.loading = true;
-
             $scope.fetch_note_detail(note_id);
             // $scope.fetch_note_reply(note_id);
         };
@@ -135,11 +119,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             var url = '/api/note/' + note_id + "/";
             $http.get(url).success(function (data) {
                 $scope.note = data;
-                $scope.loading = false;
-
-            }).error(function () {
-                $scope.loading = false;
-            })
+            });
         };
 
         $scope.fetch_note_reply = function (note_id) {
@@ -147,9 +127,6 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             var note_reply_url = '/api/note/' + note_id + "/reply/";
             $http.get(note_reply_url).success(function (data) {
                 $scope.replies = data;
-                $scope.loading_reply = false;
-            }).error(function (data) {
-                $scope.loading_reply = false;
             });
         };
 
@@ -275,12 +252,12 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
 bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
-    "$http", "authService","escapeFilter",
-    function ($rootScope, $scope, $upload, $http, authService, escapeFilter) {
+    "$http", "login_user","navbar", "escapeFilter",
+    function ($rootScope, $scope, $upload, $http, login_user, navbar, escapeFilter) {
 
         $scope.init = function () {
-            $scope.navbarMenu = 'note';
-            $scope.user = authService.get_user();
+            navbar.set_menu('note');
+            $scope.user = login_user.get_user();
             $scope.http_status = -1;
             $scope.book_http_status = -1;
 
@@ -395,17 +372,14 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 url += "&apikey=" + api_key;
                 url += "&q=" + title;
                 url += "&callback=JSON_CALLBACK";
-                $scope.loading = true;
                 $scope.book_http_status = -1;
                 $http.jsonp(url).
                     success(function (data, status, headers, config) {
-                        $scope.loading = false;
                         $scope.books = data.channel.item;
                         $('#book_search_modal').modal('show');
                         $scope.book_http_status = 200;
                     }).
                     error(function (data, status, headers, config) {
-                        $scope.loading = false;
                         $scope.book_http_status = status;
                     });
             }

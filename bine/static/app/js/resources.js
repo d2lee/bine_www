@@ -8,7 +8,8 @@ bineApp.factory('Friends', ['$resource', function ($resource) {
         'get_friends_by_others': {method: 'GET', params: {type: 'others'}, isArray: true},
         'get_recommended_friends': {method: 'GET', params: {type: 'recommend'}, isArray: true},
         'approve_friend': {method: 'PUT', params: {status:'A'}},
-        'reject_friend': {method: 'PUT', params: {status:'R'}}
+        'reject_friend': {method: 'PUT', params: {status:'R'}},
+        'get_friends_count': {method: 'GET', params: {type:'count', isArray: false}}
     }, {stripTrailingSlashes: false});
 }]);
 

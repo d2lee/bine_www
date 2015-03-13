@@ -1,7 +1,8 @@
-bineApp.controller('LoginControl', ['$scope', '$http', 'authService', 'Authentication',
-    function ($scope, $http, authService, Authentication) {
+bineApp.controller('LoginControl', ['$scope', '$http', 'login_user', 'Authentication','navbar',
+    function ($scope, $http, login_user, Authentication, navbar) {
         $scope.init = function() {
-            authService.clear();
+            navbar.set_menu('start');
+            login_user.clear();
         }
         // login check
         $scope.login = function () {
@@ -13,7 +14,7 @@ bineApp.controller('LoginControl', ['$scope', '$http', 'authService', 'Authentic
             $scope.reset_error();
             Authentication.login(data,
                 function (data) {
-                    authService.set_token_and_user_info(data);
+                    login_user.set_token_and_user_info(data);
                     $scope.http_status = 200;
                     location.href = "#/note/";
                 }, function (data) {

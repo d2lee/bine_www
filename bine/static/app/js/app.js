@@ -1,14 +1,6 @@
 var bineApp = angular.module('bineApp', ['ngRoute', 'ngResource', 'ngCookies', 'ngSanitize',
     'angular-jwt', 'angularFileUpload']);
 
-bineApp.directive('repeatDone', function () {
-    return function (scope, element, attrs) {
-        if (scope.$last) { // all are rendered
-            scope.$eval(attrs.repeatDone);
-        }
-    }
-});
-
 bineApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/note/', {
         templateUrl: '/static/app/note_list.html',
@@ -20,6 +12,9 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/static/app/register.html',
         controller: 'RegisterControl'
     }).when('/user/', {
+        templateUrl: '/static/app/user.html',
+        controller: 'UserControl'
+    }).when('/user/:action/', {
         templateUrl: '/static/app/user.html',
         controller: 'UserControl'
     }).when('/note/new/', {
@@ -34,13 +29,46 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/friend/', {
         templateUrl: '/static/app/friend_list.html',
         controller: 'friendListControl'
+    }).when('/friend/:action/', {
+        templateUrl: '/static/app/friend_list.html',
+        controller: 'friendListControl'
     }).otherwise({
         redirectTo: '/note/'
     });
 }]);
 
 
-bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
+bineApp.config(['$httpProvider', function ($httpProvider, $rootScope) {
+    $httpProvider.interceptors.push('myHttpInterceptor');
+}]);
+
+bineApp.factory('myHttpInterceptor', function ($q, $window, $rootScope) {
+    return {
+        request: function (config) {
+            $rootScope.spinner = true;
+            return config;
+        },
+        response: function (response) {
+            $rootScope.spinner = false;
+            return response || $q.when(response);
+        },
+        responseError: function (reason) {
+            $rootScope.spinner = false;
+            return $q.reject(reason);
+        }
+    };
+});
+
+bineApp.service('navbar', ['$rootScope', 'login_user', function ($rootScope, login_user) {
+    this.set_menu = function (menu) {
+        $rootScope.navbarMenu = menu;
+        if (!$rootScope.user) {
+            $rootScope.user = login_user.get_user();
+        }
+    }
+}]);
+
+bineApp.service('login_user', ['$http', '$window', '$rootScope', 'jwtHelper',
     function ($http, $window, $rootScope, jwtHelper) {
 
         this.clear = function () {
@@ -49,7 +77,7 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
         };
 
         this.check_auth_and_set_user = function ($scope) {
-            $scope.user = $rootScope.user;
+            $rootScope.user = $scope.user;
             return true;
         };
 
@@ -119,18 +147,19 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
         };
 
         this.set_user = function (user) {
-            if (user)
+            if (user) {
                 $window.sessionStorage.user = angular.toJson(user);
-            else
+                $rootScope.user = user;
+            }else
                 delete $window.sessionStorage.user;
         }
     }]);
 
 bineApp.config(function Config($httpProvider, jwtInterceptorProvider) {
     jwtInterceptorProvider.authPrefix = 'JWT ';
-    jwtInterceptorProvider.tokenGetter = ['authService',
-        function (authService) {
-            return authService.get_token();
+    jwtInterceptorProvider.tokenGetter = ['login_user',
+        function (login_user) {
+            return login_user.get_token();
         }];
 
     $httpProvider.interceptors.push('jwtInterceptor');
@@ -138,25 +167,25 @@ bineApp.config(function Config($httpProvider, jwtInterceptorProvider) {
 
 
 // 페이지가 변경될 떄마다 token 만료 시간이 얼마남지 않았으면 새로 refresh하고 만료되었으면 login화면으로 이동한다.
-bineApp.run(['$location', '$rootScope', 'authService', function ($location, $rootScope, authService) {
+bineApp.run(['$location', '$rootScope', 'login_user', function ($location, $rootScope, login_user) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (this.is_skip_url(next))
             return;
 
-        if (!authService.get_token()) {
+        if (!login_user.get_token()) {
             $location.path('/login/');
         }
         else {
-            if (authService.isTokenExpired()) {
+            if (login_user.isTokenExpired()) {
                 event.preventDefault();
                 $rootScope.$evalAsync(function () {
                     $location.path('/login/');
                 });
             }
             else {
-                authService.refresh_token_if_expired_soon();
+                login_user.refresh_token_if_expired_soon();
 
-                // $rootScope.user = authService.get_user();
+                // $rootScope.user = login_user.get_user();
             }
         }
     });
@@ -207,5 +236,12 @@ bineApp.filter('escape', function () {
             // content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
         }
         return content;
+    };
+});
+
+bineApp.directive('spinner', function () {
+    var spinner_html = "<div class='col-xs-offset-7 col-xs-1'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>";
+    return {
+        template: spinner_html
     };
 });

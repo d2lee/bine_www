@@ -1,46 +1,40 @@
-bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 'authService', function ($scope, Friends, Users, $http, authService) {
+bineApp.controller('friendListControl', ['$scope', '$routeParams', 'Friends', 'Users','login_user', 'navbar',
+    function ($scope, $routeParams, Friends, Users, login_user, navbar) {
 
     $scope.init = function () {
-        $scope.navbarMenu = 'friend';
+        navbar.set_menu('friend');
 
-        $scope.user = authService.get_user();
-        $scope.fetch_unconfirmed_friends();
+        var action = $routeParams.action;
+
+        $scope.friends_state = Friends.get_friends_count();
+
+        if (action == "m1") {
+            $scope.fetch_confirmed_friends();
+        }
+        else if (action == "m2") {
+            $scope.fetch_unconfirmed_friends();
+        }
+        else if (action == 'm3') {
+            $scope.fetch_recommended_friends();
+        }
+        else {
+            $scope.fetch_unconfirmed_friends();
+        }
     };
 
     $scope.fetch_confirmed_friends = function () {
-        $scope.current_menu = "menu1";
-
-        $scope.loading = true;
-        $scope.friends = Friends.get_friends(null, function () {
-            $scope.loading = false;
-        }, function () {
-            $scope.loading = false;
-        });
+        $scope.current_menu = "m1";
+        $scope.friends = Friends.get_friends();
     };
 
     $scope.fetch_unconfirmed_friends = function () {
-        $scope.current_menu = "menu2";
-        $scope.loading = true;
-        $scope.friends = Friends.get_friends_by_others(null, function () {
-            $scope.request_friends = Friends.get_friends_by_me(null, function () {
-                $scope.loading = false;
-            }, function () {
-                $scope.loading = false;
-            });
-
-        }, function () {
-            $scope.loading = false;
-        });
+        $scope.current_menu = "m2";
+        $scope.friends = Friends.get_friends_by_others();
     };
 
     $scope.fetch_recommended_friends = function () {
-        $scope.current_menu = "menu3";
-        $scope.loading = true;
-        $scope.friends = Friends.get_recommended_friends(null, function () {
-            $scope.loading = false;
-        }, function () {
-            $scope.loading = false;
-        });
+        $scope.current_menu = "m3";
+        $scope.friends = Friends.get_recommended_friends();
     };
 
     $scope.search_friends = function () {

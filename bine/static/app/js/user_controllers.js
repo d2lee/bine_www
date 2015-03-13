@@ -1,7 +1,9 @@
-bineApp.controller('UserControl', ['$scope', '$http', '$upload', 'authService', 'Users', 'Schools',
-    function ($scope, $http, $upload, authService, Users, Schools) {
+bineApp.controller('UserControl', ['$scope', '$routeParams', '$upload', 'login_user', 'Users', 'Schools', 'navbar',
+    function ($scope, $routeParams, $upload, login_user, Users, Schools, navbar) {
         $scope.init = function () {
-            var user = authService.get_user();
+            navbar.set_menu('user');
+
+            var user = login_user.get_user();
 
             $scope.init_birthday();
             $scope.show_account();
@@ -33,10 +35,27 @@ bineApp.controller('UserControl', ['$scope', '$http', '$upload', 'authService', 
                 if ($scope.user.target_to)
                     $scope.target_to = new Date($scope.user.target_to);
             });
+
+            var action = $routeParams.action;
+            if (action == 'm1') {
+                $scope.show_account();
+            }
+            else if (action == 'm2') {
+                $scope.show_profile();
+            }
+            else if (action == 'm3') {
+                $scope.show_read_target();
+            }
+            else {
+                // default
+                $scope.show_account();
+            }
+
+
         };
 
         $scope.show_account = function () {
-            $scope.current_menu = 'account';
+            $scope.current_menu = 'm1';
             $scope.page_title = "기본정보";
         }
 
@@ -45,14 +64,14 @@ bineApp.controller('UserControl', ['$scope', '$http', '$upload', 'authService', 
                 $scope.school_name = $scope.school.name;
             $scope.http_status = undefined;
 
-            $scope.current_menu = 'profile';
+            $scope.current_menu = 'm2';
             $scope.page_title = "추가정보";
         }
 
         $scope.show_read_target = function () {
             $scope.http_status = undefined;
 
-            $scope.current_menu = 'read_target';
+            $scope.current_menu = 'm3';
             $scope.page_title = "독서목표";
         }
 
@@ -201,7 +220,7 @@ bineApp.controller('UserControl', ['$scope', '$http', '$upload', 'authService', 
                     sex: $scope.user.sex,
                     photo: $scope.user.photo,
                 }
-                authService.set_user(new_user_data);
+                login_user.set_user(new_user_data);
 
             }, function (response) {
                 if (response.status == 403) {

@@ -1,7 +1,8 @@
-bineApp.controller('RegisterControl', ['$scope', '$http', 'authService', 'Authentication',
-    function ($scope, $http, authService, Authentication) {
+bineApp.controller('RegisterControl', ['$scope', '$http', 'login_user', 'Authentication', 'navbar',
+    function ($scope, $http, login_user, Authentication, navbar) {
         $scope.init = function () {
-            authService.clear();
+            navbar.set_menu('start');
+            login_user.clear();
             $scope.step = "step1";
             $scope.init_birthday();
             $scope.page_title = "Bine 회원가입"
@@ -52,7 +53,7 @@ bineApp.controller('RegisterControl', ['$scope', '$http', 'authService', 'Authen
 
             $scope.step = "step1";
             Authentication.register(data, function (data) {
-                authService.set_token_and_user_info(data);
+                login_user.set_token_and_user_info(data);
                 $scope.step = "step2";
                 $scope.page_title = "Bine 회원가입 완료";
                 $scope.http_status = data.status;

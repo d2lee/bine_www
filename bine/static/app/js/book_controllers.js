@@ -1,8 +1,9 @@
-bineApp.controller('bookListControl', ['$scope', '$http', 'authService', function ($scope, $http, authService) {
-    $scope.navbarMenu = 'book';
+bineApp.controller('bookListControl', ['$scope', '$http', 'login_user', 'navbar',
+    function ($scope, $http, login_user, navbar) {
+    navbar.set_menu('book');
 
     // check the authentication
-    $scope.user = authService.get_user();
+    // $scope.user = login_user.get_user();
 
     $scope.load_book_list = function () {
         $http.get('/api/book/').success(function (data) {

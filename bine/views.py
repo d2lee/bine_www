@@ -251,6 +251,10 @@ class FriendView(APIView):
 
         action = request.GET.get('type', None)
 
+        if action == 'count':
+            count_list = user.get_friends_count();
+            return Response(count_list)
+
         if action == 'recommend':
             friends = user.get_recommended_friends()
         elif action == 'search':

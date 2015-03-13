@@ -2,6 +2,10 @@
     display: none;
 }
 
+/* always show srollbar  */
+
+body    {overflow-y:scroll;}
+
 @media screen and (max-width: 480px) {
     .menu_caption {
         display: none;
@@ -329,4 +333,12 @@
 
 .list-item .password-form {
     margin-bottom: 4px;
+}
+
+.page-info {
+    margin-top: 8px;
+}
+
+.page-info .alert {
+    margin-bottom: 8px;
 }

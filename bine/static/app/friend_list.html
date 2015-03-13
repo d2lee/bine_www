@@ -1,5 +1,3 @@
-<ng-include src="'/static/app/nav_bar.html'"></ng-include>
-
 <div class="hidden-xs col-sm-4 col-md-3 page-left">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -8,8 +6,8 @@
             </h4>
         </div>
         <div class="panel-body">
-            친구들은 총 10명입니다. <br>
-            승인을 기다리는 친구는 총 5명입니다. <br>
+            친구등록: {{ friends_state.friends }}명 <br>
+            친구요청: {{ friends_state.friends_by_others }}명 <br>
         </div>
     </div>
 
@@ -20,12 +18,9 @@
             </h4>
         </div>
         <div class="list-group">
-            <a href="" class="list-group-item" ng-class="{'active': current_menu =='menu1'}"
-               ng-click="fetch_confirmed_friends()">내 친구</a>
-            <a href="" class="list-group-item" ng-class="{'active': current_menu =='menu2'}"
-               ng-click="fetch_unconfirmed_friends()">친구 요청</a>
-            <a href="" class="list-group-item" ng-class="{'active': current_menu =='menu3'}"
-               ng-click="fetch_recommended_friends()">새 친구 찾기</a>
+            <a href="#/friend/m1/" class="list-group-item" ng-class="{'active': current_menu =='m1'}">내 친구</a>
+            <a href="#/friend/m2/" class="list-group-item" ng-class="{'active': current_menu =='m2'}">친구 요청</a>
+            <a href="#/friend/m3/" class="list-group-item" ng-class="{'active': current_menu =='m3'}">새 친구 찾기</a>
         </div>
     </div>
 </div>
@@ -34,22 +29,20 @@
     <div class="col-xs-15">
         <div class="list-title">
             <div class="row">
-                <h4 class="col-xs-10 col-sm-10">{{ current_menu == 'menu2' ? "나와 친구맺기를 원한 사람들" : "친구 목록" }}</h4>
+                <h4 class="col-xs-10 col-sm-10">{{ current_menu == 'm2' ? "나와 친구맺기를 원한 사람들" : "친구 목록" }}</h4>
+
                 <div class="pull-right page-menu-button dropdown hidden-sm hidden-md hidden-lg">
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href=""><span
                             class="glyphicon glyphicon-menu-hamburger"></span></a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                         <li role="presentation" ng-class="{'active': current_menu =='menu1'}"><a role="menuitem"
-                                                                                                  tabindex="-1" href=""
-                                                                                                  ng-click="fetch_confirmed_friends()">내
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownm1">
+                        <li role="presentation" ng-class="{'active': current_menu =='m1'}"><a role="menuitem"
+                                                                                              tabindex="-1" href="#/friend/m1/">내
                             친구</a></li>
-                        <li role="presentation" ng-class="{'active': current_menu =='menu2'}"><a role="menuitem"
-                                                                                                  tabindex="-1" href=""
-                                                                                                  ng-click="fetch_unconfirmed_friends()">친구
+                        <li role="presentation" ng-class="{'active': current_menu =='m2'}"><a role="menuitem"
+                                                                                              tabindex="-1" href="#/friend/m2/">친구
                             요청</a></li>
-                        <li role="presentation" ng-class="{'active': current_menu =='menu3'}"><a role="menuitem"
-                                                                                                  tabindex="-1" href=""
-                                                                                                  ng-click="fetch_recommended_friends()">새친구
+                        <li role="presentation" ng-class="{'active': current_menu =='m3'}"><a role="menuitem"
+                                                                                              tabindex="-1" href="#/friend/m3/">새친구
                             찾기</a></li>
                     </ul>
                 </div>
@@ -58,7 +51,7 @@
         </div>
         <!--
         <div class="list-title">
-            <div class="pull-right" ng-show="current_menu != 'menu2'">
+            <div class="pull-right" ng-show="current_menu != 'm2'">
                 <form class="form-inline" name="friend_form" class="col-sm-10">
                     <div class="form-group">
                         <div class="input-group">
@@ -79,23 +72,21 @@
         -->
 
 
-        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'menu1') && !loading && !friends.length">
-            <span class="glyphicon glyphicon-alert"></span> 아직 등록된 친구가 없습니다. <a href="" ng-click="fetch_recommended_friends()">새 친구 찾기</a>에서 새친구를 만나보세요.
+        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'm1') && !spinner && !friends.length">
+            <span class="glyphicon glyphicon-alert"></span> 아직 등록된 친구가 없습니다. <a href="#/friend/m3/">새
+            친구 찾기</a>에서 새친구를 만나보세요.
         </div>
 
-        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'menu2') && !loading && !friends.length">
+        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'm2') && !spinner && !friends.length">
             <span class="glyphicon glyphicon-alert"></span> 새로운 친구 신청이 없었습니다.
         </div>
 
-         <div class="ng-hide alert alert-info" ng-show="(current_menu == 'menu3') && !loading && !friends.length">
+        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'm3') && !spinner && !friends.length">
             <span class="glyphicon glyphicon-alert"></span> 추천할 친구가 없습니다.
         </div>
 
-        <div class="list-item media col-xs-15" ng-show="loading">
-            <img src="/static/app/images/loading.gif" width="50px" height="50px">
-        </div>
-        <div class="list-item media col-xs-15" ng-repeat="friend in friends | filter: username" repeat_done="iteration_done()"
-             ng-show="!loading">
+        <spinner></spinner>
+        <div class="list-item media col-xs-15" ng-repeat="friend in friends | filter: username">
             <div class="media">
                 <div class="media-left">
                     <a href="#">
@@ -108,15 +99,21 @@
 
                     <div class="panel-detail">
                         <div>아이디: {{ friend.username }} | 생일: {{ friend.birthday }}</div>
-                        <div ng-show="current_menu == 'menu3'">{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
+                        <div ng-show="current_menu == 'm3'">{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
                     </div>
                     <div class="panel-body">
                         {{ friend.tagline }}
                     </div>
                     <div class="panel-action">
-                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)" ng-show="current_menu=='menu3'">친구 요청</button>
-                        <button class="btn btn-xs btn-default" ng-click="approve_friend(friend, $index)" ng-show="current_menu=='menu2'">친구 승락</button>
-                        <button class="btn btn-xs btn-default" ng-click="reject_friend(friend, $index)" ng-show="current_menu=='menu2'">친구 취소</button>
+                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
+                                ng-show="current_menu=='m3'">친구 요청
+                        </button>
+                        <button class="btn btn-xs btn-default" ng-click="approve_friend(friend, $index)"
+                                ng-show="current_menu=='m2'">친구 승락
+                        </button>
+                        <button class="btn btn-xs btn-default" ng-click="reject_friend(friend, $index)"
+                                ng-show="current_menu=='m2'">친구 취소
+                        </button>
 
                     </div>
                 </div>
@@ -124,17 +121,16 @@
         </div>
     </div>
 
-    <div class="col-xs-15" ng-show="current_menu == 'menu2'">
+    <div class="col-xs-15" ng-show="current_menu == 'm2'">
         <h4 class="list-title">내가 친구맺기를 원한 사람들</h4>
 
 
-        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'menu2') && !loading && !request_friends.length">
+        <div class="ng-hide alert alert-info" ng-show="(current_menu == 'm2') && !spinner && !request_friends.length">
             <span class="glyphicon glyphicon-info"></span> 새로운 친구 신청이 없었습니다.
         </div>
 
 
-        <div class="list-item media col-xs-15" ng-repeat="friend in request_friends | filter:username" repeat_done="iteration_done()"
-             ng-show="!loading">
+        <div class="list-item media col-xs-15" ng-repeat="friend in request_friends | filter:username">
             <div class="media">
                 <div class="media-left">
                     <a href="#">
@@ -149,7 +145,9 @@
                         <div>{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
                     </div>
                     <div class="panel-action">
-                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)" ng-show="current_menu=='menu3'">친구 요청</button>
+                        <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
+                                ng-show="current_menu=='m3'">친구 요청
+                        </button>
                         <button class="btn btn-xs btn-default" ng-click="delete_friend(friend, $index)">친구 취소</button>
                     </div>
                 </div>
