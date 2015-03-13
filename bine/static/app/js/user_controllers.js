@@ -14,7 +14,7 @@ bineApp.controller('UserControl', ['$scope', '$http', '$upload', 'authService', 
             var user_id = user.id;
             $scope.user = Users.get({id: user_id}, function () {
                 // read data
-                $scope.username = $scope.user.username ;
+                $scope.username = $scope.user.username;
                 $scope.birth_year = $scope.user.birthday.substr(0, 4);
                 $scope.birth_month = $scope.user.birthday.substr(5, 2);
                 $scope.birth_day = $scope.user.birthday.substr(8, 2);
@@ -193,6 +193,16 @@ bineApp.controller('UserControl', ['$scope', '$http', '$upload', 'authService', 
 
             Users.update(data, function () {
                 $scope.http_status = 200;
+                // 변경된 내용을 user 정보에 저장한다.
+                new_user_data = {
+                    id: $scope.user.id,
+                    username: $scope.user.username,
+                    fullname: $scope.user.fullname,
+                    sex: $scope.user.sex,
+                    photo: $scope.user.photo,
+                }
+                authService.set_user(new_user_data);
+
             }, function (response) {
                 if (response.status == 403) {
                     $scope.user_form.current_password.$error.wrong_password = true;

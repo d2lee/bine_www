@@ -2,6 +2,8 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
     "$http", "authService", "BookNotes",
     function ($rootScope, $scope, $sce, $http, authService, BookNotes) {
         $scope.init = function () {
+            $scope.navbarMenu = 'note';
+
             $scope.http_status = -1;
             $rootScope.note = null;
             $scope.user = authService.get_user();
@@ -107,7 +109,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
     "$http", "authService",
     function ($rootScope, $scope, $sce, $routeParams, $http, authService) {
         $scope.init = function () {
-
+            $scope.navbarMenu = 'note';
             $scope.user = authService.get_user();
 
             // 노트 ID 읽기
@@ -273,12 +275,14 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
 bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
-    "$http", "authService",
-    function ($rootScope, $scope, $upload, $http, authService) {
+    "$http", "authService","escapeFilter",
+    function ($rootScope, $scope, $upload, $http, authService, escapeFilter) {
 
         $scope.init = function () {
+            $scope.navbarMenu = 'note';
             $scope.user = authService.get_user();
             $scope.http_status = -1;
+            $scope.book_http_status = -1;
 
             if (!$rootScope.note) { // 새 노트를 생성하려면 기본 값을 채운 노트를 하나 만든다.
                 var today = new Date();
@@ -302,13 +306,15 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 $scope.note.read_date_to = new Date($scope.note.read_date_to);
             }
         };
-
-        $scope.strip_book_title = function (book) {
-            if (book.title)
-                book.title = book.title.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
-            return book.title;
+/*
+        $scope.stripEscape = function (content) {
+            if (content) {
+                content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
+                content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
+            }
+            return content;
         };
-
+*/
         $scope.upload = function (url, data, file) {
             $scope.http_status = -1;
 
@@ -382,21 +388,25 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             }
             else {
                 var url = "https://apis.daum.net/search/book";
-                var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
-                //var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
+                //var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
+                var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
 
                 url += "?output=json&result=10&sort=popular";
                 url += "&apikey=" + api_key;
                 url += "&q=" + title;
                 url += "&callback=JSON_CALLBACK";
-
+                $scope.loading = true;
+                $scope.book_http_status = -1;
                 $http.jsonp(url).
                     success(function (data, status, headers, config) {
+                        $scope.loading = false;
                         $scope.books = data.channel.item;
                         $('#book_search_modal').modal('show');
+                        $scope.book_http_status = 200;
                     }).
                     error(function (data, status, headers, config) {
-                        alert("error");
+                        $scope.loading = false;
+                        $scope.book_http_status = status;
                     });
             }
         };
@@ -408,17 +418,17 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
         $scope.save_book = function (book) {
             // 새로운 책이기 때문에 데이터베이스에 저장.
             var book_data = {
-                'author': book.author,
-                'title': book.title,
+                'author': escapeFilter(book.author),
+                'title': escapeFilter(book.title),
                 'isbn': book.isbn,
                 'isbn13': book.isbn13,
                 'barcode': book.barcode,
-                'author_etc': book.etc_author,
-                'translator': book.translator,
+                'author_etc': escapeFilter(book.etc_author),
+                'translator': escapeFilter(book.translator),
                 'photo': book.cover_s_url,
-                'description': book.description,
-                'category': book.category,
-                'publisher': book.pub_nm,
+                'description': escapeFilter(book.description),
+                'category': escapeFilter(book.category),
+                'publisher': escapeFilter(book.pub_nm),
                 'pub_date': $scope.add_dash_to_date(book.pub_date),
                 'link': book.link
             };

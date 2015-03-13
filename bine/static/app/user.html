@@ -1,106 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#/note/">Bine</a>
-        <ul class="nav navbar-nav visible-sm visible-md visible-lg">
-            <li class="active"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
-                    class="menu_caption"> 노트</span></a></li>
-            <li><a href="#/book/"><span class="glyphicon glyphicon-book"></span><span class="menu_caption"> 책</span></a>
-            </li>
-            <li><a href="#/friend/"><span class="glyphicon glyphicon-user"></span><span class="menu_caption"> 친구</span></a>
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
-            <li>
-                <div class="dropdown pull-right ">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                        <a href=""><img class="login-icon" data-toggle="tooltip" data-placement="left"
-                                        title="{{ user.fullname }} 로그인 중"
-                                        ng-src="{{ user.photo | photo: user.sex }}">
-                        </a>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">계정정보</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">독서목표</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
-                    </ul>
-                </div>
-            </li>
-        </uL>
-
-        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
-            <li>
-                <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
-            </li>
-            <li>
-                <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
-            </li>
-            <li>
-                <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
-            </li>
-            <li>
-                <div class="dropdown pull-right">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                        <a href=""><img class="login-icon" data-toggle="tooltip" data-placement="left"
-                                        title="{{ user.fullname }} 로그인 중"
-                                        ng-src="{{ user.photo | photo: user.sex }}">
-                        </a>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">계정정보</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">독서목표</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
-                    </ul>
-                </div>
-                <!--
-                <div class="dropdown pull-right">
-                    <div class="float-menu dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span
-                            class="glyphicon glyphicon-menu-hamburger"></span>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation" class="login-user"><a role="menuitem" tabindex="-1"
-                                                                      href="">{{ fullname }} <img
-                                data-toggle="tooltip" data-placement="left" title="{{ fullname }} 로그인 중"
-                                ng-src="{{ photo | photo: sex }}"></a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                   href="#/login/">로그아웃</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation" ng-class="{'active': current_menu=='account' }"><a role="menuitem"
-                                                                                                   tabindex="-1" href=""
-                                                                                                   ng-click="show_account()">기본정보</a>
-                        </li>
-                        <li role="presentation" ng-class="{'active': current_menu=='profile' }"><a role="menuitem"
-                                                                                                   tabindex="-1" href=""
-                                                                                                   ng-click="show_profile()">추가정보</a>
-                        </li>
-                        <li role="presentation" ng-class="{'active': current_menu=='read_target' }"><a role="menuitem"
-                                                                                                       tabindex="-1"
-                                                                                                       href=""
-                                                                                                       ng-click="show_read_target()">독서목표</a>
-                        </li>
-                    </ul>
-                </div>
-                -->
-            </li>
-        </ul>
-
-        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <div class="input-group  hidden-xs">
-                    <input type="text" class="form-control" placeholder="책 검색">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-						</span>
-                </div>
-
-            </div>
-        </form>
-    </div>
-</nav>
+<ng-include src="'/static/app/nav_bar.html'"></ng-include>
 
 <div class="hidden-xs col-sm-4 col-md-3 page-left">
     <div class="panel panel-default">
@@ -264,7 +162,7 @@
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="form-group password-form">
                             <label class="col-sm-2 control-label" for="current_password">비밀번호:</label>
 
                             <div class="col-sm-13">
@@ -285,7 +183,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group password-form">
                             <label class="col-sm-2 control-label  sr-only" for="password1">새 비밀번호:</label>
 
                             <div class="col-sm-13">

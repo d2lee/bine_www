@@ -84,8 +84,11 @@ body {
  * Cover
  */
 
+.page-header {
+    margin: 10px 0 10px;
+}
 .cover {
-    padding: 0 20px;
+    padding: 0;
 }
 
 .cover .btn-lg {
@@ -134,7 +137,7 @@ body {
 }
 
 .register {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .register .panel-caption {
@@ -163,4 +166,8 @@ body {
 
 .register button[type='submit'] {
     width: auto;
+}
+
+.register .password-form {
+    margin-bottom: 4px;
 }

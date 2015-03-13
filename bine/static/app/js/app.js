@@ -88,7 +88,7 @@ bineApp.service('authService', ['$http', '$window', '$rootScope', 'jwtHelper',
 
             if (mins <= 5) {
                 var data = {'token': token};
-                var url = "/api/auth/refresh_token/";
+                var url = "/api/auth/refresh/";
 
                 $http.post(url, data).success(function (data) {
                     $window.sessionStorage.token = data.token;
@@ -197,5 +197,15 @@ bineApp.filter('photo', function () {
         else if (sex == 'F') {
             return '/static/app/images/female.jpg';
         }
+    };
+});
+
+bineApp.filter('escape', function () {
+    return function (content) {
+        if (content && content != null) {
+            content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
+            // content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
+        }
+        return content;
     };
 });

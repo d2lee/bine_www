@@ -1,6 +1,7 @@
 bineApp.controller('friendListControl', ['$scope', 'Friends', 'Users', '$http', 'authService', function ($scope, Friends, Users, $http, authService) {
 
     $scope.init = function () {
+        $scope.navbarMenu = 'friend';
 
         $scope.user = authService.get_user();
         $scope.fetch_unconfirmed_friends();

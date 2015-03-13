@@ -85,6 +85,9 @@
 }
 
 .login-icon {
+    display: block;
+    /* max-width: 40px !important;
+    max-height: 40px !important; */
     width: 40px !important;
     height: 40px !important;
     border-radius: 50%;
@@ -226,7 +229,24 @@
 
 .book-search-modal .book-caption .book-title {
     font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
     margin-bottom: 2px;
+}
+
+.book-search-modal .book-caption .book-detail {
+    font-size: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 2px;
+}
+
+.book-search-modal .book-caption p {
+    margin: 0;
 }
 
 .book-search-modal .row {
@@ -305,4 +325,8 @@
 
 .page-menu-button a, a:hover, a:active, a:link {
     color: white;
+}
+
+.list-item .password-form {
+    margin-bottom: 4px;
 }

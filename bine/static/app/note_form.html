@@ -1,75 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Bine</a>
-        <ul class="nav navbar-nav visible-sm visible-md visible-lg">
-            <li class="active"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
-                    class="menu_caption"> 노트</span></a></li>
-            <li><a href="#/book/"><span class="glyphicon glyphicon-book"></span><span class="menu_caption"> 책</span></a>
-            </li>
-            <li><a href="#/friend/"><span class="glyphicon glyphicon-user"></span><span class="menu_caption"> 친구</span></a>
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
-            <li>
-                <a class="login-user" href="#/user/">
-                    <img data-toggle="tooltip" data-placement="left" title="{{ user.fullname }} 로그인 중" ng-src="
-
-
-
-                            {{ user.photo || user.sex == 'M' && '/static/app/images/male.jpg' || '/static/app/images/female.jpg'}}">
-                </a>
-            </li>
-        </uL>
-
-        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
-            <li class="active">
-                <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
-            </li>
-            <li>
-                <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
-            </li>
-            <li>
-                <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
-            </li>
-            <li>
-                <div class="dropdown pull-right">
-                    <div class="float-menu dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span
-                            class="glyphicon glyphicon-menu-hamburger"></span>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                   href="#/note/new">{{ user.fullname }}</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">기본 정보 수정</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">활동 보기</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">로그아웃</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">독서노트 작성</a></li>
-
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">전체 독서노트 보기</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">내 독서노트만 보기</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">새 독서노트만 보기</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-
-        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <div class="input-group  hidden-xs">
-                    <input type="text" class="form-control" placeholder="책 검색">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-						</span>
-                </div>
-
-            </div>
-        </form>
-    </div>
-</nav>
+<ng-include src="'/static/app/nav_bar.html'"></ng-include>
 
 <!-- Book Search Modal -->
 <div class="modal fade  book-search-modal" id="book_search_modal"
@@ -97,18 +26,29 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-6 col-sm-4"
-                         ng-repeat="book in books">
-                        <div class="thumbnail">
-                            <a href="" ng-click="select_book(book)">
-                                <img class="book-photo" ng-src="{{ book.cover_s_url }}"
-                                     alt="{{ book.title }}">
-                            </a>
+                    <div class="col-xs-offset-7 col-xs-1">
+                        <img src="/static/app/images/loading.gif" width="50px" height="50px" ng-show="loading">
+                    </div>
+                    <div class="col-xs-15 alert alert-info" ng-show="book_http_status != -1 && book_http_status != 200">
+                        <span class="glyphicon glyphicon-warning-sign"></span> 서버로부터 책 정보를 가져오지 못했습니다. 잠시 후 다시 시도해주십시오.
+                    </div>
 
-                            <div class="caption book-caption">
-                                <p class="book-title"> {{ strip_book_title(book)}} </p>
+                    <div class="row" ng-show="!loading">
+                        <div class="col-xs-5 col-sm-3"
+                             ng-repeat="book in books">
+                            <div class="thumbnail">
+                                <a href="" ng-click="select_book(book)">
+                                    <img class="book-photo" ng-src="{{ book.cover_s_url }}"
+                                         alt="{{ book.title  | escape }}">
+                                </a>
 
-                                <p class="book-author">저자: {{ book.author }}</p>
+                                <div class="caption book-caption">
+                                    <p class="book-title"> {{ book.title | escape }} </p>
+
+                                    <p class="book-detail">저자: {{ book.author | escape }}</p>
+
+                                    <p class="book-detail">출판사: {{ book.pub_nm  | escape }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,14 +146,15 @@
     </form>
 
     <div class="panel-body panel-error-msg" ng-show="http_status == 200">
-        <div class="alert alert-success" ><p><span class="glyphicon glyphicon-info-sign"></span> 성공적으로 저장되었습니다.</p>
+        <div class="alert alert-success"><p><span class="glyphicon glyphicon-info-sign"></span> 성공적으로 저장되었습니다.</p>
             <button class="btn btn-default" ng-click="reset(true)">추가 작성</button>
             <button class="btn btn-default" ng-click="go_back()">이전 화면으로 이동</button>
         </div>
     </div>
 
-     <div class="panel-body" ng-show="http_status > 200">
-        <div class="alert alert-warning" ><p><span class="glyphicon glyphicon-warning-sign"></span> 저장하는데 실패하였습니다. 다시 저장하거나 나중에 다시 시도해 주십시오.</p>
+    <div class="panel-body" ng-show="http_status > 200">
+        <div class="alert alert-warning"><p><span class="glyphicon glyphicon-warning-sign"></span> 저장하는데 실패하였습니다. 다시
+            저장하거나 나중에 다시 시도해 주십시오.</p>
             <button class="btn btn-default" ng-click="reset(false)">다시 저장</button>
             <button class="btn btn-default" href="go_back()">이전 화면으로 이동</button>
         </div>

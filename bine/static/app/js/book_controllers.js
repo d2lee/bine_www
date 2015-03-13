@@ -1,4 +1,5 @@
 bineApp.controller('bookListControl', ['$scope', '$http', 'authService', function ($scope, $http, authService) {
+    $scope.navbarMenu = 'book';
 
     // check the authentication
     $scope.user = authService.get_user();

@@ -1,78 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#/note/">Bine</a>
-        <ul class="nav navbar-nav visible-sm visible-md visible-lg">
-            <li class="active"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
-                    class="menu_caption"> 노트</span></a></li>
-            <li><a href="#/book/"><span class="glyphicon glyphicon-book"></span><span class="menu_caption"> 책</span></a>
-            </li>
-            <li><a href="#/friend/"><span class="glyphicon glyphicon-user"></span><span class="menu_caption"> 친구</span></a>
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
-            <li>
-                <div class="dropdown pull-right">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                        <a href=""><img class="login-icon" data-toggle="tooltip" data-placement="left"
-                                        title="{{ user.fullname }} 로그인 중"
-                                        ng-src="{{ user.photo | photo: user.sex }}">
-                        </a>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">계정정보</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">독서목표</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
-                    </ul>
-                </div>
-            </li>
-        </uL>
-
-        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
-            <li class="active">
-                <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
-            </li>
-            <li>
-                <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
-            </li>
-            <li>
-                <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
-            </li>
-            <li class="login-user">
-                <div class="dropdown pull-right">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                        <a href=""><img class="login-icon" data-toggle="tooltip" data-placement="left"
-                                        title="{{ user.fullname }} 로그인 중"
-                                        ng-src="{{ user.photo | photo: user.sex }}">
-                        </a>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">계정정보</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">독서목표</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
-                    </ul>
-                </div>
-            </li>
-
-        </ul>
-
-        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <div class="input-group  hidden-xs">
-                    <input type="text" class="form-control" placeholder="책 검색">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-						</span>
-                </div>
-
-            </div>
-        </form>
-    </div>
-</nav>
+<ng-include src="'/static/app/nav_bar.html'"></ng-include>
 
 <div class="col-sm-4 col-md-3 hidden-xs page-left">
     <div class="panel panel-default">
@@ -86,7 +12,7 @@
             이번주에 읽은 책: {{ count_set.week_count }}권<br>
 
             <div ng-show="count_set && count_set.target_max">
-                목표대비 읽은 책: {{ count_set.target_max }} 중에 {{ count_set.target_count }}권
+                목표대비 읽은 책: {{ count_set.target_count }}권(총 {{ count_set.target_max }}권)
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar"
                          aria-valuenow="{{ count_set.target_count }}"
@@ -97,7 +23,7 @@
                 </div>
             </div>
             <div class="alert alert-info" ng-show="count_set && !count_set.target_max">
-                아직 독서 목표을 설정하지 않았습니다. <a href="#/user/">여기</a>를 눌러 독서 목표를 설정하시기 바랍니다.
+                언제까지 몇권을 읽을지 목표를 세워보세요. <a href="#/user/">여기</a>를 눌러 목표를 설정할 수 있습니다.
             </div>
 
         </div>
@@ -109,11 +35,14 @@
             </h4>
         </div>
         <div class="list-group">
-            <a href="#/note/new/" class="list-group-item">독서노트 작성</a>
             <a href="" class="list-group-item" ng-class="{'active':current_menu == 'menu1'}"
                ng-click="show_notes_by_all()">전체 노트 보기</a>
             <a href="" class="list-group-item" ng-class="{'active':current_menu == 'menu2'}"
                ng-click="show_notes_by_me()">내 노트 보기</a>
+             <a href="" class="divider"></a>
+            <a href="#/note/new/" class="list-group-item">독서노트 작성</a>
+
+
         </div>
     </div>
 </div>
@@ -127,8 +56,6 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href=""><span
                             class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">독서노트 작성</a></li>
-                        <li role="presentation" class="divider"></li>
                         <li role="presentation" ng-class="{'active':current_menu == 'menu1'}">
                             <a role="menuitem"
                                tabindex="-1"
@@ -138,6 +65,10 @@
                                 ><a role="menuitem"
                                     tabindex="-1" href="" ng-click="show_notes_by_me()">내노트보기</a>
                         </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">독서노트 작성</a></li>
+
+
                     </ul>
                 </div>
                 <!--
@@ -175,9 +106,8 @@
             </div>
 
             <div class="ng-hide alert alert-info" ng-show="noData">
-                <span class="glyphicon glyphicon-alert"></span> 아직 독서 노트를 작성하지 않으셨네요. 새로 독서노트를 작성하려면 <a
-                    href="#/note/new/">여기</a>를
-                눌러주세요.
+                <span class="glyphicon glyphicon-alert"></span> 책을 읽고나서 독서감상문을 작성해보세요. 그리고 친구랑 공유해보세요. 책을 읽는 즐거움이 배가됩니다.  <a
+                    href="#/note/new/">여기</a>서 독서 감상문을 작성할 수 있습니다.
             </div>
         </div>
         <div class="list-item media col-xs-offset-7 col-xs-1" ng-show="loading">
