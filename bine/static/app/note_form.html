@@ -35,15 +35,15 @@
                             <div class="thumbnail">
                                 <a href="" ng-click="select_book(book)">
                                     <img class="book-photo" ng-src="{{ book.cover_s_url }}"
-                                         alt="{{ book.title  | escape }}">
+                                         alt="{{ book.title}}">
                                 </a>
 
                                 <div class="caption book-caption">
-                                    <p class="book-title"> {{ book.title | escape }} </p>
+                                    <p class="book-title"> {{ book.title}} </p>
 
-                                    <p class="book-detail">저자: {{ book.author | escape }}</p>
+                                    <p class="book-detail">저자: {{ book.author}}</p>
 
-                                    <p class="book-detail">출판사: {{ book.pub_nm  | escape }}</p>
+                                    <p class="book-detail">출판사: {{ book.pub_nm }}</p>
                                 </div>
                             </div>
                         </div>

@@ -229,16 +229,6 @@ bineApp.filter('photo', function () {
     };
 });
 
-bineApp.filter('escape', function () {
-    return function (content) {
-        if (content && content != null) {
-            content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
-            content = content.replace(/[(&quot;;b&quot;)(&quot;/b&quot)]/g, '');
-        }
-        return content;
-    };
-});
-
 bineApp.directive('spinner', function () {
     var spinner_html = "<div class='col-xs-offset-7 col-xs-1'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>";
     return {

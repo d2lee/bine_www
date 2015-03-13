@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
+    <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="다음 책검색의 결과 escape문자가 섞여 있는 것을 제거함">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/app.js" afterPath="$PROJECT_DIR$/bine/static/app/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/book_list.html" afterPath="$PROJECT_DIR$/bine/static/app/book_list.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_form.html" afterPath="$PROJECT_DIR$/bine/static/app/note_form.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -89,28 +89,48 @@
       <file leaf-file-name="note_controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5514" max-vertical-offset="7245">
-              <caret line="387" column="57" selection-start-line="387" selection-start-column="57" selection-end-line="387" selection-end-column="57" />
+            <state vertical-scroll-proportion="-7.703704" vertical-offset="5477" max-vertical-offset="7110">
+              <caret line="379" column="43" selection-start-line="379" selection-start-column="43" selection-end-line="379" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="book_list.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="book_list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/book_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5618557" vertical-offset="588" max-vertical-offset="1275">
+            <state vertical-scroll-proportion="-13.625" vertical-offset="588" max-vertical-offset="1275">
               <caret line="61" column="52" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="note_form.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.627451" vertical-offset="1810" max-vertical-offset="2505">
+              <caret line="133" column="82" selection-start-line="133" selection-start-column="80" selection-end-line="133" selection-end-column="82" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="book_controllers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/js/book_controllers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.7777777" vertical-offset="0" max-vertical-offset="315">
+              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3091" max-vertical-offset="3780">
-              <caret line="227" column="9" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.7029703" vertical-offset="3024" max-vertical-offset="3630">
+              <caret line="230" column="0" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,7 +166,6 @@
         <option value="$PROJECT_DIR$/bine/static/app/register.html" />
         <option value="$PROJECT_DIR$/bine/static/app/css/register.css" />
         <option value="$PROJECT_DIR$/bine/static/app/nav-bar.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/note_form.html" />
         <option value="$PROJECT_DIR$/bine/static/app/note_detail.html" />
         <option value="$PROJECT_DIR$/bine/templates/bine.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/login_control.js" />
@@ -162,9 +181,10 @@
         <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/friend_list.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/book_list.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/note_form.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
       </list>
     </option>
   </component>
@@ -963,7 +983,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426241169513</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="다음 책검색의 결과 escape문자가 섞여 있는 것을 제거함">
+      <created>1426247130462</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1426247130462</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -977,6 +1003,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5283912" sideWeight="0.18578352" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47551343" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -988,7 +1015,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1033,7 +1059,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="노트 자세히 보기에서 데이터를 fetch하는 동안 loading animation을 보여준다." />
     <MESSAGE value="노트 목록과 노트 자세히 보기 화면에서 loading animation을 정중앙에 위치시킨다." />
     <MESSAGE value="/api로 제외하고 모든 url를 bine.html이 처리하도록 urls.py파일 변경&#10;&#10;- bine.html로  매핑하는 url pattern을 모든 스트링 형태를 지원하도록 수정" />
     <MESSAGE value="메인 메뉴에 있는 사용자 icon을 클릭했을 때 드롭다운메뉴가 나오도록 수정하고 로그아웃 기능 추가" />
@@ -1058,7 +1083,8 @@
     <MESSAGE value="1. ngInclude를 사용하여 navbar 부분을 별도의 파일로 구분.&#10;2. book search결과 화면에서 제목이 길어지면 썸네일 일부가 없어지는 문제 해결" />
     <MESSAGE value="1. HTTP 통신이 이루어질떄마다 보여지는 spinner를 HTTP Intercepter로 구현함&#10;2. Friend와 User의 메뉴를 route구조를 활용하여 url형태로 변경되도록 수정&#10;" />
     <MESSAGE value="daum키를 production키로 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="daum키를 production키로 수정" />
+    <MESSAGE value="다음 책검색의 결과 escape문자가 섞여 있는 것을 제거함" />
+    <option name="LAST_COMMIT_MESSAGE" value="다음 책검색의 결과 escape문자가 섞여 있는 것을 제거함" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1324,13 +1350,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2505">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="2835">
@@ -1365,14 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="1980">
           <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/book_controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -1469,26 +1480,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
+    <entry file="file://$PROJECT_DIR$/bine/static/app/book_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3091" max-vertical-offset="3780">
-          <caret line="227" column="9" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
+        <state vertical-scroll-proportion="-13.625" vertical-offset="588" max-vertical-offset="1275">
+          <caret line="61" column="52" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.627451" vertical-offset="1810" max-vertical-offset="2505">
+          <caret line="133" column="82" selection-start-line="133" selection-start-column="80" selection-end-line="133" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/book_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.7777777" vertical-offset="0" max-vertical-offset="315">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5514" max-vertical-offset="7245">
-          <caret line="387" column="57" selection-start-line="387" selection-start-column="57" selection-end-line="387" selection-end-column="57" />
+        <state vertical-scroll-proportion="-7.703704" vertical-offset="5477" max-vertical-offset="7110">
+          <caret line="379" column="43" selection-start-line="379" selection-start-column="43" selection-end-line="379" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/book_list.html">
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5618557" vertical-offset="588" max-vertical-offset="1275">
-          <caret line="61" column="52" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.7029703" vertical-offset="3024" max-vertical-offset="3630">
+          <caret line="230" column="0" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
           <folding />
         </state>
       </provider>

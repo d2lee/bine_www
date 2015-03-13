@@ -252,8 +252,8 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
 bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
-    "$http", "login_user", "navbar", "escapeFilter",
-    function ($rootScope, $scope, $upload, $http, login_user, navbar, escapeFilter) {
+    "$http", "login_user", "navbar",
+    function ($rootScope, $scope, $upload, $http, login_user, navbar) {
 
         $scope.init = function () {
             navbar.set_menu('note');
@@ -283,15 +283,6 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 $scope.note.read_date_to = new Date($scope.note.read_date_to);
             }
         };
-        /*
-         $scope.stripEscape = function (content) {
-         if (content) {
-         content = content.replace(/[(&lt;b&gt;)(&lt;/b&gt)]/g, '');
-         content = content.replace(/[(&quote;b&quote;)(&quote;/b&quote)]/g, '');
-         }
-         return content;
-         };
-         */
         $scope.upload = function (url, data, file) {
             $scope.http_status = -1;
 
@@ -375,7 +366,7 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
                 $scope.book_http_status = -1;
                 $http.jsonp(url).
                     success(function (data, status, headers, config) {
-                        $scope.books = $scope.strip_escaped_characters(data.channel.item);
+                        $scope.books = $scope.strip_escaped_text(data.channel.item);
                         $('#book_search_modal').modal('show');
                         $scope.book_http_status = 200;
                     }).
@@ -385,7 +376,7 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
             }
         };
 
-        $scope.strip_escaped_characters = function (books) {
+        $scope.strip_escaped_text = function (books) {
             var jsonText = angular.toJson(books);
 
             // remove double quote for json
@@ -404,17 +395,17 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
         $scope.save_book = function (book) {
             // 새로운 책이기 때문에 데이터베이스에 저장.
             var book_data = {
-                'author': escapeFilter(book.author),
-                'title': escapeFilter(book.title),
+                'author': book.author,
+                'title': book.title,
                 'isbn': book.isbn,
                 'isbn13': book.isbn13,
                 'barcode': book.barcode,
-                'author_etc': escapeFilter(book.etc_author),
-                'translator': escapeFilter(book.translator),
+                'author_etc': book.etc_author,
+                'translator': book.translator,
                 'photo': book.cover_s_url,
-                'description': escapeFilter(book.description),
-                'category': escapeFilter(book.category),
-                'publisher': escapeFilter(book.pub_nm),
+                'description': book.description,
+                'category': book.category,
+                'publisher': book.pub_nm,
                 'pub_date': $scope.add_dash_to_date(book.pub_date),
                 'link': book.link
             };
