@@ -1,6 +1,6 @@
-bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
-    "$http", "login_user", "navbar", "BookNotes",
-    function ($rootScope, $scope, $sce, $http, login_user, navbar, BookNotes) {
+bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
+    "login_user", "navbar", "BookNotes",
+    function ($rootScope, $scope, $location, login_user, navbar, BookNotes) {
         $scope.init = function () {
             navbar.set_menu('note');
 
@@ -33,7 +33,8 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
 
         $scope.edit_note = function (note) {
             var note_id = note.id;
-            location.href = "#/note/form/" + note_id + "/";
+            var url = "/note/form/" + note_id + "/";
+            $location.url(url);
         };
 
         // 노트를 삭제한다.
@@ -42,17 +43,9 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             if (!ret)
                 return;
 
-            var url = "/api/note/" + note.id + "/";
-            $http.delete(url).success(function (data) {
+            note.$delete(function (data) {
                 alert('노트가 정상적으로 삭제되었습니다.');
                 $scope.notes.splice(index, 1);
-            });
-        };
-
-        $scope.update_likeit = function (note) {
-            var url = "/api/note/" + note.id + "/likeit/";
-            $http.post(url).success(function (data) {
-                note.likeit = data.likeit;
             });
         };
 
@@ -62,9 +55,9 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
 /*
  자세히 보기 컨트롤러
  */
-bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "login_user",
+bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "$location", "login_user",
     "navbar", "BookNotes",
-    function ($scope, $routeParams, login_user, navbar, BookNotes) {
+    function ($scope, $routeParams, $location, login_user, navbar, BookNotes) {
         $scope.init = function () {
             navbar.set_menu('note');
 
@@ -85,7 +78,7 @@ bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "login_user",
         }
         var go_back_if_invalid_user_id = function () {
             alert('현재 로그인 사용자 권한으로 볼 수 없습니다.');
-            location.href = "#/note/";
+            $location.url("/note/");
         }
 
         var check_valid_user = function (note) {
@@ -131,7 +124,8 @@ bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "login_user",
         // 노트를 수정하기 위해 수정화면으로 이동한다.
         $scope.edit_note = function () {
             var note_id = $scope.note.id;
-            location.href = "#/note/form/" + note_id + "/";
+            var url = "/note/form/" + note_id + "/";
+            location.url(url);
         };
 
         $scope.init();
@@ -141,8 +135,8 @@ bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "login_user",
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
 bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
-    "$http", "login_user", "navbar", "BookNotes", "BookSearchAPI",
-    function ($routeParams, $scope, $upload, $http, login_user, navbar, BookNotes, BookSearchAPI) {
+    "$http", "$location", "login_user", "navbar", "BookNotes", "BookSearchAPI",
+    function ($routeParams, $scope, $upload, $http, $location, login_user, navbar, BookNotes, BookSearchAPI) {
 
         $scope.init = function () {
             navbar.set_menu('note');
@@ -185,7 +179,7 @@ bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
 
         var go_back_if_invalid_user_id = function () {
             alert('현재 로그인 사용자 권한으로 수정할 수 없습니다.');
-            location.href = "#/note/";
+            $location.url("/note/");
         }
 
         var check_valid_user = function (note) {
@@ -284,7 +278,6 @@ bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
 
             if (title == '') {
                 $('#book_search_modal').modal('show');
-
             }
             else {
                 // key

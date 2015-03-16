@@ -2,7 +2,10 @@ var bineApp = angular.module('bineApp', ['ngRoute', 'ngResource', 'ngCookies', '
     'angular-jwt', 'angularFileUpload']);
 
 bineApp.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/note/', {
+    $routeProvider.when('/', {
+        templateUrl: '/static/app/note_list.html',
+        controller: 'NoteListControl'
+    }).when('/note/', {
         templateUrl: '/static/app/note_list.html',
         controller: 'NoteListControl'
     }).when('/login/', {
@@ -188,13 +191,13 @@ bineApp.run(['$location', '$rootScope', 'login_user', function ($location, $root
             return;
 
         if (!login_user.get_token()) {
-            $location.path('/login/');
+            $location.url('/login/');
         }
         else {
             if (login_user.isTokenExpired()) {
                 event.preventDefault();
                 $rootScope.$evalAsync(function () {
-                    $location.path('/login/');
+                    $location.url('/login/');
                 });
             }
             else {

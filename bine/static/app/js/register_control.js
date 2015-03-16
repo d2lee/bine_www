@@ -5,7 +5,7 @@ bineApp.controller('RegisterControl', ['$scope', '$http', 'login_user', 'Authent
             login_user.clear();
             $scope.step = "step1";
             $scope.init_birthday();
-            $scope.page_title = "Bine 회원가입"
+            $scope.page_title = "Bine 회원가입";
         }
 
         /*

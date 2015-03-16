@@ -1,5 +1,5 @@
-bineApp.controller('LoginControl', ['$scope', '$http', 'login_user', 'Authentication','navbar',
-    function ($scope, $http, login_user, Authentication, navbar) {
+bineApp.controller('LoginControl', ['$scope', '$location', 'login_user', 'Authentication','navbar',
+    function ($scope, $location, login_user, Authentication, navbar) {
         $scope.init = function() {
             navbar.set_menu('start');
             login_user.clear();
@@ -16,7 +16,7 @@ bineApp.controller('LoginControl', ['$scope', '$http', 'login_user', 'Authentica
                 function (data) {
                     login_user.set_token_and_user_info(data);
                     $scope.http_status = 200;
-                    location.href = "#/note/";
+                    $location.url("/note/");
                 }, function (data) {
                     $scope.http_status = data.status;
                 });
