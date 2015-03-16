@@ -102,8 +102,8 @@ body {
 }
 
 .list-item .login-icon {
-    width: 60px !important;
-    height: 60px !important;
+    width: 45px !important;
+    height: 45px !important;
 }
 
 .page-left {
@@ -331,10 +331,14 @@ resource .media:first-child {
     padding: 10px;
     font-size: 18px;
     color: white;
-    margin-right: -6px;
+    margin-right: 8px;
 }
 
-.page-menu-button a, .page-menu-button a:hover, .page-menu-button a:active, .page-menu-button a:link {
+.page-menu-button .dropdown-toggle {
+    cursor:pointer;
+}
+
+.page-menu-button .glyphicon {
     color: white;
 }
 

@@ -14,14 +14,13 @@
 </div>
 
 <div class="col-xs-15 col-sm-11 col-md-12 page-right">
-    <div class="col-xs-15">
-        <div class="list-title">
+      <div class="list-title">
             <div class="row">
                 <h4 class="col-xs-10 col-sm-10">{{ page_title }}</h4>
 
                 <div class="pull-right page-menu-button dropdown hidden-sm hidden-md hidden-lg">
-                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href=""><span
-                            class="glyphicon glyphicon-menu-hamburger"></span></a>
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span
+                            class="glyphicon glyphicon-menu-hamburger"></span></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation" ng-class="{'active': current_menu=='m1' }"><a role="menuitem"
                                                                                               tabindex="-1" href="#/user/m1/"
@@ -46,9 +45,7 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="list-item col-xs-15">
+    <div class="list-item">
         <div ng-show="current_menu=='m1'" ng-show="http_status==200">
             <form name="user_form" class="form-horizontal" novalidate>
                 <div class="row">

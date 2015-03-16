@@ -42,85 +42,85 @@
 </div>
 
 <div class="col-xs-15 col-sm-11 col-md-12 page-right">
-    <div class="col-xs-15">
-        <div class="list-title">
-            <div class="row">
-                <h4 class="col-xs-10 col-sm-10">독서노트 목록</h4>
+    <div class="list-title">
+        <div class="row">
+            <h4 class="col-xs-10 col-sm-10">독서노트 목록</h4>
 
-                <div class="pull-right page-menu-button dropdown hidden-sm hidden-md hidden-lg">
-                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href=""><span
-                            class="glyphicon glyphicon-menu-hamburger"></span></a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation" ng-class="{'active':current_menu == 'menu1'}">
-                            <a role="menuitem"
-                               tabindex="-1"
-                               href="" ng-click="show_notes_by_all()">전체노트보기</a>
-                        </li>
-                        <li role="presentation" ng-class="{'active':current_menu == 'menu2'}"
-                                ><a role="menuitem"
-                                    tabindex="-1" href="" ng-click="show_notes_by_me()">내노트보기</a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/form/">독서노트 작성</a></li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
+            <div class="pull-right page-menu-button dropdown hidden-sm hidden-md hidden-lg">
+                <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span
+                        class="glyphicon glyphicon-menu-hamburger"></span></div>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation" ng-class="{'active':current_menu == 'menu1'}">
+                        <a role="menuitem"
+                           tabindex="-1"
+                           href="" ng-click="show_notes_by_all()">전체노트보기</a>
+                    </li>
+                    <li role="presentation" ng-class="{'active':current_menu == 'menu2'}"
+                            ><a role="menuitem"
+                                tabindex="-1" href="" ng-click="show_notes_by_me()">내노트보기</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/form/">독서노트 작성</a></li>
+                </ul>
             </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="page-info">
-            <div class="alert alert-info" ng-cloak ng-show="note_state && !note_state.target_max">
-                <span class="glyphicon glyphicon-info-sign"></span> 금년에 몇권을 읽을 지 목표를 세워보세요. <a href="#/user/m3/">여기</a>를
-                눌러 목표를 설정할 수 있습니다.
-            </div>
-
-            <div class="alert alert-info" ng-cloak ng-show="notes  && notes.length === 0">
-                <span class="glyphicon glyphicon-alert"></span> 책을 읽고나서 독서감상문을 작성해보세요. 그리고 친구랑 공유해보세요. 책을 읽는 즐거움이 배가됩니다.
-                <a
-                        독서 감상문은 href="#/note/form/">여기</a>서 작성할 수 있습니다.
-            </div>
+    </div>
+    <div class="page-info">
+        <div class="alert alert-info" ng-cloak ng-show="note_state && !note_state.target_max">
+            <span class="glyphicon glyphicon-info-sign"></span> 금년에 몇권을 읽을 지 목표를 세워보세요. <a href="#/user/m3/">여기</a>를
+            눌러 목표를 설정할 수 있습니다.
         </div>
 
-        <resource>
-            <div class="list-item media col-xs-15" ng-repeat="note in notes | filter:book_title"
-                 repeat_done="iteration_done()">
-                <div class="media-left">
-                    <a href=""><img class="media-object login-icon"
-                                        ng-src="{{ note.user.photo | photo: note.user.sex }}">
-                        </a>
+        <div class="alert alert-info" ng-cloak ng-show="notes  && notes.length === 0">
+            <span class="glyphicon glyphicon-alert"></span> 책을 읽고나서 독서감상문을 작성해보세요. 그리고 친구랑 공유해보세요. 책을 읽는 즐거움이 배가됩니다.
+            <a
+                    독서 감상문은 href="#/note/form/">여기</a>서 작성할 수 있습니다.
+        </div>
+    </div>
 
+    <resource>
+        <div class="list-item media" ng-repeat="note in notes | filter:book_title"
+             repeat_done="iteration_done()">
+            <div class="media-left">
+                <a href=""><img class="media-object login-icon"
+                                ng-src="{{ note.user.photo | photo: note.user.sex }}">
+                </a>
+
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
+
+                <div class='panel-detail'>
+                    <span>{{ note.user.fullname }}</span> |
+                    <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
+                    <star-rating rating-value="note.rating" max="5"></star-rating>
+                    |
+                    <attach attachurl="note.attach"></attach>
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
+                <p class="panel-content">{{ note.content | truncate: 256 }}</p>
 
-                    <div class='panel-detail'>
-                        <span>{{ note.user.fullname }}</span> |
-                        <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
-                        <star-rating rating-value="note.rating" max="5"></star-rating> |
-                        <attach attachurl="note.attach"></attach>
-                    </div>
-                    <p class="panel-content">{{ note.content | truncate: 256 }}</p>
-
-                    <div class="panel-action">
-                        <!--
+                <div class="panel-action">
+                    <!--
                         <div ng-show="note.user.id != user.id">
                             <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
                             <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
                         </div>
                         -->
-                        <div ng-show="note.user.id == user.id">
-                            <a href="" ng-click="edit_note(note)">수정</a> |
-                            <a href="" ng-click="delete_note(note, $index)">삭제</a>
-                        </div>
+                    <div ng-show="note.user.id == user.id">
+                        <a href="" ng-click="edit_note(note)">수정</a> |
+                        <a href="" ng-click="delete_note(note, $index)">삭제</a>
                     </div>
                 </div>
-                <div class="media-right">
-                    <a href="#/note/{{ note.id }}">
-                        <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
-                    </a>
-                </div>
             </div>
-        </resource>
-        <!--
+            <div class="media-right">
+                <a href="#/note/{{ note.id }}">
+                    <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
+                </a>
+            </div>
+        </div>
+    </resource>
+    <!--
         <div class="animate-switch-container"
              ng-switch on="spinner">
             <div class="animate-switch" ng-switch-when="true">
@@ -164,5 +164,4 @@
         </div>
 -->
 
-    </div>
 </div>
