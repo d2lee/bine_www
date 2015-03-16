@@ -17,7 +17,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
 
         $scope.show_notes_by_all = function () {
             $scope.current_menu = "menu1";
-            BookNotes.get_notes_by_all(function(data){
+            BookNotes.get_notes_by_all(function (data) {
                 $scope.notes = data;
 
             });
@@ -25,15 +25,15 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
 
         $scope.show_notes_by_me = function () {
             $scope.current_menu = "menu2";
-            BookNotes.get_notes_by_me(function(data) {
-                $scope.notes =  data;
+            BookNotes.get_notes_by_me(function (data) {
+                $scope.notes = data;
             });
         };
 
 
         $scope.edit_note = function (note) {
-            $rootScope.note = note;
-            location.href = "#/note/new/"
+            var note_id = note.id;
+            location.href = "#/note/form/" + note_id + "/";
         };
 
         // 노트를 삭제한다.
@@ -56,73 +56,63 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
             });
         };
 
-        $scope.make_html_share = function (share_to) {
-            var text = "";
-            switch (share_to) {
-                case 'P':
-                    text = "개인";
-                    break;
-                case 'F':
-                    text = "친구";
-                    break;
-                case 'A':
-                    text = "모두";
-                    break;
-            }
-            return text;
-        };
-
-        $scope.make_html_attach = function (attach_url) {
-            var html = "";
-            if (attach_url) {
-                html = "| <a href='/media/" + attach_url + "'>첨부파일(1)</a>";
-            }
-            return $sce.trustAsHtml(html);
-        };
-
         $scope.init();
     }]);
 
 /*
  자세히 보기 컨트롤러
  */
-bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$routeParams",
-    "$http", "login_user", "navbar",
-    function ($rootScope, $scope, $sce, $routeParams, $http, login_user, navbar) {
+bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "login_user",
+    "navbar", "BookNotes",
+    function ($scope, $routeParams, login_user, navbar, BookNotes) {
         $scope.init = function () {
             navbar.set_menu('note');
 
-            // 노트 ID 읽기
-            var note_id = $routeParams.note_id;
-            if (!note_id) {
-                alert('자세히 볼 노트에 대한 정보를 읽을 수 없습니다. 초기화면으로 이동합니다.');
-                location.href = "#/note/";
-                return;
-            }
-
             $scope.note_id = note_id;
-            $scope.new_reply_content = "";
-            $scope.current_reply = "";
             $scope.rating = 1;
 
-            $scope.fetch_note_detail(note_id);
+            // 노트 ID 읽기
+            var note_id = $routeParams.note_id;
+            if (!note_id)
+                go_back_if_invalid_note_id();
+
+            fetch_note_detail(note_id);
         };
 
-        $scope.fetch_note_detail = function (note_id) {
+        var go_back_if_invalid_note_id = function () {
+            alert('노트를 찾을 수 없습니다. 이전 메뉴로 이동합니다.');
+            window.history.back();
+        }
+        var go_back_if_invalid_user_id = function () {
+            alert('현재 로그인 사용자 권한으로 볼 수 없습니다.');
+            location.href = "#/note/";
+        }
 
-            // fetch the details about current booknote.
-            var url = '/api/note/' + note_id + "/";
-            $http.get(url).success(function (data) {
+        var check_valid_user = function (note) {
+            var current_user = login_user.get_user();
+            var note_user = note.user;
+
+            if (current_user && note_user && current_user.id == note_user.id || note.share_to == 'F' || note.share_to == 'A')
+                return true;
+            else
+                return false;
+
+        }
+
+        var fetch_note_detail = function (note_id) {
+            BookNotes.get({noteId: note_id}, function (data) {
+                if (!check_valid_user(data)) {
+                    go_back_if_invalid_user_id();
+                }
                 $scope.note = data;
                 $scope.rating = $scope.note.rating;
-            });
-        };
-
-        $scope.fetch_note_reply = function (note_id) {
-            // fetch the reply information from server.
-            var note_reply_url = '/api/note/' + note_id + "/reply/";
-            $http.get(note_reply_url).success(function (data) {
-                //$scope.replies = data;
+            }, function (data) {
+                if (data.status == 404) {
+                    go_back_if_invalid_note_id();
+                }
+                if (data.status == 401) {
+                    go_back_if_invalid_user_id();
+                }
             });
         };
 
@@ -132,103 +122,16 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             if (!ret)
                 return;
 
-            var url = "/api/note/" + $scope.note.id + "/";
-            $http.delete(url).success(function (data) {
+            $scope.note.$delete(function () {
                 alert('노트가 정상적으로 삭제되었습니다. 이전 화면으로 이동합니다.');
                 window.history.back();
             });
         };
 
-        $scope.edit_note = function (note) {
-            if (!note)
-                note = $scope.note;
-
-            $rootScope.note = note;
-            location.href = "#/note/new/"
-        };
-
-        $scope.delete_reply = function (reply, index) {
-            var url = url = '/api/note/' + $scope.note_id + '/reply/' + reply.id + "/";
-
-            $http.delete(url).
-                success(function (data, status, headers, config) {
-                    $scope.replies.splice(index, 1)
-                }).
-                error(function (data, status, headers, config) {
-                    alert("error");
-                });
-        };
-
-        $scope.update_reply = function (reply) {
-            $scope.current_reply = reply;
-            $scope.new_reply_content = reply.content;
-            $('#reply_modal').modal('show');
-        };
-
-        $scope.save_reply = function () {
-            if ($scope.new_reply_content != $scope.current_reply.content) {
-                $scope.current_reply.content = $scope.new_reply_content;
-            }
-
-            var data = {};
-            var url = "";
-
-            if ($scope.current_reply == '') { // create
-                data = {
-                    'user': 2,
-                    'content': $scope.new_reply_content
-                };
-                url = '/api/note/' + $scope.note_id + '/reply/';
-            }
-            else { // update
-                data = {
-                    'content': $scope.new_reply_content
-                };
-                url = '/api/note/' + $scope.note_id + '/reply/' + $scope.current_reply.id + "/";
-            }
-
-
-            $http.post(url, data).
-                success(function (data, status, headers, config) {
-                    if ($scope.current_reply == '') {
-                        $scope.replies.push(data);
-                    }
-
-                    $('#reply_modal').modal('hide');
-                }).
-                error(function (data, status, headers, config) {
-                    alert("error");
-                });
-        };
-
-        $scope.create_reply = function (reply) {
-            $scope.new_reply_content = '';
-            $scope.current_reply = '';
-            $('#reply_modal').modal('show');
-        };
-
-        $scope.make_html_share = function (share_to) {
-            var text = "";
-            switch (share_to) {
-                case 'P':
-                    text = "개인";
-                    break;
-                case 'F':
-                    text = "친구";
-                    break;
-                case 'A':
-                    text = "모두";
-                    break;
-            }
-            return text;
-        };
-
-        $scope.make_html_attach = function (attach_url) {
-            var html = "";
-            if (attach_url) {
-                html = "| <a href='/media/" + attach_url + "'>첨부파일(1)</a>";
-            }
-            return $sce.trustAsHtml(html);
+        // 노트를 수정하기 위해 수정화면으로 이동한다.
+        $scope.edit_note = function () {
+            var note_id = $scope.note.id;
+            location.href = "#/note/form/" + note_id + "/";
         };
 
         $scope.init();
@@ -237,40 +140,95 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
 /*
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
-bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
-    "$http", "login_user", "navbar",
-    function ($rootScope, $scope, $upload, $http, login_user, navbar) {
+bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
+    "$http", "login_user", "navbar", "BookNotes", "BookSearchAPI",
+    function ($routeParams, $scope, $upload, $http, login_user, navbar, BookNotes, BookSearchAPI) {
 
         $scope.init = function () {
             navbar.set_menu('note');
             $scope.user = login_user.get_user();
             $scope.http_status = -1;
             $scope.book_http_status = -1;
+            $scope.rating = 1;
 
-            if (!$rootScope.note) { // 새 노트를 생성하려면 기본 값을 채운 노트를 하나 만든다.
-                var today = new Date();
+            var note_id = $routeParams.note_id;
 
-                $scope.note = {
-                    'user': {'id': $scope.user.id},
-                    'rating': 3,
-                    'share_to': 'F',
-                    'read_date_from': today,
-                    'read_date_to': today,
-                };
-                $scope.book_title = "";
+            if (note_id) {
+                fetch_note_detail(note_id);
             }
             else {
-                $scope.note = $rootScope.note;
-                $scope.book_title = $scope.note.book.title;
+                $scope.note = create_empty_note_with_default();
+                $scope.book_title = "";
+                $scope.rating = 3;
+            }
+        };
 
+        var create_empty_note_with_default = function () {
+            // Create new note
+            var today = new Date();
+
+            var note = {
+                'user': {'id': $scope.user.id},
+                'rating': 3,
+                'share_to': 'F',
+                'read_date_from': today,
+                'read_date_to': today
+            };
+
+            return note;
+        }
+
+        var go_back_if_invalid_note_id = function () {
+            alert('노트를 찾을 수 없습니다. 이전 메뉴로 이동합니다.');
+            window.history.back();
+        }
+
+        var go_back_if_invalid_user_id = function () {
+            alert('현재 로그인 사용자 권한으로 수정할 수 없습니다.');
+            location.href = "#/note/";
+        }
+
+        var check_valid_user = function (note) {
+            var current_user = login_user.get_user();
+            var note_user = note.user;
+
+            if (current_user && note_user && current_user.id == note_user.id)
+                return true;
+            else
+                return false;
+
+        }
+
+        var fetch_note_detail = function (note_id) {
+            BookNotes.get({noteId: note_id}, function (data) {
+                if (!check_valid_user(data)) {
+                    go_back_if_invalid_user_id();
+                }
+                ;
+
+                $scope.note = data;
+
+                $scope.book_title = $scope.note.book.title;
+                $scope.rating = data.rating;
                 // convert string date to date object to initialize input date
                 // object.
                 $scope.note.read_date_from = new Date($scope.note.read_date_from);
                 $scope.note.read_date_to = new Date($scope.note.read_date_to);
-            }
+
+            }, function (data) {
+                if (data.status == 404) {
+                    go_back_if_invalid_note_id();
+                }
+
+                if (data.status == 401) {
+                    go_back_if_invalid_user_id();
+                }
+            });
         };
+
         $scope.upload = function (url, data, file) {
             $scope.http_status = -1;
+            data.rating = $scope.rating;
 
             $upload.upload({
                 url: url,
@@ -329,24 +287,32 @@ bineApp.controller('NoteNewControl', ["$rootScope", "$scope", "$upload",
 
             }
             else {
-                var url = "https://apis.daum.net/search/book";
-                //var api_key = "3cf83b5f4a7062c5e99173f7759b6a2e"; // production
-                var api_key = "8f9f9bc97bfa50b4fd80e589f0384f56"; // test
+                // key
+                BookSearchAPI.get(function (data) {
+                    var api_key = data.key;
+                    if (api_key) {
+                        var url = "https://apis.daum.net/search/book";
+                        url += "?output=json&result=10&sort=popular";
+                        url += "&apikey=" + api_key;
+                        url += "&q=" + title;
+                        url += "&callback=JSON_CALLBACK";
+                        $scope.book_http_status = -1;
+                        $http.jsonp(url).
+                            success(function (data, status, headers, config) {
+                                $scope.books = $scope.strip_escaped_text(data.channel.item);
+                                $('#book_search_modal').modal('show');
+                                $scope.book_http_status = 200;
+                            }).
+                            error(function (data, status, headers, config) {
+                                $scope.book_http_status = status;
+                            });
+                    }
+                    else {
+                        alert('서버나 네트워크 이상으로 지금 책 검색을 할 수 없습니다. 잠시 후에 시도해 주십시오. ')
+                    }
+                })
 
-                url += "?output=json&result=10&sort=popular";
-                url += "&apikey=" + api_key;
-                url += "&q=" + title;
-                url += "&callback=JSON_CALLBACK";
-                $scope.book_http_status = -1;
-                $http.jsonp(url).
-                    success(function (data, status, headers, config) {
-                        $scope.books = $scope.strip_escaped_text(data.channel.item);
-                        $('#book_search_modal').modal('show');
-                        $scope.book_http_status = 200;
-                    }).
-                    error(function (data, status, headers, config) {
-                        $scope.book_http_status = status;
-                    });
+
             }
         };
 

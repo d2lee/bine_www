@@ -137,8 +137,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
             현재 사용자와 친구들의 노트 목록을 리턴한다.
         """
-        users = self.get_friends()
-        notes = BookNote.objects.filter(Q(user__in=users) | Q(user=self))
+        friends = self.get_friends()
+        notes = BookNote.objects.filter(Q(user__in=friends, share_to__in=['F', 'P']) | Q(user=self))
 
         return notes.order_by('-updated_on')[0:10]
 
@@ -186,20 +186,32 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.friends_by_others.filter(friendship_by_me__status='N')
 
     def get_recommended_friends(self):
+        # Get the friend list that my friends knows.
         my_friends = self.get_friends()
 
         my_friends_id_list = my_friends.values_list('id', flat=True)
 
         friends = User.objects.filter(Q(friends_by_me__id__in=my_friends_id_list) |
                                       Q(friends_by_others__id__in=my_friends_id_list)) \
-                      .exclude(id=self.id) \
-                      .annotate(cnt=Count('username')).order_by('-cnt')[0:10]
-        return friends
+            .exclude(id=self.id) \
+            .annotate(cnt=Count('username'))
+
+        if friends.count() > 10:
+            return friends.order_by('-cnt')[0:10]
+
+        # Get the friends based on the same school
+        friends_with_same_school = User.objects.filter(school=self.school).exclude(
+            Q(id=self.id) | Q(id__in=my_friends_id_list)).order_by(
+            '-fullname').annotate(cnt=Count('username'))
+
+        friends = friends | friends_with_same_school
+
+        return friends.order_by('+fullname').order_by('-cnt')[0:10]
 
     def get_count_list(self):
         all_count = self.booknotes.count()
         week_count = self.booknotes.filter(created_at__range=get_this_week_range()).count()
-        if self.target_from and self.target_to and self.target_books > 0:
+        if self.target_from and self.target_to and self.target_books and self.target_books > 0:
             target_count = self.booknotes.filter(created_at__range=(self.target_from, self.target_to)).count()
         else:
             target_count = 0
@@ -224,7 +236,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                           'birthday': self.birthday,
                           'sex': self.sex,
                           'tagline': self.tagline,
-        })
+                          })
         return json_data
 
     def __str__(self):
@@ -342,7 +354,7 @@ class Book(models.Model):
                           'publisher': self.publisher,
                           'pub_date': self.pub_date,
                           'description': self.description,
-        })
+                          })
         return json_data
 
     def __str__(self):
@@ -361,7 +373,7 @@ class BookNote(models.Model):
 
     content = TextField(blank=True)
     rating = CharField(max_length=1, blank=False, default=3)
-    attach = ImageField(upload_to=get_file_name, blank=True, null=True)
+    attach = models.FileField(upload_to=get_file_name, blank=True, null=True)
 
     SHARE_CHOICES = (
         ('P', '개인'),
@@ -394,7 +406,7 @@ class BookNote(models.Model):
                           'replies_count': self.replies.count(),
                           'created_at': self.created_at,
                           'updated_on': self.updated_on,
-        })
+                          })
         return json_data
 
     def __str__(self):
@@ -434,7 +446,7 @@ class BookNoteReply(models.Model):
                              'fullname': self.user.fullname},
                     'content': self.content,
                     'created_at': self.created_at,
-        }
+                    }
         return json_obj
 
     def __str__(self):

@@ -62,7 +62,7 @@
     <div class="panel-heading">
         <a href="#/note/"><span class="glyphicon glyphicon-menu-left"></span></a>독서노트
     </div>
-    <form name="note_form" class="form-horizontal" novalidate ng-show="http_status == -1">
+    <form name="note_form" class="form-horizontal" novalidate>
         <div class="panel-body">
 
             <div class="form-group">
@@ -108,10 +108,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="content" class="col-sm-2 control-label">추천점수:</label>
+                <label for="content" class="col-sm-2 control-label">평가:</label>
 
                 <div class="col-sm-13">
-                    <star-rating rating-value="note.rating" max="5"></star-rating>
+                    <star-rating rating-value="rating" max="5"></star-rating>
                 </div>
             </div>
             <div class="form-group">
@@ -135,10 +135,12 @@
                 <label for="attach" class="col-sm-2 control-label">첨부파일:</label>
 
                 <div class="col-sm-13">
-                    <input type="file" class="form-control"
-                           ng-file-select ng-capture="camera"
-                           ng-model='note.attach' name="attach"
-                           data-buttonText="첨부파일">
+                    <attach attachurl="note.attach"></attach>
+                    <div class="btn btn-default"
+                         ng-file-select
+                         ng-model="note.attach"
+                         ng-multiple="false">파일 첨부
+                    </div>
                 </div>
             </div>
 
@@ -146,23 +148,24 @@
         <div class="panel-footer">
             <div class="col-sm-offset-2">
                 <button type="submit" class="btn btn-primary" ng-click="save()">저장</button>
+                <div class="panel-error-msg" ng-show="http_status == 200">
+                    <div class="alert alert-success"><p><span class="glyphicon glyphicon-info-sign"></span> 성공적으로
+                        저장되었습니다.</p>
+                        <button class="btn btn-default" ng-click="go_back()">이전 화면으로 이동</button>
+                    </div>
+                </div>
+                <div class="panel-error-msg" ng-show="http_status > 200">
+                    <div class="alert alert-warning"><p><span class="glyphicon glyphicon-warning-sign"></span> 저장하는데
+                        실패하였습니다. 다시
+                        저장하거나 나중에 다시 시도해 주십시오.</p>
+                        <button class="btn btn-default" href="go_back()">이전 화면으로 이동</button>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
 
-    <div class="panel-body panel-error-msg" ng-show="http_status == 200">
-        <div class="alert alert-success"><p><span class="glyphicon glyphicon-info-sign"></span> 성공적으로 저장되었습니다.</p>
-            <button class="btn btn-default" ng-click="reset(true)">추가 작성</button>
-            <button class="btn btn-default" ng-click="go_back()">이전 화면으로 이동</button>
-        </div>
-    </div>
-    <div class="panel-body" ng-show="http_status > 200">
-        <div class="alert alert-warning"><p><span class="glyphicon glyphicon-warning-sign"></span> 저장하는데 실패하였습니다. 다시
-            저장하거나 나중에 다시 시도해 주십시오.</p>
-            <button class="btn btn-default" ng-click="reset(false)">다시 저장</button>
-            <button class="btn btn-default" href="go_back()">이전 화면으로 이동</button>
-        </div>
-    </div>
+
 </div>
 
 

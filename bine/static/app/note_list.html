@@ -34,7 +34,7 @@
             <a href="" class="list-group-item" ng-class="{'active':current_menu == 'menu2'}"
                ng-click="show_notes_by_me()">내 노트 보기</a>
             <a href="" class="divider"></a>
-            <a href="#/note/new/" class="list-group-item">독서노트 작성</a>
+            <a href="#/note/form/" class="list-group-item">독서노트 작성</a>
 
 
         </div>
@@ -61,7 +61,7 @@
                                     tabindex="-1" href="" ng-click="show_notes_by_me()">내노트보기</a>
                         </li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/new">독서노트 작성</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/note/form/">독서노트 작성</a></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -76,7 +76,7 @@
             <div class="alert alert-info" ng-cloak ng-show="notes  && notes.length === 0">
                 <span class="glyphicon glyphicon-alert"></span> 책을 읽고나서 독서감상문을 작성해보세요. 그리고 친구랑 공유해보세요. 책을 읽는 즐거움이 배가됩니다.
                 <a
-                        독서 감상문은 href="#/note/new/">여기</a>서 작성할 수 있습니다.
+                        독서 감상문은 href="#/note/form/">여기</a>서 작성할 수 있습니다.
             </div>
         </div>
 
@@ -84,9 +84,10 @@
             <div class="list-item media col-xs-15" ng-repeat="note in notes | filter:book_title"
                  repeat_done="iteration_done()">
                 <div class="media-left">
-                    <a href="#/note/{{ note.id }}">
-                        <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
-                    </a>
+                    <a href=""><img class="media-object login-icon"
+                                        ng-src="{{ note.user.photo | photo: note.user.sex }}">
+                        </a>
+
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
@@ -94,21 +95,28 @@
                     <div class='panel-detail'>
                         <span>{{ note.user.fullname }}</span> |
                         <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
-                        <star-rating rating-value="note.rating" max="5"></star-rating>
-                        <span ng-bind-html="make_html_attach(note.attach)"></span>
+                        <star-rating rating-value="note.rating" max="5"></star-rating> |
+                        <attach attachurl="note.attach"></attach>
                     </div>
                     <p class="panel-content">{{ note.content | truncate: 256 }}</p>
 
                     <div class="panel-action">
+                        <!--
                         <div ng-show="note.user.id != user.id">
                             <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
                             <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
                         </div>
+                        -->
                         <div ng-show="note.user.id == user.id">
                             <a href="" ng-click="edit_note(note)">수정</a> |
                             <a href="" ng-click="delete_note(note, $index)">삭제</a>
                         </div>
                     </div>
+                </div>
+                <div class="media-right">
+                    <a href="#/note/{{ note.id }}">
+                        <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
+                    </a>
                 </div>
             </div>
         </resource>

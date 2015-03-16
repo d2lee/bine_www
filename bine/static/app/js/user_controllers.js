@@ -21,6 +21,7 @@ bineApp.controller('UserControl', ['$scope', '$routeParams', '$upload', 'login_u
                 $scope.birth_month = $scope.user.birthday.substr(5, 2);
                 $scope.birth_day = $scope.user.birthday.substr(8, 2);
                 $scope.school = $scope.user.school;
+                $scope.school_name = $scope.user.school.name;
                 $scope.fullname = $scope.user.fullname;
                 $scope.email = $scope.user.email;
                 $scope.sex = $scope.user.sex;

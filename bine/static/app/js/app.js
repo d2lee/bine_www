@@ -17,9 +17,12 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/user/:action/', {
         templateUrl: '/static/app/user.html',
         controller: 'UserControl'
-    }).when('/note/new/', {
+    }).when('/note/form/', {
         templateUrl: '/static/app/note_form.html',
-        controller: 'NoteNewControl'
+        controller: 'NoteFormControl'
+    }).when('/note/form/:note_id/', {
+        templateUrl: '/static/app/note_form.html',
+        controller: 'NoteFormControl'
     }).when('/note/:note_id/', {
         templateUrl: '/static/app/note_detail.html',
         controller: 'NoteDetailControl'
@@ -65,6 +68,18 @@ bineApp.service('navbar', ['$rootScope', 'login_user', function ($rootScope, log
         if (!$rootScope.user) {
             $rootScope.user = login_user.get_user();
         }
+    }
+}]);
+
+bineApp.service('book_search', ['BookSearchAPI', '$rootScope', function (BookSearchAPI, $rootScope) {
+    this.get_key = function () {
+        var key = $rootScope.book_key;
+
+        if (!key) {
+            var data = BookSearchAPI.get();
+            $rootScope.boot_key = data.key;
+        }
+        return key;
     }
 }]);
 
@@ -229,6 +244,23 @@ bineApp.filter('photo', function () {
     };
 });
 
+bineApp.filter('shareText', function () {
+    return function (content) {
+        if (content == 'P') {
+            return '공유하지 않음';
+        }
+        else if (content == 'F') {
+            return '친구와 공유';
+        }
+        else if (content == 'A') {
+            return '모두와 공유';
+        }
+        else {
+            return "";
+        }
+    };
+});
+
 bineApp.directive('spinner', function () {
     var spinner_html = "<div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>";
     return {
@@ -236,8 +268,20 @@ bineApp.directive('spinner', function () {
     };
 });
 
+bineApp.directive('attach', function () {
+    var html = "<a ng-href='{{attachurl}}' ng-hide='!attachurl'><span class='glyphicon glyphicon-pushpin'></span> 첨부파일</a>";
+    return {
+        restrict: 'E',
+        scope: {
+            attachurl: "="
+        },
+        template: html
+    };
+});
+
+
 bineApp.directive('resource', function () {
-    var template = "<div ng-hide='spinner' ng-cloak><div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>" +
+    var template = "<div ng-show='spinner' ng-cloak><div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div></div>" +
         "<div ng-hide='spinner' ng-transclude></div></div>";
     return {
         restrict: 'E',

@@ -59,3 +59,9 @@ bineApp.factory('Schools', ['$resource', function ($resource) {
         'get_schools': {method: 'GET', isArray: true}
     }, {stripTrailingSlashes: false});
 }]);
+
+
+bineApp.factory('BookSearchAPI', ['$resource', function($resource) {
+    return $resource('/api/book_search_key/', null, {
+    }, {stripTrailingSlashes: false});
+}])

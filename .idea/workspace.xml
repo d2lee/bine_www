@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="페이지 이동시 화면 깜빡이는 현상을 줄이기 위해 &lt;resource&gt; directive구현&#10;&#10;- spinner 상태가 끝나면 resource를 보여주도록 수정">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bine/schools.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bine/static/test" />
+    <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="전반적으로 production할">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/app.js" afterPath="$PROJECT_DIR$/bine/static/app/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/css/bine.css" afterPath="$PROJECT_DIR$/bine/static/app/css/bine.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/templates/bine.html" afterPath="$PROJECT_DIR$/bine/templates/bine.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/book_list.html" afterPath="$PROJECT_DIR$/bine/static/app/book_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/commons.py" afterPath="$PROJECT_DIR$/bine/commons.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/friend_list.html" afterPath="$PROJECT_DIR$/bine/static/app/friend_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/login.html" afterPath="$PROJECT_DIR$/bine/static/app/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/models.py" afterPath="$PROJECT_DIR$/bine/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_detail.html" afterPath="$PROJECT_DIR$/bine/static/app/note_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_form.html" afterPath="$PROJECT_DIR$/bine/static/app/note_form.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/resources.js" afterPath="$PROJECT_DIR$/bine/static/app/js/resources.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/serializers.py" afterPath="$PROJECT_DIR$/bine/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/urls.py" afterPath="$PROJECT_DIR$/bine/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/user.html" afterPath="$PROJECT_DIR$/bine/static/app/user.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/views.py" afterPath="$PROJECT_DIR$/bine/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -94,7 +101,84 @@
     <favorites_list name="bine_www" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="note_controllers.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.23355263" vertical-offset="4088" max-vertical-offset="6210">
+              <caret line="282" column="19" selection-start-line="282" selection-start-column="19" selection-end-line="282" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1239" max-vertical-offset="1875">
+              <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="commons.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/commons.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="1155">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="7365">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#68#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="5160">
+              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="resources.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/js/resources.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="1050">
+              <caret line="64" column="42" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+              <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+              <folding>
+                <element signature="e#24#56#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -115,37 +199,38 @@
         <option value="/usr/local/lib/python3.4/site-packages/rest_framework/views.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/user_auth_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/login.js" />
-        <option value="$PROJECT_DIR$/bine/urls.py" />
         <option value="$PROJECT_DIR$/bine/tests.py" />
-        <option value="$PROJECT_DIR$/bine_www/settings.py" />
         <option value="$PROJECT_DIR$/bine/static/app/css/register.css" />
         <option value="$PROJECT_DIR$/bine/static/app/nav-bar.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/login_control.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/book_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/register_control.js" />
         <option value="$PROJECT_DIR$/bine/static/app/nav_bar.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/resources.js" />
-        <option value="$PROJECT_DIR$/bine/views.py" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" />
-        <option value="$PROJECT_DIR$/bine/static/app/login.html" />
         <option value="$PROJECT_DIR$/bine/static/app/register.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/user.html" />
-        <option value="$PROJECT_DIR$/bine/serializers.py" />
-        <option value="$PROJECT_DIR$/bine/static/app/note_form.html" />
-        <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/static/test" />
         <option value="$USER_HOME$/Desktop/test.txt" />
-        <option value="$PROJECT_DIR$/bine/commons.py" />
         <option value="$USER_HOME$/Desktop/test.csv" />
         <option value="$PROJECT_DIR$/bine/test1.txt" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
-        <option value="$PROJECT_DIR$/bine/static/app/book_list.html" />
         <option value="$PROJECT_DIR$/bine/templates/bine.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/login.html" />
+        <option value="db-console:/105c6dee/aed27275-0559-4a0b-9589-33b0887e34fe/" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/friend_list.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
+        <option value="$PROJECT_DIR$/bine/serializers.py" />
+        <option value="$PROJECT_DIR$/bine/models.py" />
+        <option value="$PROJECT_DIR$/bine/static/app/book_list.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
+        <option value="$PROJECT_DIR$/bine/static/app/user.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/note_form.html" />
         <option value="$PROJECT_DIR$/bine/static/app/css/bine.css" />
         <option value="$PROJECT_DIR$/bine/static/app/note_detail.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
+        <option value="$PROJECT_DIR$/bine/commons.py" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/resources.js" />
+        <option value="$PROJECT_DIR$/bine/urls.py" />
+        <option value="$PROJECT_DIR$/bine_www/settings.py" />
+        <option value="$PROJECT_DIR$/bine/views.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
       </list>
     </option>
@@ -158,9 +243,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2" />
-    <option name="y" value="35" />
-    <option name="width" value="1280" />
+    <option name="y" value="23" />
+    <option name="width" value="640" />
     <option name="height" value="726" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -208,7 +292,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -225,6 +308,38 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="bine_www" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views.py" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -325,34 +440,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine_www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine_www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -950,35 +1040,42 @@
       <option name="project" value="LOCAL" />
       <updated>1426247367631</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Refresh시에 flicking현상이 최소화하기 위한 작업 진행&#10;School 데이터 모델에 값 입력하기 위한 sql문장 생성&#10;star rating 태그가 note detail에서 안보이는 문제 해결">
+      <created>1426478741956</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1426478741956</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2" y="35" width="1280" height="726" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="23" width="640" height="726" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280757" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10662359" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46214512" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14620355" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4606918" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5283912" sideWeight="0.18578352" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4747634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23344104" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.229097" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34850863" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42700157" sideWeight="0.8142165" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4245283" sideWeight="0.8142165" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1000,9 +1097,9 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22859451" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35220125" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.49919224" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1020,7 +1117,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="/api로 제외하고 모든 url를 bine.html이 처리하도록 urls.py파일 변경&#10;&#10;- bine.html로  매핑하는 url pattern을 모든 스트링 형태를 지원하도록 수정" />
     <MESSAGE value="메인 메뉴에 있는 사용자 icon을 클릭했을 때 드롭다운메뉴가 나오도록 수정하고 로그아웃 기능 추가" />
     <MESSAGE value="노트 추가시에 성공 실패 메시지를 javascript:alert창이 아닌 일반 &lt;div&gt;로 변경" />
     <MESSAGE value="토큰 시간만큼 지난 후 페이지를 refresh하면 화면이 멈추고 angularjs에서 inject 에러 발생 문제 해결&#10;&#10;- 그밖에 friend관련 기능 구현 중임 (아직 완성은 안됨)" />
@@ -1045,20 +1141,21 @@
     <MESSAGE value="daum키를 production키로 수정" />
     <MESSAGE value="다음 책검색의 결과 escape문자가 섞여 있는 것을 제거함" />
     <MESSAGE value="escape 필터함수와 적용한 것을 제거함 (더이상 필요하지 않음)" />
-    <option name="LAST_COMMIT_MESSAGE" value="escape 필터함수와 적용한 것을 제거함 (더이상 필요하지 않음)" />
+    <MESSAGE value="Refresh시에 flicking현상이 최소화하기 위한 작업 진행&#10;School 데이터 모델에 값 입력하기 위한 sql문장 생성&#10;star rating 태그가 note detail에서 안보이는 문제 해결" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refresh시에 flicking현상이 최소화하기 위한 작업 진행&#10;School 데이터 모델에 값 입력하기 위한 sql문장 생성&#10;star rating 태그가 note detail에서 안보이는 문제 해결" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/bine/views.py</url>
-          <line>334</line>
-          <option name="timeStamp" value="117" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file:///usr/local/lib/python3.4/site-packages/rest_framework/views.py</url>
           <line>407</line>
           <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/bine/views.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="264" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1071,15 +1168,18 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="245" />
+      <option name="time" value="265" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/django/db/models/query.py">
+    <entry file="file://$PROJECT_DIR$/bine/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4644" max-vertical-offset="28770">
-          <caret line="354" column="41" selection-start-line="354" selection-start-column="29" selection-end-line="354" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="435">
+          <caret line="24" column="36" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="36" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1146,14 +1246,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.589108" vertical-offset="69" max-vertical-offset="6225">
-          <caret line="403" column="0" selection-start-line="403" selection-start-column="0" selection-end-line="403" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="9061" max-vertical-offset="20895">
@@ -1182,26 +1274,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="17385">
-          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/rest_framework/exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="946" max-vertical-offset="2205">
           <caret line="77" column="24" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38118812" vertical-offset="1224" max-vertical-offset="1830">
-          <caret line="97" column="41" selection-start-line="97" selection-start-column="41" selection-end-line="97" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1233,45 +1309,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/user_controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4215">
-          <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.990991" vertical-offset="5455" max-vertical-offset="6045">
-          <caret line="327" column="34" selection-start-line="327" selection-start-column="34" selection-end-line="327" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="2835">
           <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.0" vertical-offset="96" max-vertical-offset="945">
-          <caret line="24" column="83" selection-start-line="24" selection-start-column="83" selection-end-line="24" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="1510" max-vertical-offset="2625">
-          <caret line="113" column="40" selection-start-line="113" selection-start-column="40" selection-end-line="113" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2502" max-vertical-offset="3165">
-          <caret line="190" column="44" selection-start-line="190" selection-start-column="44" selection-end-line="190" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1282,83 +1323,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34653464" vertical-offset="0" max-vertical-offset="606">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="882" max-vertical-offset="6630">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/test">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/commons.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5082237" vertical-offset="546" max-vertical-offset="1155">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#51#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/test.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="12.364602" vertical-offset="2464" max-vertical-offset="176460">
-          <caret line="630" column="13" selection-start-line="630" selection-start-column="13" selection-end-line="630" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/test.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35363457" vertical-offset="0" max-vertical-offset="176460">
-          <caret line="12" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="11758" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/schools.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.42689" vertical-offset="162001" max-vertical-offset="176460">
-          <caret line="11174" column="35" selection-start-line="11174" selection-start-column="35" selection-end-line="11174" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/105c6dee/aed27275-0559-4a0b-9589-33b0887e34fe/bine..users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-          <caret line="0" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="9.42689" vertical-offset="162001" max-vertical-offset="176460">
+          <caret line="11174" column="35" selection-start-line="11174" selection-start-column="35" selection-end-line="11174" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1370,118 +1348,220 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5053" max-vertical-offset="7305">
-          <caret line="346" column="0" selection-start-line="346" selection-start-column="0" selection-end-line="346" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#68#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/book_controllers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/friend_controllers.js">
+    <entry file="file://$PROJECT_DIR$/bine/static/app/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33215547" vertical-offset="562" max-vertical-offset="1260">
-          <caret line="50" column="15" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/templates/bine.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.958333" vertical-offset="61" max-vertical-offset="2130">
-          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/friend_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8099631" vertical-offset="341" max-vertical-offset="2265">
-          <caret line="53" column="11" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="11" />
-          <folding>
-            <element signature="n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/book_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.5" vertical-offset="0" max-vertical-offset="600">
-          <caret line="42" column="83" selection-start-line="42" selection-start-column="83" selection-end-line="42" selection-end-column="83" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#resource#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.20618556" vertical-offset="15" max-vertical-offset="945">
+          <caret line="9" column="70" selection-start-line="9" selection-start-column="70" selection-end-line="9" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/css/login.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="3330">
+        <state vertical-scroll-proportion="0.76677316" vertical-offset="240" max-vertical-offset="3330">
           <caret line="32" column="23" selection-start-line="26" selection-start-column="4" selection-end-line="32" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://db-console:/105c6dee/aed27275-0559-4a0b-9589-33b0887e34fe/">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="313">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/105c6dee/aed27275-0559-4a0b-9589-33b0887e34fe/bine..schools">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16863406" vertical-offset="2000" max-vertical-offset="17385">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
+    <entry file="dbDummy://dbtable:/105c6dee/aed27275-0559-4a0b-9589-33b0887e34fe/bine..users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+          <caret line="0" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/templates/bine.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16526139" vertical-offset="3862" max-vertical-offset="4500">
-          <caret line="264" column="25" selection-start-line="264" selection-start-column="25" selection-end-line="264" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.52583027" vertical-offset="375" max-vertical-offset="2130">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/friend_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.62963" vertical-offset="112" max-vertical-offset="1275">
+          <caret line="32" column="58" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3250825" vertical-offset="1783" max-vertical-offset="6810">
+          <caret line="140" column="8" selection-start-line="140" selection-start-column="8" selection-end-line="140" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/resources.js">
+    <entry file="file://$PROJECT_DIR$/bine/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7920792" vertical-offset="180" max-vertical-offset="960">
-          <caret line="46" column="62" selection-start-line="45" selection-start-column="9" selection-end-line="46" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="721" max-vertical-offset="3165">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
+    <entry file="file://$PROJECT_DIR$/bine/static/app/book_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6236749" vertical-offset="1402" max-vertical-offset="6720">
-          <caret line="117" column="15" selection-start-line="117" selection-start-column="15" selection-end-line="117" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.50087875" vertical-offset="225" max-vertical-offset="1245">
+          <caret line="34" column="109" selection-start-line="34" selection-start-column="109" selection-end-line="34" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49815497" vertical-offset="3630" max-vertical-offset="5940">
+          <caret line="260" column="38" selection-start-line="253" selection-start-column="32" selection-end-line="260" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/user_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="4230">
+          <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/note_detail.html">
+    <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24907748" vertical-offset="450" max-vertical-offset="1290">
-          <caret line="39" column="53" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="53" />
-          <folding />
+        <state vertical-scroll-proportion="-5.5833335" vertical-offset="1006" max-vertical-offset="2670">
+          <caret line="76" column="56" selection-start-line="76" selection-start-column="56" selection-end-line="76" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41821247" vertical-offset="4747" max-vertical-offset="6345">
-          <caret line="333" column="0" selection-start-line="333" selection-start-column="0" selection-end-line="333" selection-end-column="0" />
+        <state vertical-scroll-proportion="-7.5185184" vertical-offset="4627" max-vertical-offset="6075">
+          <caret line="322" column="16" selection-start-line="322" selection-start-column="16" selection-end-line="322" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/friend_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3783784" vertical-offset="1560" max-vertical-offset="2280">
+          <caret line="118" column="51" selection-start-line="118" selection-start-column="51" selection-end-line="118" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5776" max-vertical-offset="6225">
+          <caret line="403" column="0" selection-start-line="403" selection-start-column="0" selection-end-line="403" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13005273" vertical-offset="631" max-vertical-offset="1215">
-          <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.8523726" vertical-offset="1135" max-vertical-offset="2595">
+          <caret line="108" column="27" selection-start-line="108" selection-start-column="27" selection-end-line="108" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/note_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60456944" vertical-offset="106" max-vertical-offset="1320">
+          <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/commons.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="1155">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
-            <element signature="n#div#1;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#resource#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="e#5502#7783#0#HTML" expanded="false" />
+            <element signature="e#24#51#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/resources.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="1050">
+          <caret line="64" column="42" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="7365">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="5160">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1239" max-vertical-offset="1875">
+          <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23355263" vertical-offset="4088" max-vertical-offset="6210">
+          <caret line="282" column="19" selection-start-line="282" selection-start-column="19" selection-end-line="282" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>

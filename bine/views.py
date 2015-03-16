@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
 from django.contrib.auth import authenticate
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_400_BAD_REQUEST, \
     HTTP_200_OK
@@ -16,6 +18,14 @@ from rest_framework_jwt.views import refresh_jwt_token, jwt_response_payload_han
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
+from bine_www import settings
+
+
+@api_view(('GET',))
+@permission_classes((IsAuthenticated, ))
+def get_book_search_key(request):
+    key = settings.BOOK_SEARCH_KEY
+    return JsonResponse(data={'key': key})
 
 
 class IndexView(View):
@@ -328,31 +338,25 @@ class FriendView(APIView):
 
 class BookNoteView(APIView):
     @staticmethod
-    def get(request):
-        """
-        현재 사용자와 친구들의 책 노트 목록을 보여준다.
-        """
-        list_type = request.GET.get('type', None)
-
-        user = request.user
-
-        if list_type == 'all':
-            notes = user.get_all_notes()
-        elif list_type == 'me':
-            notes = user.get_notes()
-        else:
-            Response(status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(BookNoteSerializer(notes, many=True).data)
-
-    @staticmethod
     def get(request, pk=None):
         if pk:
             try:
                 note = BookNote.objects.get(pk=pk)
+                if note.user == request.user:
+                        serializer = BookNoteSerializer(note)
+                else:
+                    if note.share_to == 'P':
+                        return Response(status=status.HTTP_401_UNAUTHORIZED)
+                    elif note.share_to == 'F':
+                        user_friend_list = note.user.get_friends()
+                        if user_friend_list.filter(pk=request.user.pk).exists():
+                            serializer = BookNoteSerializer(note)
+                        else:
+                            return Response(status=status.HTTP_401_UNAUTHORIZED)
+                    elif note.share_to == 'A':
+                        serializer = BookNoteSerializer(note)
             except ObjectDoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = BookNoteSerializer(note)
         else:
             list_type = request.GET.get('type', None)
 

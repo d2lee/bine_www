@@ -24,14 +24,16 @@
                 </div>
                 <p class="panel-content">{{ note.book.description }} <a href="{{ note.book.link }}"> 더 보기</a></p>
             </div>
+            <!--
             <div class="panel-footer" ng-show="note.user.id != user.id">
                 <a href="" ng-click="edit_note(note)">나도 읽었어요</a> | <a href="" ng-click="edit_note(note)">읽고 싶어요</a>
             </div>
+            -->
         </div>
         <div class="panel panel-default detail-item" ng-cloak>
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a href="#/note/{{ note.id }}">{{ note.user.id === user.id ? '나' : note.user.fullname }}의 독후감</a>
+                    <a href="#/note/{{ note.id }}">{{ note.user.id === user.id ? '나' : note.user.fullname + '님' }}의 감상문</a>
                 </h4>
             </div>
             <div class="panel-body">
@@ -39,8 +41,8 @@
                     <span>{{ note.created_at | date:"yyyy-MM-dd h:mm a" }}</span> |
                     <star-rating rating-value="rating" max="5"></star-rating>
                     |
-                    <span>{{ make_html_share(note.share_to) }}</span>
-                    <span ng-bind-html="make_html_attach(note.attach)"></span>
+                    <span>{{ note.share_to | shareText }}</span> |
+                   <attach attachurl="note.attach"></attach>
                 </div>
                 <p class="panel-content">{{ note.content }}</p>
             </div>

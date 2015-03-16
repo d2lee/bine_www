@@ -54,18 +54,18 @@
         </div>
         <div class="page-info">
             <div class="ng-hide alert alert-info" ng-cloak
-                 ng-show="(current_menu == 'm1') && !spinner && (friends && friends.length==0)">
+                 ng-show="(current_menu == 'm1') && (friends && friends.length==0)">
                 <span class="glyphicon glyphicon-alert"></span> 아직 등록된 친구가 없습니다. <a href="#/friend/m3/">새
                 친구 찾기</a>에서 새친구를 만나보세요.
             </div>
 
             <div class="ng-hide alert alert-info" ng-cloak
-                 ng-show="(current_menu == 'm2') && !spinner && (friends && friends.length==0)">
+                 ng-show="(current_menu == 'm2') && (friends && friends.length==0)">
                 <span class="glyphicon glyphicon-alert"></span> 새로운 친구 신청이 없었습니다.
             </div>
 
             <div class="ng-hide alert alert-info" ng-cloak
-                 ng-show="(current_menu == 'm3') && !spinner && (friends && friends.length==0)">
+                 ng-show="(current_menu == 'm3') && (friends && friends.length==0)">
                 <span class="glyphicon glyphicon-alert"></span> 추천할 친구가 없습니다.
             </div>
         </div>
@@ -74,8 +74,8 @@
             <div class="list-item media col-xs-15" ng-repeat="friend in friends | filter: username">
                 <div class="media">
                     <div class="media-left">
-                        <a href="#">
-                            <img class="media-object user-photo" ng-src="{{ friend.photo | photo: friend.sex }}"
+                        <a href="">
+                            <img class="media-object login-icon" ng-src="{{ friend.photo | photo: friend.sex }}"
                                  alt="{{ friend.fullname }}">
                         </a>
                     </div>
@@ -86,9 +86,10 @@
                             <div>아이디: {{ friend.username }} | 생일: {{ friend.birthday }}</div>
                             <div ng-show="current_menu == 'm3'">{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
                         </div>
-                        <div class="panel-body">
+                        <p class="panel-content">
                             {{ friend.tagline }}
-                        </div>
+                        </p>
+
                         <div class="panel-action">
                             <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
                                     ng-show="current_menu=='m3'">친구 요청
@@ -108,30 +109,29 @@
     </div>
 
     <div class="col-xs-15" ng-show="current_menu == 'm2'">
-        <h4 class="list-title">내가 친구맺기를 원한 사람들</h4>
+        <div class="list-title">
+            <h4>내가 친구맺기를 원한 사람들</h4>
+        </div>
 
         <div class="page-info">
             <div class="ng-hide alert alert-info" ng-cloak
-                 ng-show="(current_menu == 'm2') && !spinner && request_friends && (request_friends.length==0)">
-                <span class="glyphicon glyphicon-info"></span> 새로운 친구 신청이 없었습니다.
+                 ng-show="(current_menu == 'm2') && request_friends && (request_friends.length==0)">
+                <span class="glyphicon glyphicon-alert"></span> 새로운 친구 신청이 없었습니다.
             </div>
         </div>
 
         <resource>
-            <div class="list-item media col-xs-15" ng-repeat="friend in request_friends | filter:username">
+            <div class="list-item media col-xs-15" ng-repeat="friend in request_friends">
                 <div class="media">
                     <div class="media-left">
-                        <a href="#">
-                            <img class="media-object user-photo" ng-src="{{ friend.photo | photo: friend.sex }}"
+                        <a href="">
+                            <img class="media-object login-icon" ng-src="{{ friend.photo | photo: friend.sex }}"
                                  alt="{{ friend.fullname }}">
                         </a>
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">{{ friend.fullname }}</h4>
 
-                        <div class="panel-detail">
-                            <div>{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
-                        </div>
                         <div class="panel-action">
                             <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"
                                     ng-show="current_menu=='m3'">친구 요청

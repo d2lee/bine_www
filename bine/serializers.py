@@ -64,7 +64,7 @@ class UserSerializer(serializers.ModelSerializer):
                     field_count_changed += 1
 
         school_id = self.initial_data.get('school')
-        if school_id and school_id.isdigit():
+        if school_id:
             school = School.objects.get(pk=school_id)
             if school and school != instance.school:
                 instance.school = school
@@ -134,12 +134,12 @@ class UserSerializer(serializers.ModelSerializer):
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'fullname', 'photo')
-        read_only_fields = ('id', 'username', 'fullname', 'photo')
+        fields = ('id', 'username', 'fullname', 'photo', 'sex')
+        read_only_fields = ('id', 'username', 'fullname', 'photo', 'sex')
 
 
 class FriendSerializer(serializers.ModelSerializer):
-    cnt = serializers.IntegerField(allow_null=True)
+    cnt = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         model = User

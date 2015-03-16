@@ -30,6 +30,7 @@ bineApp.controller('friendListControl', ['$scope', '$routeParams', 'Friends', 'U
     $scope.fetch_unconfirmed_friends = function () {
         $scope.current_menu = "m2";
         $scope.friends = Friends.get_friends_by_others();
+        $scope.request_friends = Friends.get_friends_by_me();
     };
 
     $scope.fetch_recommended_friends = function () {

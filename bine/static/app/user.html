@@ -6,8 +6,8 @@
             </h4>
         </div>
         <div class="list-group">
-            <a href="#/user/m1/" class="list-group-item" ng-class="{'active': current_menu=='m1' }">사용자정보</a>
-            <a href="#/user/m2/" class="list-group-item" ng-class="{'active': current_menu=='m2' }">추가정보</a>
+            <a href="#/user/m1/" class="list-group-item" ng-class="{'active': current_menu=='m1' }">기본정보</a>
+            <a href="#/user/m2/" class="list-group-item" ng-class="{'active': current_menu=='m2' }">자기소개</a>
             <a href="#/user/m3/" class="list-group-item" ng-class="{'active': current_menu=='m3' }">독서목표</a>
         </div>
     </div>
@@ -24,17 +24,17 @@
                             class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation" ng-class="{'active': current_menu=='m1' }"><a role="menuitem"
-                                                                                                   tabindex="-1" href=""
-                                                                                                   ng-click="show_m1()">사용자정보</a>
+                                                                                              tabindex="-1" href="#/user/m1/"
+                                                                                              ng-click="show_m1()">기본정보</a>
                         </li>
                         <li role="presentation" ng-class="{'active': current_menu=='m2' }"><a role="menuitem"
-                                                                                                   tabindex="-1" href=""
-                                                                                                   ng-click="show_m2()">추가정보</a>
+                                                                                              tabindex="-1" href="#/user/m2/"
+                                                                                              ng-click="show_m2()">자기소개</a>
                         </li>
                         <li role="presentation" ng-class="{'active': current_menu=='m3' }"><a role="menuitem"
-                                                                                                       tabindex="-1"
-                                                                                                       href=""
-                                                                                                       ng-click="show_m3()">독서목표</a>
+                                                                                              tabindex="-1"
+                                                                                              href="#/user/m3/"
+                                                                                              ng-click="show_m3()">독서목표</a>
                         </li>
                     </ul>
                 </div>
@@ -227,10 +227,10 @@
                     </button>
                     <div class="http-error">
                         <div class="alert alert-success" ng-show="http_status==200">
-                            사용자 정보가 정상적으로 저장되었습니다.
+                            개인 정보를 수정하였습니다.
                         </div>
                         <div class="alert alert-danger" ng-show="http_status==500">
-                            서버에 문제가 있어 사용자 정보를 저장하지 못했습니다. 다시 시도하거나 사이트 관리자에게 문의하시기 바랍니다.
+                            서버에 문제가 있어 사용자 정보를 수정하지 못했습니다. 다시 시도하거나 사이트 관리자에게 문의하시기 바랍니다.
                         </div>
                     </div>
                 </div>
@@ -251,14 +251,14 @@
                                     <img src="/static/app/images/loading.gif" width="50px" height="50px">
                                 </div>
 
-                                <button class="btn btn-default"
+                                <div class="btn btn-default"
                                         ng-file-select
                                         ng-file-change="upload($files)"
                                         ng-model="photo"
                                         ng-multiple="false"
                                         ng-capture="'camera'"
                                         accept="'image/*'">사진 선택
-                                </button>
+                                </div>
 
                             </div>
                         </div>
@@ -277,30 +277,23 @@
                                 <input type="text" class="form-control" ng-model="school_name" placeholder="학교 검색"
                                        ng-keyup="$event.keyCode == 13 ? show_school_search_dlg() : null">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"
+                                    <button class="btn btn-primary" type="button"
                                             ng-click="show_school_search_dlg()">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                     </button>
                                 </span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="company">회사:</label>
-
-                            <div class="col-sm-13">
-                                <input class="form-control" type="text" ng-model="company"/>
-                            </div>
-                        </div>
                         <div class="col-sm-offset-2">
-                            <button type="submit" class="btn btn-md btn-primary"
+                            <button type="button" class="btn btn-md btn-primary"
                                     ng-click="update_user()">저장하기
                             </button>
                             <div class="http-error">
                                 <div class="alert alert-success" ng-show="http_status==200">
-                                    사용자 정보가 정상적으로 저장되었습니다.
+                                    자기소개 내용들을 수정하였습니다.
                                 </div>
                                 <div class="alert alert-danger" ng-show="http_status==500">
-                                    서버에 문제가 있어 사용자 정보를 저장하지 못했습니다. 다시 시도하거나 사이트 관리자에게 문의하시기 바랍니다.
+                                    서버에 문제가 있어 자기소개 내용을 수정하지 못했습니다. 다시 시도하거나 사이트 관리자에게 문의하시기 바랍니다.
                                 </div>
                             </div>
                         </div>
