@@ -37,7 +37,7 @@
             <div class="panel-body">
                 <div class='panel-detail'>
                     <span>{{ note.created_at | date:"yyyy-MM-dd h:mm a" }}</span> |
-                    <star-rating rating-value="note.rating" max="5"></star-rating>
+                    <star-rating rating-value="rating" max="5"></star-rating>
                     |
                     <span>{{ make_html_share(note.share_to) }}</span>
                     <span ng-bind-html="make_html_attach(note.attach)"></span>

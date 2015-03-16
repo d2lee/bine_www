@@ -230,14 +230,15 @@ bineApp.filter('photo', function () {
 });
 
 bineApp.directive('spinner', function () {
-    var spinner_html = "<div class='col-xs-offset-7 col-xs-1'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>";
+    var spinner_html = "<div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>";
     return {
         template: spinner_html
     };
 });
 
 bineApp.directive('resource', function () {
-    var template = "<div ng-hide='spinner' ng-cloak><div ng-transclude></div></div>";
+    var template = "<div ng-hide='spinner' ng-cloak><div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div>" +
+        "<div ng-hide='spinner' ng-transclude></div></div>";
     return {
         restrict: 'E',
         transclude: true,

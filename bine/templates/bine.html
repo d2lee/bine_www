@@ -13,13 +13,90 @@
     <!-- Bootstrap core CSS -->
     <script src="/static/angular/angular.min.js"></script>
 
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/app/css/bine.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body ng-app="bineApp">
 
-<ng-include src="'/static/app/nav_bar.html'" ng-show="navbarMenu!='start'" ng-cloak></ng-include>
+{% verbatim %}
+<nav class="navbar navbar-default navbar-static-top" ng-cloak ng-show="navbarMenu && navbarMenu!='start'">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#/note/">Bine</a>
+        <ul class="nav navbar-nav visible-sm visible-md visible-lg">
+            <li ng-cloak ng-class="{'active':navbarMenu == 'note'}"><a href="#/note/"><span class="glyphicon glyphicon-file"></span><span
+                    class="menu_caption"> 노트</span></a></li>
+            <li ng-cloak ng-class="{'active':navbarMenu == 'book'}"><a href="#/book/"><span class="glyphicon glyphicon-book"></span><span class="menu_caption"> 책</span></a>
+            </li>
+            <li ng-cloak ng-class="{'active':navbarMenu == 'friend'}"><a href="#/friend/"><span class="glyphicon glyphicon-user"></span><span class="menu_caption"> 친구</span></a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-lg">
+            <li>
+                <div class="dropdown pull-right">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <a href=""><img class="login-icon" data-toggle="tooltip" data-placement="left"
+                                        ng-src="{{ user.photo | photo: user.sex }}">
+                        </a>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/m1/">사용자정보</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/m2/">독서목표</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
+            <li ng-class="{'active':navbarMenu == 'note'}">
+                <a href="#/note/"><span class="glyphicon glyphicon-file"></span></a>
+            </li>
+            <li ng-class="{'active':navbarMenu == 'book'}">
+                <a href="#/book/"><span class="glyphicon glyphicon-book"></span></a>
+            </li>
+            <li ng-class="{'active':navbarMenu == 'friend'}">
+                <a href="#/friend/"><span class="glyphicon glyphicon-user"></span></a>
+            </li>
+            <li class="login-user">
+                <div class="dropdown pull-right">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <a href=""><img class="login-icon" data-toggle="tooltip" data-placement="left"
+                                        title="{{ user.fullname }} 로그인 중"
+                                        ng-src="{{ user.photo | photo: user.sex }}">
+                        </a>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user_dropdown">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">사용자정보</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/user/">독서목표</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/login/">로그아웃</a></li>
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <div class="input-group  hidden-xs">
+                    <input type="text" class="form-control" placeholder="책 검색">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+						</span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</nav>
+{% endverbatim %}
+
 <div class="container-fluid" ng-view ng-cloak></div>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -37,6 +114,7 @@
 <script src="/static/angular/angular-resource.min.js"></script>
 <script src="/static/angular/angular-sanitize.min.js"></script>
 <script src="/static/angular/angular-cookies.min.js"></script>
+<script src="/static/angular/angular-animate.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/angular-jwt/angular-jwt.min.js"></script>
 

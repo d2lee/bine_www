@@ -70,13 +70,13 @@ class School(models.Model):
     city = CharField(max_length=30, null=False)
     name = CharField(max_length=128, null=False)
 
-    SCHOOL_MAKER = (
+    SCHOOL_TYPE = (
         ('A', '공립'),
         ('B', '사립'),
         ('C', '국립'),
     )
 
-    maker = models.CharField(max_length=1, choices=SCHOOL_MAKER, blank=False)
+    type = models.CharField(max_length=1, choices=SCHOOL_TYPE, blank=False)
     zipcode = CharField(max_length=6, null=False)
     address = CharField(max_length=512, null=False)
 

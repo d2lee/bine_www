@@ -17,12 +17,17 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$sce",
 
         $scope.show_notes_by_all = function () {
             $scope.current_menu = "menu1";
-            $scope.notes = BookNotes.get_notes_by_all();
+            BookNotes.get_notes_by_all(function(data){
+                $scope.notes = data;
+
+            });
         };
 
         $scope.show_notes_by_me = function () {
             $scope.current_menu = "menu2";
-            $scope.notes = BookNotes.get_notes_by_me();
+            BookNotes.get_notes_by_me(function(data) {
+                $scope.notes =  data;
+            });
         };
 
 
@@ -98,16 +103,18 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             $scope.note_id = note_id;
             $scope.new_reply_content = "";
             $scope.current_reply = "";
-            //$scope.note = {rating: "5"}
+            $scope.rating = 1;
+
             $scope.fetch_note_detail(note_id);
-            // $scope.fetch_note_reply(note_id);
         };
 
         $scope.fetch_note_detail = function (note_id) {
+
             // fetch the details about current booknote.
             var url = '/api/note/' + note_id + "/";
             $http.get(url).success(function (data) {
                 $scope.note = data;
+                $scope.rating = $scope.note.rating;
             });
         };
 
@@ -115,7 +122,7 @@ bineApp.controller('NoteDetailControl', ["$rootScope", "$scope", "$sce", "$route
             // fetch the reply information from server.
             var note_reply_url = '/api/note/' + note_id + "/reply/";
             $http.get(note_reply_url).success(function (data) {
-                $scope.replies = data;
+                //$scope.replies = data;
             });
         };
 
