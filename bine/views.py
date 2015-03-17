@@ -210,23 +210,21 @@ class UserView(APIView):
 class BookDetail(APIView):
     @staticmethod
     def get(request, pk=None, isbn13=None):
-        if pk is not None:
+        if pk:
             try:
                 book = Book.objects.get(pk=pk)
-            except ObjectDoesNotExist:
+            except Book.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-
-        if isbn13 is not None:
+        elif isbn13:
             try:
                 book = Book.objects.get(isbn13=isbn13)
-            except ObjectDoesNotExist:
+            except Book.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-
-        if book:
-            serializer = BookSerializer(book)
-            return Response(serializer.data)
         else:
-            return Response(status=HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
 
 
 class BookList(APIView):

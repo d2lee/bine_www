@@ -153,6 +153,7 @@ class BookSerializer(serializers.ModelSerializer):
 
         fields = ('id', 'category', 'title', 'isbn', 'isbn13', 'author', 'author_etc', 'illustrator', 'translator',
                   'publisher', 'pub_date', 'description', 'photo', 'link')
+        read_only = ('id',)
 
 
 class BookNoteSerializer(serializers.ModelSerializer):

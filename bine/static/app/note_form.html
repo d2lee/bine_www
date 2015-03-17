@@ -1,3 +1,79 @@
+<!-- Book 생성 -->
+<div class="modal" id="new_book_modal"
+     tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form name="new_book_form" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">책 직접 입력 및 저장</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="book_title" class="sr-only">책이름</label>
+                        <input type="text" class="form-control" name="book_title" ng-model="book_title"
+                               placeholder="책이름" required>
+
+                        <div class="error-msg" ng-show="new_book_form.$submitted || new_book_form.book_title.$touched">
+                            <div ng-show="new_book_form.book_title.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>책이름은 필수항목입니다.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="book_author" class="sr-only">글쓴이</label>
+                        <input type="text" class="form-control" name="author" ng-model="new_book.author"
+                               placeholder="지은이" required>
+
+                        <div class="error-msg" ng-show="new_book_form.$submitted || new_book_form.author.$touched">
+                            <div ng-show="new_book_form.author.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>글쓴이는 필수항목입니다.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="book_publisher" class="sr-only">출판사</label>
+                        <input type="text" class="form-control" name="publisher" ng-model="new_book.publisher"
+                               placeholder="출판사" required>
+
+                        <div class="error-msg" ng-show="new_book_form.$submitted || new_book_form.publisher.$touched">
+                            <div ng-show="new_book_form.publisher.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>출판사는 필수항목입니다.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="book_isbn" class="sr-only">ISBN</label>
+                        <input type="text" class="form-control" name="isbn" ng-model="new_book.isbn13"
+                               placeholder="ISBN" ng-minlength="9" ng-maxlength="13" required>
+
+                        <div class="error-msg" ng-show="new_book_form.$submitted || new_book_form.isbn.$touched">
+                            <div ng-show="new_book_form.isbn.$error.required">
+                                <span class='glyphicon glyphicon-info-sign'></span>ISBN은 필수항목입니다. 보통 책의 뒤 커버에서 확인할 수
+                                있습니다.
+                            </div>
+                            <div ng-show="new_book_form.isbn.$error.minlength || new_book_form.isbn.$error.maxlength">
+                                <span class='glyphicon glyphicon-info-sign'></span>ISBN은 9자리 또는 13자리의 숫자로 구성됩니다.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-info" ng-show="http_status > 200"><span
+                            class="glyphicon glyphicon-warning-sign"></span>책을 저장하지 못했습니다. 잠시후에 다시 시도해 주십시오.
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-click="save_new_book()">저장</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Book Search Modal -->
 <div class="modal book-search-modal" id="book_search_modal"
      tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -26,12 +102,12 @@
                 <div class="row">
                     <spinner></spinner>
                     <div class="col-xs-15 alert alert-info" ng-show="book_http_status != -1 && book_http_status != 200">
-                        <span class="glyphicon glyphicon-warning-sign"></span> 서버로부터 책 정보를 가져오지 못했습니다. 잠시 후 다시 시도해주십시오.
+                        <span class="glyphicon glyphicon-warning-sign"></span>서버로부터 책 정보를 가져오지 못했습니다. 잠시 후 다시 시도해주십시오.
                     </div>
                     <div class="col-xs-15 alert alert-info" ng-show="book_http_status != -1">
-                        <span class="glyphicon glyphicon-warning-sign"></span> 원하는 책이 없나요? 책 제목 이외에 지은이나 출판사를 함께 적어서 검색을
-                        해보세요. 그래도 없으면 <a href="">여기</a>를 클릭하여
-                        직접 책을 추가할 수 있습니다.
+                        <span class="glyphicon glyphicon-warning-sign"></span> 찾으시는 책이 없나요? 책이름외에 지은이나 출판사를 함께 적어서 검색을
+                        해보세요. 그래도 없으면 <a href="" ng-click="show_new_book_modal()">여기</a>를 클릭하여
+                        직접 책을 입력할 수 있습니다.
                     </div>
                     <resource>
                         <div class="row">
@@ -63,7 +139,7 @@
     </div>
 </div>
 
-<div class="panel panel-primary note-new-panel">
+<div class="panel  panel-primary note-new-panel">
     <div class="panel-heading">
         <a href="#/note/"><span class="glyphicon glyphicon-menu-left"></span></a>독서노트
     </div>
@@ -84,13 +160,14 @@
                         </button>
 					</span>
                     </div>
-                </div>
-                <div class="error-msg"
-                     ng-show="note_form.$submitted || note_form.book_title.$touched">
-                    <div ng-show="note_form.book_title.$error.required">
-                        <span class='glyphicon glyphicon-info-sign'></span>책을 선택하십시오.
+                    <div class="error-msg"
+                         ng-show="note_form.$submitted || note_form.book_title.$touched">
+                        <div ng-show="note_form.book_title.$error.required">
+                            <span class='glyphicon glyphicon-info-sign'></span>책이름이 필요합니다.
+                        </div>
                     </div>
                 </div>
+
             </div>
             <div class="form-group">
                 <label for="content" class="col-sm-2 control-label">감상문:</label>
@@ -150,27 +227,23 @@
             </div>
 
         </div>
+
         <div class="panel-footer">
             <div class="col-sm-offset-2">
                 <button type="submit" class="btn btn-primary" ng-click="save()">저장</button>
-                <div class="panel-error-msg" ng-show="http_status == 200">
-                    <div class="alert alert-success"><p><span class="glyphicon glyphicon-info-sign"></span> 성공적으로
-                        저장되었습니다.</p>
-                        <button class="btn btn-default" ng-click="go_back()">이전 화면으로 이동</button>
+                <button class="btn btn-primary" ng-click="go_back()">뒤로</button>
+                <div class="error-msg">
+                    <div class="alert alert-success" ng-show="http_status==200">
+                        성공적으로 저장되었습니다.
                     </div>
-                </div>
-                <div class="panel-error-msg" ng-show="http_status > 200">
-                    <div class="alert alert-warning"><p><span class="glyphicon glyphicon-warning-sign"></span> 저장하는데
-                        실패하였습니다. 다시
-                        저장하거나 나중에 다시 시도해 주십시오.</p>
-                        <button class="btn btn-default" href="go_back()">이전 화면으로 이동</button>
+                    <div class="alert alert-warning" ng-show="http_status>200">
+                        저장하는데 문제가 발생하였습니다. 잠시 후에 다시 시도해 주십시오.
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
-
-
 </div>
 
 

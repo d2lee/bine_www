@@ -247,6 +247,17 @@ bineApp.filter('photo', function () {
     };
 });
 
+bineApp.filter('bookPhoto', function () {
+    return function (content) {
+        if (content && content != null) {
+            return content;
+        }
+        else {
+            return '/static/app/images/no_book_img.gif';
+        }
+    };
+});
+
 bineApp.filter('shareText', function () {
     return function (content) {
         if (content == 'P') {

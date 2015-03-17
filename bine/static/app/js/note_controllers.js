@@ -39,15 +39,16 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
 
         // 노트를 삭제한다.
         $scope.delete_note = function (note, index) {
-            var ret = confirm("노트를 삭제하시겠습니까? 한번 삭제되면 복구할 수 없습니다.");
-            if (!ret)
-                return;
-
             note.$delete(function (data) {
-                alert('노트가 정상적으로 삭제되었습니다.');
                 $scope.notes.splice(index, 1);
             });
         };
+
+        $scope.confirm_delete_note = function(note) {
+            var delete_id = "#collapse_" + note.id;
+
+            $(delete_id).collapse('toggle');
+        }
 
         $scope.init();
     }]);
@@ -111,12 +112,7 @@ bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "$location", 
 
         // 노트를 삭제한다.
         $scope.delete_note = function () {
-            var ret = confirm("노트를 삭제하시겠습니까? 한번 삭제되면 복구할 수 없습니다.");
-            if (!ret)
-                return;
-
             $scope.note.$delete(function () {
-                alert('노트가 정상적으로 삭제되었습니다. 이전 화면으로 이동합니다.');
                 window.history.back();
             });
         };
@@ -128,15 +124,21 @@ bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "$location", 
             location.url(url);
         };
 
+        $scope.confirm_delete_note = function() {
+            var delete_id = "#collapse_" + $scope.note.id;
+
+            $(delete_id).collapse('toggle');
+        }
+
         $scope.init();
     }]);
 
 /*
  NoteNewControl: 새로운 노트를 생성하거나 기존 노트 수정을 처리하기 위한 컨트롤러
  */
-bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
-    "$http", "$location", "login_user", "navbar", "BookNotes", "BookSearchAPI",
-    function ($routeParams, $scope, $upload, $http, $location, login_user, navbar, BookNotes, BookSearchAPI) {
+bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "$upload",
+    "$http", "$location", "login_user", "navbar", "BookNotes", "BookSearchAPI", "Book",
+    function ($rootScope, $routeParams, $scope, $upload, $http, $location, login_user, navbar, BookNotes, BookSearchAPI, Book) {
 
         $scope.init = function () {
             navbar.set_menu('note');
@@ -273,41 +275,74 @@ bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
             $scope.upload(url, data, $scope.note.attach)
         };
 
+        var search_book_with_keyword = function (title, api_key) {
+            if (title == '')
+                return;
+
+            var url = "https://apis.daum.net/search/book";
+            url += "?output=json&result=10&sort=popular";
+            url += "&apikey=" + api_key;
+            url += "&q=" + title;
+            url += "&callback=JSON_CALLBACK";
+
+            $scope.book_http_status = -1;
+            $http.jsonp(url).
+                success(function (data, status, headers, config) {
+                    $scope.books = $scope.strip_escaped_text(data.channel.item);
+                    // $('#book_search_modal').modal('show');
+                    $scope.book_http_status = 200;
+                }).
+                error(function (data, status, headers, config) {
+                    $scope.book_http_status = status;
+                });
+        }
+
         $scope.search_book = function () {
             var title = $scope.book_title;
 
-            if (title == '') {
-                $('#book_search_modal').modal('show');
+            $scope.book_http_status != -1
+            $('#book_search_modal').modal('show');
+
+            var api_key = $rootScope.book_search_key;
+            if (api_key && api_key != "") {
+                search_book_with_keyword(title, api_key)
             }
             else {
-                // key
+                // get a api key from server
                 BookSearchAPI.get(function (data) {
                     var api_key = data.key;
                     if (api_key) {
-                        var url = "https://apis.daum.net/search/book";
-                        url += "?output=json&result=10&sort=popular";
-                        url += "&apikey=" + api_key;
-                        url += "&q=" + title;
-                        url += "&callback=JSON_CALLBACK";
-                        $scope.book_http_status = -1;
-                        $http.jsonp(url).
-                            success(function (data, status, headers, config) {
-                                $scope.books = $scope.strip_escaped_text(data.channel.item);
-                                $('#book_search_modal').modal('show');
-                                $scope.book_http_status = 200;
-                            }).
-                            error(function (data, status, headers, config) {
-                                $scope.book_http_status = status;
-                            });
+                        $rootScope.book_search_key = api_key;
+                        search_book_with_keyword(title, api_key);
                     }
                     else {
-                        alert('서버나 네트워크 이상으로 지금 책 검색을 할 수 없습니다. 잠시 후에 시도해 주십시오. ')
+                        //$scope.book_http_status = 500;
                     }
                 })
-
-
             }
         };
+
+        $scope.show_new_book_modal = function () {
+            $('#book_search_modal').modal('hide');
+            $('#new_book_modal').modal('show');
+        }
+
+        $scope.save_new_book = function () {
+            if (!$scope.new_book_form.$valid) {
+                return;
+            }
+
+            $scope.new_book.title = $scope.book_title;
+
+            var data = angular.toJson($scope.new_book);
+
+            Book.save(data, function(data) {
+                $scope.note.book = data;
+                $('#new_book_modal').modal('hide');
+            }, function(data){
+                $scope.http_status = data.status;
+            });
+        }
 
         $scope.strip_escaped_text = function (books) {
             var jsonText = angular.toJson(books);
@@ -327,6 +362,12 @@ bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
 
         $scope.save_book = function (book) {
             // 새로운 책이기 때문에 데이터베이스에 저장.
+
+            var book_url = book.cover_l_url;
+            if (!book_url || book_url == "") {
+                book_url = book.cover_s_url;
+            }
+
             var book_data = {
                 'author': book.author,
                 'title': book.title,
@@ -335,7 +376,7 @@ bineApp.controller('NoteFormControl', ["$routeParams", "$scope", "$upload",
                 'barcode': book.barcode,
                 'author_etc': book.etc_author,
                 'translator': book.translator,
-                'photo': book.cover_s_url,
+                'photo': book_url,
                 'description': book.description,
                 'category': book.category,
                 'publisher': book.pub_nm,

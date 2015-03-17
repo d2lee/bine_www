@@ -16,6 +16,17 @@ body {
     .search-icon-only {
         display: inline;
     }
+
+    .page-left {
+        padding-right: 0 !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-left {
+        padding-right: 0 !important;
+    }
+
 }
 
 @media screen and (min-width: 481px) {
@@ -34,8 +45,7 @@ body {
 }
 
 .navbar-brand {
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 26px !important;
     margin-right: 50px;
 }
 
@@ -114,7 +124,7 @@ body {
 .page-right {
     background: #fff;
     border-radius: 4px;
-    padding-bottom: 16px;
+
 }
 
 .page-right .list-title {
@@ -190,11 +200,30 @@ body {
     background: #ffffff;
 }
 
-.list-item .book-photo {
+.list-item .book-photo-large {
     padding: 4px 4px 4px 8px;
-    margin-top: -30px;
-    width: 100px;
+    width: 80px;
     height: auto;
+}
+
+.list-item .deleteitem {
+    background: red;
+}
+
+.list-item .book-photo-small {
+    padding: 4px 4px 4px 8px;
+    width: 75px;
+}
+
+.list-item .delete-msg .alert {
+    padding: 8px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.list-item .list-item-action-btn {
+    border: 0;
+    background: white;
 }
 
 .list-item .panel-footer {
@@ -258,6 +287,8 @@ body {
 
 .book-search-modal .row {
     margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .book-search-modal .thumbnail {
@@ -311,17 +342,20 @@ body {
     padding-left: 8px;
 }
 
-resource .media:first-child {
-    margin-top: 8px !important;
-}
 
 .list-item .form-group .input-group {
     padding-left: 8px;
     padding-right: 8px;
 }
 
-.panel-body .progress-bar {
-    color: black;
+.page-left .panel-body .progress {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: #E8F5E9;
+
+}
+.page-left .panel-body .progress-bar {
+    font-size: 10px;
 }
 
 .page-menu-button {
@@ -335,8 +369,12 @@ resource .media:first-child {
     margin-right: 2px;
 }
 
+resource .media:first-child {
+    margin-top: 8px !important;
+}
+
 .page-menu-button .dropdown-toggle {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .page-menu-button .glyphicon {
@@ -402,4 +440,8 @@ star-rating li.filled {
     font-style: italic;
     font-variant: small-caps;
     vertical-align: super;
+}
+
+.user-photo-upload .user-photo {
+    cursor: pointer;
 }

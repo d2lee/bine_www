@@ -64,4 +64,10 @@ bineApp.factory('Schools', ['$resource', function ($resource) {
 bineApp.factory('BookSearchAPI', ['$resource', function($resource) {
     return $resource('/api/book_search_key/', null, {
     }, {stripTrailingSlashes: false});
-}])
+}]);
+
+bineApp.factory('Book', ['$resource', function($resource) {
+    return $resource('/api/book/:bookId/', {bookId: '@id'}, {
+
+    }, {stripTrailingSlashes: false});
+}]);

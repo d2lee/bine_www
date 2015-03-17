@@ -1,16 +1,20 @@
-<div class="col-sm-4 col-md-3 hidden-xs page-left">
+<div class="col-sm-4 col-md-3 page-left">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                {{ user.fullname }}
+                {{ user.fullname }} 님의 독서현황
             </h4>
         </div>
         <div class="panel-body">
-            지금까지 읽은 책: {{ note_state.total_count }}권 <br>
-            이번주에 읽은 책: {{ note_state.week_count }}권<br>
+            <p>총 독서감상문 수: {{ note_state.total_count }} </p>
+
+            <p>이번주 독서감상문: {{ note_state.week_count }} </p>
 
             <div ng-show="note_state && note_state.target_max">
-                목표대비 읽은 책: {{ note_state.target_count }}권(총 {{ note_state.target_max }}권)
+                <p>
+                    목표대비 읽은 책: {{ note_state.target_count }}권 (총 {{ note_state.target_max }}권 중에서)
+                </p>
+
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar"
                          aria-valuenow="{{ note_state.target_count }}"
@@ -19,10 +23,11 @@
                         {{ note_state.target_percent }}%
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default  hidden-xs ">
         <div class="panel-heading">
             <h4 class="panel-title">
                 메뉴
@@ -80,11 +85,12 @@
     </div>
 
     <resource>
-        <div class="list-item media" ng-repeat="note in notes | filter:book_title"
-             repeat_done="iteration_done()">
+        <div class="list-item media" ng-repeat="note in notes | filter:book_title">
             <div class="media-left">
                 <a href=""><img class="media-object login-icon"
-                                ng-src="{{ note.user.photo | photo: note.user.sex }}">
+                                ng-src="{{ note.user.photo | photo: note.user.sex }}"
+                                data-toggle="tooltip" data-placement="bottom"
+                                title="{{ note.user.fullname }}">
                 </a>
 
             </div>
@@ -109,59 +115,27 @@
                         -->
                     <div ng-show="note.user.id == user.id">
                         <a href="" ng-click="edit_note(note)">수정</a> |
-                        <a href="" ng-click="delete_note(note, $index)">삭제</a>
+                        <a href="" ng-click="confirm_delete_note(note)">삭제</a>
+                    </div>
+
+                    <div class="collapse delete-msg" id="collapse_{{ note.id }}">
+                        <div class="alert alert-warning">삭제하면 다시 복원할 수 없습니다. 그래도 삭제하시겠습니까?
+                            <button class="btn btn-sm btn-primary" ng-click="delete_note(note, $index)">삭제</button>
+                            <button class="btn btn-sm btn-primary" data-toggle="collapse"
+                                    data-target="#collapse_{{ note.id }}">
+                                취소
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="media-right">
                 <a href="#/note/{{ note.id }}">
-                    <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
+                    <img class="media-object book-photo-small" ng-src="{{ note.book.photo | bookPhoto }}"
+                         alt="{{ note.book.title }}">
                 </a>
             </div>
+
         </div>
     </resource>
-    <!--
-        <div class="animate-switch-container"
-             ng-switch on="spinner">
-            <div class="animate-switch" ng-switch-when="true">
-                <spinner></spinner>
-            </div>
-            <div class="animate-switch" ng-switch-when="false">
-                <resource>
-                    <div class="list-item media col-xs-15" ng-repeat="note in notes | filter:book_title"
-                         repeat_done="iteration_done()">
-                        <div class="media-left">
-                            <a href="#/note/{{ note.id }}">
-                                <img class="media-object" ng-src="{{ note.book.photo }}" alt="{{ note.book.title }}">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
-
-                            <div class='panel-detail'>
-                                <span>{{ note.user.fullname }}</span> |
-                                <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
-                                <star-rating rating-value="note.rating" max="5"></star-rating>
-                                <span ng-bind-html="make_html_attach(note.attach)"></span>
-                            </div>
-                            <p class="panel-content">{{ note.content | truncate: 256 }}</p>
-
-                            <div class="panel-action">
-                                <div ng-show="note.user.id != user.id">
-                                    <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
-                                    <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
-                                </div>
-                                <div ng-show="note.user.id == user.id">
-                                    <a href="" ng-click="edit_note(note)">수정</a> |
-                                    <a href="" ng-click="delete_note(note, $index)">삭제</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </resource>
-            </div>
-            <div class="animate-switch" ng-switch-default></div>
-        </div>
--->
-
 </div>

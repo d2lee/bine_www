@@ -1,16 +1,22 @@
-bineApp.controller('bookListControl', ['$scope', '$http', 'login_user', 'navbar',
-    function ($scope, $http, login_user, navbar) {
-    navbar.set_menu('book');
+bineApp.controller('bookListControl', ['$scope', 'login_user', 'navbar', 'Book',
+    function ($scope, login_user, navbar, Book) {
+        var init = function () {
+            navbar.set_menu('book');
+            fetch_book_list();
+        }
 
-    // check the authentication
-    // $scope.user = login_user.get_user();
 
-    $scope.load_book_list = function () {
-        $http.get('/api/book/').success(function (data) {
-            $scope.books = data;
-            $scope.noData = !$scope.books.length;
-        });
-    };
+        // check the authentication
+        // $scope.user = login_user.get_user();
 
-    $scope.load_book_list();
-}]);
+        var fetch_book_list = function () {
+            Book.query(function(data) {
+                $scope.books = data;
+                //$scope.noData = !$scope.books.length;
+            })
+        };
+
+        init();
+
+
+    }]);

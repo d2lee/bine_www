@@ -47,7 +47,15 @@
                 <p class="panel-content">{{ note.content }}</p>
             </div>
             <div class="panel-footer" ng-show="note.user.id == user.id">
-                <a href="" ng-click="edit_note()">수정</a> | <a href="" ng-click="delete_note()">삭제</a>
+                <a href="" ng-click="edit_note()">수정</a> | <a href="" ng-click="confirm_delete_note()">삭제</a>
+            </div>
+            <div class="collapse delete-msg" id="collapse_{{ note.id }}">
+                <div class="alert alert-warning">삭제하면 다시 복원할 수 없습니다. 그래도 삭제하시겠습니까?
+                    <button class="btn btn-sm btn-primary" ng-click="delete_note()">삭제</button>
+                    <button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#collapse_{{ note.id }}">
+                        취소
+                    </button>
+                </div>
             </div>
         </div>
     </resource>

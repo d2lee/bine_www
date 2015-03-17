@@ -46,7 +46,7 @@
             <div class="list-item media" ng-repeat="book in books | filter:book_title">
                 <div class="media-left">
                     <a href="">
-                        <img class="media-object" ng-src="{{ book.photo }}" alt="{{ book.title }}">
+                        <img class="media-object book-photo-large" ng-src="{{ book.photo | bookPhoto }}" alt="{{ book.title }}">
                     </a>
                 </div>
                 <div class="media-body">
@@ -56,7 +56,7 @@
                         <span>저자: {{ book.author }}</span> |
                         <span>출판사: {{ book.publisher }}</span> |
                         <span>ISBN: {{ book.isbn }}</span> |
-                        <span>출판일: {{ book.pub_date | date:"yyyy/MM/dd" }}</span>
+                        <span>출판일: {{ book.pub_date | date:"yyyy-MM-dd" }}</span>
                     </div>
                     <p class="panel-content">{{ book.description | truncate: 256 }}</p>
 

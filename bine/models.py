@@ -323,7 +323,7 @@ class Book(models.Model):
     title = CharField(max_length=128, blank=False)
     category = CharField(max_length=128, blank=True)
     isbn = CharField(max_length=10, blank=True, unique=False)
-    barcode = models.CharField(max_length=16, blank=False)
+    barcode = models.CharField(max_length=16, blank=True)
     author = CharField(max_length=128, blank=False)
     isbn13 = CharField(max_length=13, blank=False, unique=True)
     author_etc = CharField(max_length=128, blank=True)
