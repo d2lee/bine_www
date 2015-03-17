@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bine/static/app/images/no_book_img.gif" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/app.js" afterPath="$PROJECT_DIR$/bine/static/app/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/css/bine.css" afterPath="$PROJECT_DIR$/bine/static/app/css/bine.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/book_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/book_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/book_list.html" afterPath="$PROJECT_DIR$/bine/static/app/book_list.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/models.py" afterPath="$PROJECT_DIR$/bine/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_detail.html" afterPath="$PROJECT_DIR$/bine/static/app/note_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_form.html" afterPath="$PROJECT_DIR$/bine/static/app/note_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/resources.js" afterPath="$PROJECT_DIR$/bine/static/app/js/resources.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/serializers.py" afterPath="$PROJECT_DIR$/bine/serializers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/user.html" afterPath="$PROJECT_DIR$/bine/static/app/user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/views.py" afterPath="$PROJECT_DIR$/bine/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -155,41 +144,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="note_form.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bine/static/app/note_form.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.916666" vertical-offset="3089" max-vertical-offset="3840">
-              <caret line="241" column="22" selection-start-line="241" selection-start-column="22" selection-end-line="241" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bine/static/app/js/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3392" max-vertical-offset="5370">
-              <caret line="255" column="54" selection-start-line="255" selection-start-column="54" selection-end-line="255" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bine.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bine/templates/bine.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.041667" vertical-offset="764" max-vertical-offset="2130">
-              <caret line="67" column="73" selection-start-line="66" selection-start-column="59" selection-end-line="67" selection-end-column="73" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bine.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bine.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38556337" vertical-offset="1701" max-vertical-offset="6780">
-              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+            <state vertical-scroll-proportion="-5.888889" vertical-offset="1701" max-vertical-offset="6780">
+              <caret line="124" column="21" selection-start-line="124" selection-start-column="21" selection-end-line="124" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="337" max-vertical-offset="1890">
+              <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1388" max-vertical-offset="7005">
+              <caret line="123" column="64" selection-start-line="123" selection-start-column="64" selection-end-line="123" selection-end-column="64" />
+              <folding>
+                <element signature="e#25#115#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.49816176" vertical-offset="3644" max-vertical-offset="5910">
+              <caret line="261" column="30" selection-start-line="261" selection-start-column="30" selection-end-line="261" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_controllers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bine/static/app/js/user_controllers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-17.222221" vertical-offset="3315" max-vertical-offset="4320">
+              <caret line="252" column="30" selection-start-line="252" selection-start-column="25" selection-end-line="252" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -231,17 +232,13 @@
         <option value="$PROJECT_DIR$/bine/static/app/js/friend_controllers.js" />
         <option value="$PROJECT_DIR$/bine/commons.py" />
         <option value="$PROJECT_DIR$/bine/urls.py" />
-        <option value="$PROJECT_DIR$/bine_www/settings.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/login_control.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/register_control.js" />
         <option value="$PROJECT_DIR$/bine/static/app/friend_list.html" />
-        <option value="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
-        <option value="$PROJECT_DIR$/bine/models.py" />
         <option value="$PROJECT_DIR$/bine/views.py" />
         <option value="$PROJECT_DIR$/bine/serializers.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/resources.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/book_controllers.js" />
-        <option value="$PROJECT_DIR$/bine/static/app/user.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
         <option value="$PROJECT_DIR$/bine/static/app/book_list.html" />
         <option value="$PROJECT_DIR$/bine/static/app/note_form.html" />
@@ -249,6 +246,11 @@
         <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
         <option value="$PROJECT_DIR$/bine/static/app/css/bine.css" />
+        <option value="$PROJECT_DIR$/bine/thumbs.py" />
+        <option value="$PROJECT_DIR$/bine_www/settings.py" />
+        <option value="$PROJECT_DIR$/bine/models.py" />
+        <option value="$PROJECT_DIR$/bine/static/app/js/user_controllers.js" />
+        <option value="$PROJECT_DIR$/bine/static/app/user.html" />
       </list>
     </option>
   </component>
@@ -338,6 +340,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bine_www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="bine" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -356,7 +372,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models.py" />
+              <option name="myItemId" value="serializers.py" />
               <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -444,58 +460,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine_www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine_www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine_www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine_www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -552,8 +516,8 @@
       <recent name="$PROJECT_DIR$/bine_www" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/bine/static/app/images" />
       <recent name="$PROJECT_DIR$/bine" />
+      <recent name="$PROJECT_DIR$/bine/static/app/images" />
     </key>
   </component>
   <component name="RunManager" selected="Django server.bine_www">
@@ -1125,7 +1089,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426552537843</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="1. 새로운 책을 직접 추가할 수 있는 기능 구현&#10;2. 노트 삭제 시 alert창 대신에 페이지내에서 확인할 수 있도록 수정">
+      <created>1426573763431</created>
+      <option name="number" value="00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1426573763431</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1139,10 +1109,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5283912" sideWeight="0.18578352" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4747634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28756058" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2092084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42295596" sideWeight="0.8142165" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1151,7 +1122,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1196,7 +1166,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="User와 FriendRelation 모델 수정 &#10;&#10; - FriendRelation 모델 명을 Friendship으로 변경&#10; - FriendRelation 모델에 updated_on 필드 와 from_user, to_user의 related_name 변경 &#10; - User 모델에 last_login_on  필드 추가&#10; - User 모델에 Friendship에 대한 M2M 필드 정의 수정&#10;&#10;" />
     <MESSAGE value="User 모델에서 last_login_on 필드값에 null허용하도록 수정" />
     <MESSAGE value="기본적인 동작이 되도록 book과 friend, note쪽 수정" />
     <MESSAGE value="노트 관련 함수명 수정" />
@@ -1221,7 +1190,8 @@
     <MESSAGE value="IE에서 로그인안되고 무한루프 문제 해결&#10;&#10;-&gt; 확인은 아직 못함." />
     <MESSAGE value="1. IE에서 무한루프되는 문제 해결됨을 확인함,&#10;2. 모바일에서 리스트 항목의 패딩값이 너무 많이 잡힌 것을 수정&#10;3. page menu button 메뉴 항목이 기본 흰색으로 보이는 문제 수정" />
     <MESSAGE value="1. 사용자&gt;자기소개에서 사진이 기본 사진이 안보이는 문제 해결&#10;2. 사용자&gt;기본 정보에서 사용자 명이 제대로 보이지 않는 문제 해결&#10;3. 모바일에서 보이는 페이지 메뉴 아이콘의 위치를 좀더 왼쪽으로 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 사용자&gt;자기소개에서 사진이 기본 사진이 안보이는 문제 해결&#10;2. 사용자&gt;기본 정보에서 사용자 명이 제대로 보이지 않는 문제 해결&#10;3. 모바일에서 보이는 페이지 메뉴 아이콘의 위치를 좀더 왼쪽으로 변경" />
+    <MESSAGE value="1. 새로운 책을 직접 추가할 수 있는 기능 구현&#10;2. 노트 삭제 시 alert창 대신에 페이지내에서 확인할 수 있도록 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 새로운 책을 직접 추가할 수 있는 기능 구현&#10;2. 노트 삭제 시 alert창 대신에 페이지내에서 확인할 수 있도록 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1252,20 +1222,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bine_www/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12396694" vertical-offset="0" max-vertical-offset="605">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework_jwt/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="750">
-          <caret line="16" column="49" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.4/site-packages/rest_framework_jwt/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="257" max-vertical-offset="1170">
@@ -1467,14 +1423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1239" max-vertical-offset="1875">
-          <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/login_control.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.7777777" vertical-offset="0" max-vertical-offset="540">
@@ -1487,14 +1435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1275">
           <caret line="0" column="89" selection-start-line="0" selection-start-column="87" selection-end-line="0" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/js/user_controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.037037" vertical-offset="887" max-vertical-offset="4260">
-          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1521,14 +1461,6 @@
           <folding>
             <element signature="e#24#68#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1887" max-vertical-offset="3180">
-          <caret line="154" column="57" selection-start-line="154" selection-start-column="57" selection-end-line="154" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1564,21 +1496,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.57793343" vertical-offset="150" max-vertical-offset="2835">
           <caret line="32" column="92" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37316176" vertical-offset="3472" max-vertical-offset="5925">
-          <caret line="245" column="49" selection-start-line="245" selection-start-column="47" selection-end-line="245" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bine/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6672269" vertical-offset="4493" max-vertical-offset="6810">
-          <caret line="334" column="39" selection-start-line="334" selection-start-column="12" selection-end-line="334" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1622,14 +1539,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/static/app/note_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.791667" vertical-offset="404" max-vertical-offset="1440">
-          <caret line="49" column="99" selection-start-line="49" selection-start-column="80" selection-end-line="49" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.416667" vertical-offset="1484" max-vertical-offset="2190">
@@ -1646,10 +1555,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bine/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3180">
+          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.4/site-packages/pilkit/processors/crop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20888157" vertical-offset="1298" max-vertical-offset="2610">
+          <caret line="97" column="70" selection-start-line="97" selection-start-column="70" selection-end-line="97" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.4/site-packages/pilkit/processors/resize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2272" max-vertical-offset="4185">
+          <caret line="197" column="84" selection-start-line="197" selection-start-column="78" selection-end-line="197" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="337" max-vertical-offset="1890">
+          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/css/bine.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38556337" vertical-offset="1701" max-vertical-offset="6780">
-          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+        <state vertical-scroll-proportion="-5.888889" vertical-offset="1701" max-vertical-offset="6780">
+          <caret line="124" column="21" selection-start-line="124" selection-start-column="21" selection-end-line="124" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1388" max-vertical-offset="7005">
+          <caret line="123" column="64" selection-start-line="123" selection-start-column="64" selection-end-line="123" selection-end-column="64" />
+          <folding>
+            <element signature="e#25#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/note_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.791667" vertical-offset="404" max-vertical-offset="1440">
+          <caret line="49" column="99" selection-start-line="49" selection-start-column="80" selection-end-line="49" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/js/user_controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.222221" vertical-offset="3315" max-vertical-offset="4320">
+          <caret line="252" column="30" selection-start-line="252" selection-start-column="25" selection-end-line="252" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/static/app/user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49816176" vertical-offset="3644" max-vertical-offset="5910">
+          <caret line="261" column="30" selection-start-line="261" selection-start-column="30" selection-end-line="261" selection-end-column="30" />
           <folding />
         </state>
       </provider>

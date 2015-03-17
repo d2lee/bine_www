@@ -247,7 +247,6 @@
                                 <div class="user-photo-upload"
                                      ng-file-select
                                      ng-file-change="upload($files)"
-                                     ng-model="photo"
                                      ng-multiple="false"
                                      ng-capture="'camera'"
                                      accept="'image/*'">
@@ -307,7 +306,7 @@
                 <div class="row">
                     <div class="col-sm-15">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="photo">기간:</label>
+                            <label class="col-sm-2 control-label" for="target_from">기간:</label>
 
                             <div class="col-sm-13">
                                 <input type="date" class="form-control inline-control" ng-model="target_from">

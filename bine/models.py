@@ -6,7 +6,8 @@ from django.db.models import Q, Count
 from django.db.models.fields import CharField, DateField, TextField, \
     DateTimeField
 from django.db.models.fields.related import ForeignKey
-from django.db.models.fields.files import ImageField
+from imagekit.models import ProcessedImageField
+from pilkit.processors import ResizeToFit, ResizeToFill, Anchor
 
 from bine.commons import get_category, get_file_name, get_this_week_range
 
@@ -98,7 +99,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, blank=False)
     tagline = models.CharField(max_length=512, blank=True, null=True)
-    photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True, null=True)
+    # photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True, null=True)
+    photo = ProcessedImageField(upload_to='user/%Y/%m/%d', blank=True, null=True,
+                                processors=[ResizeToFill(120, 120, Anchor.TOP)],
+                                format='JPEG',
+                                options={'quality': 100})
     school = models.ForeignKey(School, null=True)
     company = models.CharField(max_length=128, blank=True, null=True)
 
