@@ -14,27 +14,29 @@ bineApp.controller('UserControl', ['$scope', '$routeParams', '$upload', 'login_u
             $scope.target_to = today;
 
             var user_id = user.id;
-            $scope.user = Users.get({id: user_id}, function () {
+            $scope.user = Users.get({id: user_id}, function (data) {
                 // read data
-                $scope.username = $scope.user.username;
-                $scope.birth_year = $scope.user.birthday.substr(0, 4);
-                $scope.birth_month = $scope.user.birthday.substr(5, 2);
-                $scope.birth_day = $scope.user.birthday.substr(8, 2);
-                $scope.school = $scope.user.school;
-                $scope.school_name = $scope.user.school.name;
-                $scope.fullname = $scope.user.fullname;
-                $scope.email = $scope.user.email;
-                $scope.sex = $scope.user.sex;
-                $scope.photo = $scope.user.photo;
-                $scope.tagline = $scope.user.tagline;
-                $scope.company = $scope.user.company;
-                $scope.target_books = $scope.user.target_books;
+                $scope.username = data.username;
+                $scope.birth_year = data.birthday.substr(0, 4);
+                $scope.birth_month = data.birthday.substr(5, 2);
+                $scope.birth_day = data.birthday.substr(8, 2);
+                $scope.school = data.school;
+                if ($scope.school) {
+                    $scope.school_name = data.school.name;
+                }
+                $scope.fullname = data.fullname;
+                $scope.email = data.email;
+                $scope.sex = data.sex;
+                $scope.photo = data.photo;
+                $scope.tagline = data.tagline;
+                $scope.company = data.company;
+                $scope.target_books = data.target_books;
 
-                if ($scope.user.target_from)
-                    $scope.target_from = new Date($scope.user.target_from);
+                if (data.target_from)
+                    $scope.target_from = new Date(data.target_from);
 
-                if ($scope.user.target_to)
-                    $scope.target_to = new Date($scope.user.target_to);
+                if (data.target_to)
+                    $scope.target_to = new Date(data.target_to);
             });
 
             var action = $routeParams.action;
@@ -66,7 +68,7 @@ bineApp.controller('UserControl', ['$scope', '$routeParams', '$upload', 'login_u
             $scope.http_status = undefined;
 
             $scope.current_menu = 'm2';
-            $scope.page_title = "추가정보";
+            $scope.page_title = "자기소개";
         }
 
         $scope.show_read_target = function () {

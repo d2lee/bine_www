@@ -108,6 +108,7 @@ body {
 
 .page-left {
     padding-right: 16px;
+    padding-left: 0 !important;
 }
 
 .page-right {
@@ -331,7 +332,7 @@ resource .media:first-child {
     padding: 10px;
     font-size: 18px;
     color: white;
-    margin-right: 8px;
+    margin-right: 2px;
 }
 
 .page-menu-button .dropdown-toggle {
