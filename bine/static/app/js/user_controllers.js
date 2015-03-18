@@ -248,7 +248,7 @@ bineApp.controller('UserControl', ['$scope', '$routeParams', '$upload', 'login_u
                     // var percent = parseInt(100.0 * evt.loaded / evt.total);
                     // $scope.photo_upload_progress = "{width:" + percent + "%}";
                 }).success(function (data, status, headers, config) {
-                    $scope.user = data.photo;
+                    $scope.photo = data.photo;
                     var user = login_user.get_user();
                     user.photo = data.photo;
                     login_user.set_user(user);

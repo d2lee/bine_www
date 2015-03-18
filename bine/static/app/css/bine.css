@@ -328,7 +328,7 @@ body {
     margin-bottom: 4px;
 }
 
-.list-item .user-photo {
+.list-item .user-photo, .list-item .user-photo-upload{
     width: 100px;
     height: auto;
 }
@@ -441,6 +441,7 @@ star-rating li.filled {
     font-variant: small-caps;
     vertical-align: super;
 }
+
 
 .user-photo-upload .user-photo {
     cursor: pointer;
