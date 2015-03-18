@@ -125,7 +125,7 @@ class UserSerializer(serializers.ModelSerializer):
 
             token = jwt_encode_handler(payload)
 
-            return auth_response_payload_handler(token, self.instance)
+            return auth_response_payload_handler(token, self.instance, request)
 
         return None
 

@@ -388,30 +388,6 @@ class BookNote(models.Model):
     updated_on = DateTimeField(auto_now=True)
     created_at = DateTimeField(auto_now_add=True)
 
-    def to_json(self):
-        json_data = {}
-        if self.attach:
-            json_data.update({'attach': self.attach.url})
-
-        json_data.update({'id': self.id,
-                          'user': {'id': self.user.id,
-                                   'username': self.user.username,
-                                   'fullname': self.user.fullname},
-                          'book': {'id': self.book.id,
-                                   'title': self.book.title,
-                                   'photo': self.book.photo.url, },
-                          'content': self.content,
-                          'rating': self.rating,
-                          'read_date_from': self.read_date_from,
-                          'read_date_to': self.read_date_to,
-                          'share_to': self.share_to,
-                          'likeit': self.likeit.count(),
-                          'replies_count': self.replies.count(),
-                          'created_at': self.created_at,
-                          'updated_on': self.updated_on,
-                          })
-        return json_data
-
     def __str__(self):
         return self.user.fullname + " - " + self.book.title
 
