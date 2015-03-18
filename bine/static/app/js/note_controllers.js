@@ -53,11 +53,20 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             $(delete_id).collapse('toggle');
         }
 
-        $scope.is_today_note = function(note_date_string) {
-            var note_date = new Date(note_date_string);
-            var today = new Date();
+        $scope.is_new_note = function(note_date_string) {
+            var user = login_user.get_user();
+            var last_login_date;
 
-            return note_date.getDate() == today.getDate();
+            if (user.last_login_on) {
+                last_login_date = new Date(user.last_login_on);
+            }
+            else {
+                last_login_date = new Date('1970.01.01');
+            }
+
+            var note_date = new Date(note_date_string);
+
+            return note_date.getTime() > last_login_date.getTime();
         }
 
         $scope.init();
