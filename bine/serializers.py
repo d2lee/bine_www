@@ -43,7 +43,6 @@ class UserSerializer(serializers.ModelSerializer):
                   'password', 'confirm_password', 'school', 'company',
                   'target_from', 'target_to', 'target_books')
         read_only_fields = ('id', 'username',)
-        write_only_fields = ('password', 'confirm_password', )
         depth = 1
 
     def create(self, validated_data):
@@ -148,12 +147,15 @@ class FriendSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
+    num_notes = serializers.IntegerField(read_only=True, required=False)
+    avg_rating = serializers.FloatField(read_only=True, required=False)
+
     class Meta:
         model = Book
 
         fields = ('id', 'category', 'title', 'isbn', 'isbn13', 'author', 'author_etc', 'illustrator', 'translator',
-                  'publisher', 'pub_date', 'description', 'photo', 'link')
-        read_only = ('id',)
+                  'publisher', 'pub_date', 'description', 'photo', 'link', 'num_notes', 'avg_rating')
+        read_only = ('id', 'num_notes', 'avg_rating')
 
 
 class BookNoteSerializer(serializers.ModelSerializer):
@@ -163,13 +165,17 @@ class BookNoteSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         user_id = self.initial_data.get('user')
         book_id = self.initial_data.get('book')
+
         if user_id and book_id:
             validated_data['user'] = User.objects.get(pk=user_id)
             validated_data['book'] = Book.objects.get(pk=book_id)
         else:
             raise ValidationError;
 
-        return super(BookNoteSerializer, self).update(instance, validated_data)
+        note = super(BookNoteSerializer, self).update(instance, validated_data)
+        if note:
+            note.book.update_age_level_with_user_birthday(note.user)
+        return note
 
     def create(self, validated_data):
         user_id = self.initial_data.get('user')
@@ -183,6 +189,9 @@ class BookNoteSerializer(serializers.ModelSerializer):
         instance = BookNote.objects.create(**validated_data)
 
         instance.save()
+
+        if instance:
+            instance.book.update_age_level_with_user_birthday(instance.user)
 
         return instance
 

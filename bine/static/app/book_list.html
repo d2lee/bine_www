@@ -58,6 +58,10 @@
                         <span>ISBN: {{ book.isbn }}</span> |
                         <span>출판일: {{ book.pub_date | date:"yyyy-MM-dd" }}</span>
                     </div>
+                     <div class='panel-detail'>
+                        <span>독자수: {{ book.num_notes }}</span> |
+                        <span>평균평점: {{ book.avg_rating | avgText }}</span>
+                    </div>
                     <p class="panel-content">{{ book.description | truncate: 256 }}</p>
 
                     <div class="panel-action">

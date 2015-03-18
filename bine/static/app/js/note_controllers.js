@@ -8,8 +8,11 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             $rootScope.note = null;
             $scope.user = login_user.get_user();
             $scope.note_state = BookNotes.get_notes_count(null, function () {
-                if ($scope.note_state.target_max)
-                    $scope.note_state.target_percent = $scope.note_state.target_count / $scope.note_state.target_max * 100;
+                var target_percent;
+                if ($scope.note_state.target_max) {
+                    target_percent = $scope.note_state.target_count / $scope.note_state.target_max * 100;
+                    $scope.note_state.target_percent = target_percent.toFixed(0);
+                }
             })
 
             $scope.show_notes_by_all();
@@ -44,7 +47,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             });
         };
 
-        $scope.confirm_delete_note = function(note) {
+        $scope.confirm_delete_note = function (note) {
             var delete_id = "#collapse_" + note.id;
 
             $(delete_id).collapse('toggle');
@@ -124,7 +127,7 @@ bineApp.controller('NoteDetailControl', ["$scope", "$routeParams", "$location", 
             location.url(url);
         };
 
-        $scope.confirm_delete_note = function() {
+        $scope.confirm_delete_note = function () {
             var delete_id = "#collapse_" + $scope.note.id;
 
             $(delete_id).collapse('toggle');
@@ -336,10 +339,10 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
 
             var data = angular.toJson($scope.new_book);
 
-            Book.save(data, function(data) {
+            Book.save(data, function (data) {
                 $scope.note.book = data;
                 $('#new_book_modal').modal('hide');
-            }, function(data){
+            }, function (data) {
                 $scope.http_status = data.status;
             });
         }

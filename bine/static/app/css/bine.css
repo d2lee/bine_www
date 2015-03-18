@@ -445,3 +445,7 @@ star-rating li.filled {
 .user-photo-upload .user-photo {
     cursor: pointer;
 }
+
+.error-msg.alert {
+    padding: 8px;
+}

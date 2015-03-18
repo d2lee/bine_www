@@ -2,14 +2,14 @@
 
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Avg
 from django.db.models.fields import CharField, DateField, TextField, \
     DateTimeField
 from django.db.models.fields.related import ForeignKey
 from imagekit.models import ProcessedImageField
-from pilkit.processors import ResizeToFit, ResizeToFill, Anchor
+from pilkit.processors import ResizeToFill, Anchor
 
-from bine.commons import get_category, get_file_name, get_this_week_range
+from bine.commons import get_file_name, get_this_week_range, convert_birthday_to_age_level
 
 
 class UserManager(BaseUserManager):
@@ -341,26 +341,24 @@ class Book(models.Model):
     link = models.URLField(blank=True)
     updated_on = DateTimeField(auto_now=True)
     created_at = DateTimeField(auto_now_add=True)
+    # age_level = models.PositiveIntegerField(null=False, default=1048575)
+    age_level = models.PositiveIntegerField(null=False, default=0)
 
     @staticmethod
     def get_recommended_books(user):
-        category = get_category(user.birthday)
-        return Book.objects.filter(category=category).order_by('-pub_date')
+        # category = get_category(user.birthday)
+        age_level = convert_birthday_to_age_level(user.birthday)
+        where_clause = "age_level & {0} = {1}".format(age_level, age_level)
+        books = Book.objects.extra(where=[where_clause]).exclude(booknotes__user=user).annotate(
+            num_notes=Count('booknotes'), avg_rating=Avg('booknotes__rating')).order_by('-num_notes',
+                                                                                        '-avg_rating',
+                                                                                        '-pub_date')
+        return books
 
-    def to_json(self):
-        json_data = {}
-        if self.photo:
-            json_data.update({'photo': self.photo.url})
-
-        json_data.update({'id': self.id,
-                          'title': self.title,
-                          'author': self.author,
-                          'isbn': self.isbn,
-                          'publisher': self.publisher,
-                          'pub_date': self.pub_date,
-                          'description': self.description,
-                          })
-        return json_data
+    def update_age_level_with_user_birthday(self, user):
+        age_level = convert_birthday_to_age_level(user.birthday)
+        self.age_level = self.age_level | age_level
+        self.save()
 
     def __str__(self):
         return self.title
@@ -377,7 +375,7 @@ class BookNote(models.Model):
     read_date_to = DateField(null=False)
 
     content = TextField(blank=True)
-    rating = CharField(max_length=1, blank=False, default=3)
+    rating = models.PositiveSmallIntegerField(null=False, default=3)
     attach = models.FileField(upload_to=get_file_name, blank=True, null=True)
 
     SHARE_CHOICES = (

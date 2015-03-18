@@ -15,6 +15,7 @@ from django.views.generic.base import View
 from django.shortcuts import render
 from rest_framework_jwt.serializers import JSONWebTokenSerializer
 from rest_framework_jwt.views import refresh_jwt_token, jwt_response_payload_handler
+from bine.commons import convert_category_to_age_level
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
@@ -74,7 +75,7 @@ class AuthView(APIView):
             user = serializer.object.get('user') or request.user
 
             token = serializer.object.get('token')
-            response_data = jwt_response_payload_handler(token, user)
+            response_data = jwt_response_payload_handler(token, user, request)
 
             return Response(response_data)
 
@@ -230,15 +231,7 @@ class BookDetail(APIView):
 class BookList(APIView):
     @staticmethod
     def get(request):
-        """
-        title = request.GET.get('title', None)
-
-        if title is None:
-            return Response(status=HTTP_400_BAD_REQUEST)
-
-        books = Book.objects.filter(title__icontains=title)[:10]
-        """
-        books = Book.objects.all().order_by('-created_at')
+        books = Book.get_recommended_books(request.user)
         serializer = BookSerializer(books, many=True)
 
         return Response(serializer.data)
@@ -247,6 +240,9 @@ class BookList(APIView):
     def post(request):
         serializer = BookSerializer(data=request.data)
         if serializer.is_valid():
+            category = serializer.validated_data.get('category', None)
+            age_level = convert_category_to_age_level(category)
+            serializer.validated_data['age_level'] = age_level
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=HTTP_400_BAD_REQUEST)

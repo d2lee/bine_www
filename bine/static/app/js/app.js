@@ -258,6 +258,17 @@ bineApp.filter('bookPhoto', function () {
     };
 });
 
+bineApp.filter('avgText', function () {
+    return function (content) {
+        if (content && content != null) {
+            return content;
+        }
+        else {
+            return '없음';
+        }
+    };
+});
+
 bineApp.filter('shareText', function () {
     return function (content) {
         if (content == 'P') {
