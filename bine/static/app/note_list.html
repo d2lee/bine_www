@@ -85,7 +85,7 @@
     </div>
 
     <resource>
-        <div class="list-item media" ng-repeat="note in notes | filter:book_title">
+        <div class="list-item media" ng-repeat="note in notes | filter:book_query">
             <div class="media-left">
                 <a href=""><img class="media-object login-icon"
                                 ng-src="{{ note.user.photo | photo: note.user.sex }}"

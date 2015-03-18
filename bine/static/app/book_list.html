@@ -44,7 +44,7 @@
         </div>
     </div>
     <resource>
-        <div class="list-item media" ng-repeat="book in books | filter:book_title">
+        <div class="list-item media" ng-repeat="book in books | filter:book_query">
             <div class="media-left">
                 <a href="/#/book/{{ book.id }}/">
                     <img class="media-object book-photo-large" ng-src="{{ book.photo | bookPhoto }}"
