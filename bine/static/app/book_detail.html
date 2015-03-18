@@ -1,0 +1,63 @@
+<div class='detail-container' ng-cloak>
+    <ol class="breadcrumb">
+        <li><a href="/#/book/">책</a></li>
+        <li class="active">책추천</li>
+    </ol>
+
+    <spinner></spinner>
+    <resource>
+        <div class="panel panel-default detail-item" ng-cloak>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{ book.title }}</h4>
+            </div>
+            <div class="panel-body">
+                <img class="book-photo" ng-src="{{ book.photo }}" align="right">
+
+                <div class='panel-detail'>
+                    <span>작가: {{ book.author }}</span> |
+                    <span>번역가: {{ book.translator }}</span> |
+                    <span>출판일: {{ book.pub_date | date:"yyyy-MM-dd" }}</span> |
+                    <span>출판사: {{ book.publisher }}</span> |
+                    <span>ISBN: {{ book.isbn }}</span> |
+                    <span>카테고리: {{ book.category }}</span> |
+                    <star-rating rating-value="avg_rating" max="5"></star-rating>
+                </div>
+                <div class='panel-detail'>
+
+                </div>
+                <p class="panel-content">{{ book.description }} <a href="{{ book.link }}"> 더 보기</a></p>
+            </div>
+        </div>
+
+    </resource>
+
+    <div class="panel panel-default detail-item" ng-cloak>
+        <div class="panel-heading">
+            <h4 class="panel-title">독서 감상문 <span class="badge">{{ book.num_notes }}</span> </h4>
+        </div>
+        <resource>
+            <div class="list-item media" ng-repeat="note in notes">
+                <div class="media-left">
+                    <a href=""><img class="media-object login-icon"
+                                    ng-src="{{ note.user.photo | photo: note.user.sex }}"
+                                    data-toggle="tooltip" data-placement="bottom"
+                                    title="{{ note.user.fullname }}">
+                    </a>
+
+                </div>
+                <div class="media-body">
+                    <div class='panel-detail'>
+                        <span>{{ note.user.fullname }}</span> |
+                        <span>{{ note.created_at | date:"yyyy-MM-dd" }}</span> |
+                        <star-rating rating-value="note.rating" max="5"></star-rating>
+                        |
+                        <attach attachurl="note.attach"></attach>
+                    </div>
+                    <p class="panel-content">{{ note.content | truncate: 256 }}</p>
+
+
+                </div>
+            </div>
+        </resource>
+    </div>
+</div>

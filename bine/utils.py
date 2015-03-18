@@ -5,6 +5,7 @@ from datetime import datetime
 import os
 from time import gmtime, strftime
 
+from django.utils import timezone
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 
@@ -17,7 +18,8 @@ def auth_response_payload_handler(token, user, request):
 
     return {
         'token': token,
-        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex, 'photo': photo_url},
+        'user': {'id': user.id, 'fullname': user.fullname, 'sex': user.sex, 'photo': photo_url,
+                 'last_login_on': user.last_login_on},
     }
 
 
@@ -33,9 +35,9 @@ def convert_birthday_to_age_level(birthday):
 
     return age_level
 
-def convert_category_to_age_level(category):
 
-    level_table = {'어린이(초등)': 8064, '유아0~7세':127}
+def convert_category_to_age_level(category):
+    level_table = {'어린이(초등)': 8064, '유아0~7세': 127}
 
     # 매칭되는 것이 없으면 어른 것으로 간주
     if category:
@@ -47,7 +49,7 @@ def convert_category_to_age_level(category):
 
 
 def get_this_week_range():
-    today = datetime.today()
+    today = timezone.now()
     year, week, dow = today.isocalendar()
 
     start_date = today - timedelta(dow - 1)  # assume that the first day of week is Monday

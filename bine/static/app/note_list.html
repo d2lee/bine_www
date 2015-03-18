@@ -95,7 +95,8 @@
 
             </div>
             <div class="media-body">
-                <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}</a></h4>
+                <h4 class="media-heading"><a href="#/note/{{ note.id }}">{{ note.book.title }}
+                    </a><div class='label label-success' ng-show='is_today_note(note.created_at)'>today</div></h4>
 
                 <div class='panel-detail'>
                     <span>{{ note.user.fullname }}</span> |

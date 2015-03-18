@@ -53,6 +53,13 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             $(delete_id).collapse('toggle');
         }
 
+        $scope.is_today_note = function(note_date_string) {
+            var note_date = new Date(note_date_string);
+            var today = new Date();
+
+            return note_date.getDate() == today.getDate();
+        }
+
         $scope.init();
     }]);
 

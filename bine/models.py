@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import datetime
 
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -8,8 +9,9 @@ from django.db.models.fields import CharField, DateField, TextField, \
 from django.db.models.fields.related import ForeignKey
 from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill, Anchor
+from django.utils import timezone
 
-from bine.commons import get_file_name, get_this_week_range, convert_birthday_to_age_level
+from bine.utils import get_file_name, get_this_week_range, convert_birthday_to_age_level
 
 
 class UserManager(BaseUserManager):
@@ -127,6 +129,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'fullname', 'birthday', 'sex']
 
+    def update_last_login(self):
+        self.last_login_on = timezone.now()
+        self.save()
+
     def search(self, query):
         users = User.objects.filter(Q(username__contains=query) | Q(fullname__contains=query))
 
@@ -138,7 +144,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         return users.exclude(id__in=friends_id_list).all().order_by('fullname')
 
-    def get_all_notes(self):
+    def get_all_friends_notes(self):
         """
             현재 사용자와 친구들의 노트 목록을 리턴한다.
         """
@@ -190,6 +196,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_friends_by_others(self):
         return self.friends_by_others.filter(friendship_by_me__status='N')
 
+    @property
     def get_recommended_friends(self):
         # Get the friend list that my friends knows.
         my_friends = self.get_friends()
@@ -198,20 +205,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         friends = User.objects.filter(Q(friends_by_me__id__in=my_friends_id_list) |
                                       Q(friends_by_others__id__in=my_friends_id_list)) \
-            .exclude(id=self.id) \
+            .exclude(Q(id=self.id) | Q(id__in=my_friends_id_list)) \
             .annotate(cnt=Count('username'))
 
         if friends.count() > 10:
             return friends.order_by('-cnt')[0:10]
 
+        potential_friends_id_list = friends.values_list('id', flat=True)
+
         # Get the friends based on the same school
-        friends_with_same_school = User.objects.filter(school=self.school).exclude(
-            Q(id=self.id) | Q(id__in=my_friends_id_list)).order_by(
-            '-fullname').annotate(cnt=Count('username'))
+        friends_with_same_school = User.objects.filter(school=self.school) \
+            .exclude(Q(id=self.id) |
+                     Q(id__in=my_friends_id_list) |
+                     Q(id__in=potential_friends_id_list)).order_by('-fullname').annotate(cnt=0)
 
-        friends = friends | friends_with_same_school
+        friends = (friends | friends_with_same_school).order_by('+fullname').order_by('-cnt')[0:10]
 
-        return friends.order_by('+fullname').order_by('-cnt')[0:10]
+        return friends
 
     def get_count_list(self):
         all_count = self.booknotes.count()
@@ -346,7 +356,6 @@ class Book(models.Model):
 
     @staticmethod
     def get_recommended_books(user):
-        # category = get_category(user.birthday)
         age_level = convert_birthday_to_age_level(user.birthday)
         where_clause = "age_level & {0} = {1}".format(age_level, age_level)
         books = Book.objects.extra(where=[where_clause]).exclude(booknotes__user=user).annotate(
@@ -354,6 +363,18 @@ class Book(models.Model):
                                                                                         '-avg_rating',
                                                                                         '-pub_date')
         return books
+
+    @staticmethod
+    def get_book_with_rating(pk):
+        try:
+            book = Book.objects.get(pk=pk)
+            book_info = book.booknotes.all().aggregate(num_notes=Count('id'), avg_rating=Avg('rating'))
+            book.num_notes = book_info.get('num_notes')
+            book.avg_rating = book_info.get('avg_rating')
+
+            return book
+        except Book.DoesNotExist:
+            return None
 
     def update_age_level_with_user_birthday(self, user):
         age_level = convert_birthday_to_age_level(user.birthday)
@@ -387,6 +408,10 @@ class BookNote(models.Model):
     share_to = CharField(max_length=1, choices=SHARE_CHOICES, blank=False, default='F')
     updated_on = DateTimeField(auto_now=True)
     created_at = DateTimeField(auto_now_add=True)
+
+    @staticmethod
+    def get_notes_by_book(book_id):
+        return BookNote.objects.filter(book__id=book_id).order_by('-created_at')[0:10]
 
     def __str__(self):
         return self.user.fullname + " - " + self.book.title

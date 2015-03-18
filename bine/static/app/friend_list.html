@@ -82,7 +82,7 @@
                     <h4 class="media-heading">{{ friend.fullname }}</h4>
 
                     <div class="panel-detail">
-                        <div>아이디: {{ friend.username }} | 생일: {{ friend.birthday }}</div>
+                        <div>아이디: {{ friend.username }} | 학교: {{ friend.school.name }} | 태어난해: {{ friend.birthday | date: 'yyyy' }}년</div>
                         <div ng-show="current_menu == 'm3'">{{ friend.cnt }}명의 친구가 함께 알고 있습니다.</div>
                     </div>
                     <p class="panel-content">
@@ -130,6 +130,7 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">{{ friend.fullname }}</h4>
+                        <div>아이디: {{ friend.username }} | 학교: {{ friend.school.name }} | 생일: {{ friend.birthday | date: 'yyyy'}}년</div>
 
                         <div class="panel-action">
                             <button class="btn btn-xs btn-default" ng-click="add_friend(friend, $index)"

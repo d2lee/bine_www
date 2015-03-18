@@ -44,6 +44,7 @@ bineApp.factory('BookNotes', ['$resource', function ($resource) {
         'get_notes_by_friend': {method: 'GET', params: {type: 'friend'}, isArray: true},
         'get_new_notes': {method: 'GET', params: {type: 'new'}, isArray: true},
         'get_notes_count': {method: 'GET', params: {type: 'count'}, isArray: false},
+        'get_notes_by_book': {method: 'GET', params: {type: 'book'}, isArray: true},
         'create_note': {method: 'POST', params: {status:'A'}},
         'delete_note': {method: 'DELETE', params: {status:'R'}},
         'edit_note': {method: 'POST', params: {status:'R'}}

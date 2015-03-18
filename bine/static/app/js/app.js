@@ -29,6 +29,9 @@ bineApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/note/:note_id/', {
         templateUrl: '/static/app/note_detail.html',
         controller: 'NoteDetailControl'
+    }).when('/book/:book_id/', {
+        templateUrl: '/static/app/book_detail.html',
+        controller: 'bookDetailControl'
     }).when('/book/', {
         templateUrl: '/static/app/book_list.html',
         controller: 'bookListControl'
@@ -327,6 +330,24 @@ bineApp.directive('autoFocus', function ($timeout) {
     };
 });
 
+bineApp.directive('todayNote', function () {
+    var label_html = "<div class='label label-success' ng-show='isNew'>today</div>";
+    return {
+        template: label_html,
+        scope: {
+            updated_time: '='
+        },
+        link: function (scope, elem, attrs) {
+            if (scope.updated_time) {
+            }
+            var old_time = new Date(scope.updated_time);
+            var new_time = new Date();
+
+            scope.isNew = old_time.getDate() == new_time.getDate();
+        }
+    }
+})
+
 bineApp.directive("starRating", function () {
     return {
         restrict: "E",
@@ -341,10 +362,16 @@ bineApp.directive("starRating", function () {
         },
         link: function (scope, elem, attrs) {
             var updateStars = function () {
+
+                var ratingValueInt = 0;
+
+                if (scope.ratingValue) {
+                    ratingValueInt = Math.round(scope.ratingValue)
+                }
                 scope.stars = [];
                 for (var i = 0; i < scope.max; i++) {
                     scope.stars.push({
-                        filled: i < scope.ratingValue
+                        filled: i < ratingValueInt
                     });
                 }
             };

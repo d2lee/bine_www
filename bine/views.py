@@ -15,7 +15,7 @@ from django.views.generic.base import View
 from django.shortcuts import render
 from rest_framework_jwt.serializers import JSONWebTokenSerializer
 from rest_framework_jwt.views import refresh_jwt_token, jwt_response_payload_handler
-from bine.commons import convert_category_to_age_level
+from bine.utils import convert_category_to_age_level
 
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
@@ -44,7 +44,6 @@ class AuthView(APIView):
             if duplication, return OK with no content -status code:204; otherwise,
             return not found error -status code:404.
         """
-
         if username and len(username) >= 5:
             users = User.objects.filter(username=username)
             if len(users) == 1:
@@ -55,11 +54,11 @@ class AuthView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         pass
 
-    def register(self, request_data):
-        serializer = UserSerializer(data=request_data)
+    def register(self, request):
+        serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
-            data = serializer.register()
+            data = serializer.register(request)
             if data:
                 return Response(data, status=status.HTTP_201_CREATED)
             else:
@@ -77,6 +76,9 @@ class AuthView(APIView):
             token = serializer.object.get('token')
             response_data = jwt_response_payload_handler(token, user, request)
 
+            # update last login
+            user.update_last_login()
+
             return Response(response_data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -88,7 +90,7 @@ class AuthView(APIView):
         elif action == 'login':
             return self.login(request)
         elif action == 'register':
-            return self.register(request.data)
+            return self.register(request)
         elif action == 'refresh':
             return refresh_jwt_token(request)
         pass
@@ -212,9 +214,8 @@ class BookDetail(APIView):
     @staticmethod
     def get(request, pk=None, isbn13=None):
         if pk:
-            try:
-                book = Book.objects.get(pk=pk)
-            except Book.DoesNotExist:
+            book = Book.get_book_with_rating(pk)
+            if book is None:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         elif isbn13:
             try:
@@ -260,7 +261,7 @@ class FriendView(APIView):
             return Response(count_list)
 
         if action == 'recommend':
-            friends = user.get_recommended_friends()
+            friends = user.get_recommended_friends
         elif action == 'search':
             query = request.data.get('q')
             if query is None:
@@ -361,9 +362,12 @@ class BookNoteView(APIView):
                 return Response(data=data)
 
             if list_type == 'all':
-                notes = user.get_all_notes()
+                notes = user.get_all_friends_notes()
             elif list_type == 'me':
                 notes = user.get_notes()
+            elif list_type == 'book':
+                book_id = request.GET.get('book')
+                notes = BookNote.get_notes_by_book(book_id)
             else:
                 Response(status=status.HTTP_400_BAD_REQUEST)
 
