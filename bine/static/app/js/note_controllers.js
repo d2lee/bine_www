@@ -172,25 +172,23 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
                 fetch_note_detail(note_id);
             }
             else {
-                $scope.note = create_empty_note_with_default();
-                $scope.book_title = "";
-                $scope.rating = 3;
+                init_note();
             }
         };
 
-        var create_empty_note_with_default = function () {
+        var init_note = function () {
             // Create new note
             var today = new Date();
 
-            var note = {
+            $scope.note = {
                 'user': {'id': $scope.user.id},
                 'rating': 3,
                 'share_to': 'F',
                 'read_date_from': today,
                 'read_date_to': today
             };
-
-            return note;
+            $scope.book_title = "";
+            $scope.rating = 3;
         }
 
         var go_back_if_invalid_note_id = function () {
@@ -255,6 +253,8 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
 
             }).success(function (data, status, headers, config) {
                 $scope.http_status = status;
+                init_note();
+                $scope.books = null;
 
             }).error(function (data, status) {
                 $scope.http_status = status;
