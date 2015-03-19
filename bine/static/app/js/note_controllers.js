@@ -1,7 +1,7 @@
 bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
     "login_user", "navbar", "BookNotes",
     function ($rootScope, $scope, $location, login_user, navbar, BookNotes) {
-        var PAGE_ITEM_COUNT = 10;
+        var PAGE_MAX_ITEM = 10;
 
         $scope.init = function () {
             navbar.set_menu('note');
@@ -39,7 +39,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
         var get_page = function () {
             var next_page;
             if ($scope.notes) {
-                next_page = Math.round($scope.notes.length / PAGE_ITEM_COUNT) + 1;
+                next_page = Math.round($scope.notes.length / PAGE_MAX_ITEM) + 1;
             }
             else {
                 next_page = 1;
@@ -58,9 +58,6 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
                     $scope.notes = data;
                 }
             }
-            else { // no content means last page.
-                $scope.last_page = true;
-            }
         }
 
         var fetch_notes = function (fetch_func) {
@@ -70,7 +67,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             BookNotes[fetch_func](page_data, function (data) {
                 set_note(data);
                 $scope.is_busy = false;
-
+                $scope.last_page = data.length != PAGE_MAX_ITEM;
             }, function () {
                 $scope.is_busy = false;
             });

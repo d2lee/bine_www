@@ -1,6 +1,6 @@
 bineApp.controller('bookListControl', ['$scope', 'login_user', 'navbar', 'Book',
     function ($scope, login_user, navbar, Book) {
-        var PAGE_ITEM_COUNT = 10;
+        var PAGE_MAX_ITEM = 10;
 
         var init = function () {
             navbar.set_menu('book');
@@ -17,7 +17,7 @@ bineApp.controller('bookListControl', ['$scope', 'login_user', 'navbar', 'Book',
 
             var next_page;
             if ($scope.books) {
-                next_page = Math.round($scope.books.length / PAGE_ITEM_COUNT) + 1;
+                next_page = Math.round($scope.books.length / PAGE_MAX_ITEM) + 1;
             }
             else {
                 next_page = 1;
@@ -35,11 +35,9 @@ bineApp.controller('bookListControl', ['$scope', 'login_user', 'navbar', 'Book',
                         $scope.books = data;
                     }
                 }
-                else { // no content means last page.
-                    console.log('last_page set!');
-                    $scope.last_page = true;
-                }
+
                 $scope.is_busy = false;
+                $scope.last_page = data.length != PAGE_MAX_ITEM;
             }, function () {
                 $scope.is_busy = false;
             });
@@ -65,7 +63,7 @@ bineApp.controller('bookListControl', ['$scope', 'login_user', 'navbar', 'Book',
 
 bineApp.controller('bookDetailControl', ['$scope', '$routeParams', 'login_user', 'navbar', 'Book', 'BookNotes',
     function ($scope, $routeParams, login_user, navbar, Book, BookNotes) {
-        var PAGE_ITEM_COUNT = 10;
+        var PAGE_MAX_ITEM = 10;
 
         var init = function () {
             navbar.set_menu('book');
@@ -112,7 +110,7 @@ bineApp.controller('bookDetailControl', ['$scope', '$routeParams', 'login_user',
 
             var next_page;
             if ($scope.notes) {
-                next_page = Math.round($scope.notes.length / PAGE_ITEM_COUNT) + 1;
+                next_page = Math.round($scope.notes.length / PAGE_MAX_ITEM) + 1;
             }
             else {
                 next_page = 1;
@@ -130,16 +128,16 @@ bineApp.controller('bookDetailControl', ['$scope', '$routeParams', 'login_user',
                         $scope.notes = data;
                     }
                 }
-                else { // no content means last page.
-                    $scope.last_page = true;
-                }
+
                 $scope.is_busy = false;
+                $scope.last_page = data.length != PAGE_MAX_ITEM;
+
             }, function () {
                 $scope.is_busy = false;
             });
         }
 
-        $scope.next_page = function() {
+        $scope.next_page = function () {
             if (!$scope.is_busy) {
                 fetch_notes_list();
             }

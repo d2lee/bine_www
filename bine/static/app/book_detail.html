@@ -33,7 +33,7 @@
 
     <div class="panel panel-default detail-item" ng-cloak>
         <div class="panel-heading">
-            <h4 class="panel-title">독서 감상문 <span class="badge">{{ book.num_notes }}</span> </h4>
+            <h4 class="panel-title">독서 노트 <span class="badge">{{ book.num_notes }}</span> </h4>
         </div>
         <div infinite-resource on_next_page="next_page()" is-busy="is_busy" last-page="last_page">
             <div class="list-item media" ng-repeat="note in notes">
