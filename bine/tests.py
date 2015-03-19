@@ -253,7 +253,7 @@ class StartPageTestCase(TestCase):
         self.assertNotEqual(user_data, None)
 
         # check if the returned data must have the following 4 items only.
-        self.assertEqual(len(user_data), 4)
+        self.assertEqual(len(user_data), 5)
         self.assertEqual(user_data.get('id'), user.id)
         self.assertEqual(user_data.get('fullname'), self.input_data.get('fullname'))
         self.assertEqual(user_data.get('sex'), self.input_data.get('sex'))

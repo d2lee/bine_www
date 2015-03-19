@@ -1,5 +1,5 @@
 var bineApp = angular.module('bineApp', ['ngRoute', 'ngResource', 'ngCookies', 'ngSanitize',
-    'angular-jwt', 'angularFileUpload']);
+    'angular-jwt', 'angularFileUpload', 'infinite-scroll']);
 
 bineApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -308,14 +308,28 @@ bineApp.directive('attach', function () {
 });
 
 
-bineApp.directive('resource', function () {
-    var template = "<div ng-show='spinner' ng-cloak><div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div></div>" +
-        "<div ng-hide='spinner' ng-transclude></div></div>";
+bineApp.directive('infiniteResource', function () {
+    // var template = "<div ng-show='spinner' ng-cloak><div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='spinner'></div></div>" +
+    //    "<div ng-hide='spinner' ng-transclude></div></div>";
+
+    var template = "<div infinite-scroll='process_page()' infinite-scroll-distance='0' infinite-scroll-disable='isBusy || lastPage'>" +
+        "<div ng-transclude></div><div class='col-xs-offset-7 col-xs-1 spinner'><img src='/static/app/images/loading.gif' width='50px' height='50px' ng-show='isBusy'></div></div>";
     return {
-        restrict: 'E',
+        restrict: 'AE',
         transclude: true,
-        scope: {},
-        template: template
+        scope: {
+            onNextPage: "&",
+            lastPage: "=",
+            isBusy: "="
+        },
+        template: template,
+        link: function (scope, elem, attrs) {
+            scope.process_page = function () {
+                if (!(scope.isBusy && scope.lastPage)) {
+                    scope.onNextPage();
+                }
+            }
+        }
     };
 })
 

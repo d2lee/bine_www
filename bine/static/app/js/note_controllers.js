@@ -1,6 +1,8 @@
 bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
     "login_user", "navbar", "BookNotes",
     function ($rootScope, $scope, $location, login_user, navbar, BookNotes) {
+        var PAGE_ITEM_COUNT = 10;
+
         $scope.init = function () {
             navbar.set_menu('note');
 
@@ -15,24 +17,76 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
                 }
             })
 
-            $scope.show_notes_by_all();
+            $scope.is_busy = false;
+
+            $scope.current_menu = 'menu1';
         };
+
+        $scope.next_page = function () {
+            if ($scope.last_page)
+                return;
+
+            switch ($scope.current_menu) {
+                case 'menu1':
+                    fetch_notes('get_notes_by_all');
+                    break;
+                case 'menu2':
+                    fetch_notes('get_notes_by_me');
+                    break;
+            }
+        }
+
+        var get_page = function () {
+            var next_page;
+            if ($scope.notes) {
+                next_page = Math.round($scope.notes.length / PAGE_ITEM_COUNT) + 1;
+            }
+            else {
+                next_page = 1;
+            }
+            return {'page': next_page}
+        }
+
+        var set_note = function (data) {
+            if (data.length > 0) {
+                if ($scope.notes) {
+                    for (var i = 0; i < data.length; i++) {
+                        $scope.notes.push(data[i]);
+                    }
+                }
+                else {
+                    $scope.notes = data;
+                }
+            }
+            else { // no content means last page.
+                $scope.last_page = true;
+            }
+        }
+
+        var fetch_notes = function (fetch_func) {
+            var page_data = get_page();
+
+            $scope.is_busy = true;
+            BookNotes[fetch_func](page_data, function (data) {
+                set_note(data);
+                $scope.is_busy = false;
+
+            }, function () {
+                $scope.is_busy = false;
+            });
+        }
 
         $scope.show_notes_by_all = function () {
             $scope.current_menu = "menu1";
-            BookNotes.get_notes_by_all(function (data) {
-                $scope.notes = data;
-
-            });
+            $scope.notes = null;
+            fetch_notes('get_notes_by_all');
         };
 
         $scope.show_notes_by_me = function () {
             $scope.current_menu = "menu2";
-            BookNotes.get_notes_by_me(function (data) {
-                $scope.notes = data;
-            });
+            $scope.notes = null;
+            fetch_notes('get_notes_by_me');
         };
-
 
         $scope.edit_note = function (note) {
             var note_id = note.id;
@@ -53,7 +107,7 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             $(delete_id).collapse('toggle');
         }
 
-        $scope.is_new_note = function(note_date_string) {
+        $scope.is_new_note = function (note_date_string) {
             var user = login_user.get_user();
             var last_login_date;
 

@@ -6,13 +6,13 @@
             </h4>
         </div>
         <div class="panel-body">
-            <p>총 독서감상문 수: {{ note_state.total_count }} </p>
+            <p>총 독서노트 수: <span class="badge">{{ note_state.total_count }}</span> </p>
 
-            <p>이번주 독서감상문: {{ note_state.week_count }} </p>
+            <p>이번주 독서노트 수: <span class="badge">{{ note_state.week_count }}</span> </p>
 
             <div ng-show="note_state && note_state.target_max">
                 <p>
-                    목표대비 읽은 책: {{ note_state.target_count }}권 (총 {{ note_state.target_max }}권 중에서)
+                    목표대비 읽은 책: <span class="badge">{{ note_state.target_count }} / {{ note_state.target_max }}</span>
                 </p>
 
                 <div class="progress">
@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <resource>
+    <div infinite-resource on_next_page="next_page()" is-busy="is_busy" last-page="last_page">
         <div class="list-item media" ng-repeat="note in notes | filter:book_query">
             <div class="media-left">
                 <a href=""><img class="media-object login-icon"
@@ -108,12 +108,6 @@
                 <p class="panel-content">{{ note.content | truncate: 256 }}</p>
 
                 <div class="panel-action">
-                    <!--
-                        <div ng-show="note.user.id != user.id">
-                            <a href="#/note/{{ note.id }}">나도 읽었어요</a> |
-                            <a href="#/note/{{ note.id }}">나도 읽고싶어요</a>
-                        </div>
-                        -->
                     <div ng-show="note.user.id == user.id">
                         <a href="" ng-click="edit_note(note)">수정</a> |
                         <a href="" ng-click="confirm_delete_note(note)">삭제</a>
@@ -138,5 +132,5 @@
             </div>
 
         </div>
-    </resource>
+    </div>
 </div>

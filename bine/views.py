@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.contrib.auth import authenticate
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -15,8 +16,8 @@ from django.views.generic.base import View
 from django.shortcuts import render
 from rest_framework_jwt.serializers import JSONWebTokenSerializer
 from rest_framework_jwt.views import refresh_jwt_token, jwt_response_payload_handler
-from bine.utils import convert_category_to_age_level
 
+from bine.utils import convert_category_to_age_level
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
 from bine_www import settings
@@ -233,8 +234,15 @@ class BookList(APIView):
     @staticmethod
     def get(request):
         books = Book.get_recommended_books(request.user)
-        serializer = BookSerializer(books, many=True)
+        page = int(request.GET.get('page', '1'))
 
+        paginator = Paginator(books, 10)
+        if page > paginator.num_pages:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            books_in_page = paginator.page(page)
+
+        serializer = BookSerializer(books_in_page, many=True)
         return Response(serializer.data)
 
     @staticmethod
@@ -332,48 +340,61 @@ class FriendView(APIView):
 
 
 class BookNoteView(APIView):
-    @staticmethod
-    def get(request, pk=None):
-        if pk:
-            try:
-                note = BookNote.objects.get(pk=pk)
-                if note.user == request.user:
-                        serializer = BookNoteSerializer(note)
-                else:
-                    if note.share_to == 'P':
-                        return Response(status=status.HTTP_401_UNAUTHORIZED)
-                    elif note.share_to == 'F':
-                        user_friend_list = note.user.get_friends()
-                        if user_friend_list.filter(pk=request.user.pk).exists():
-                            serializer = BookNoteSerializer(note)
-                        else:
-                            return Response(status=status.HTTP_401_UNAUTHORIZED)
-                    elif note.share_to == 'A':
-                        serializer = BookNoteSerializer(note)
-            except ObjectDoesNotExist:
-                return Response(status=status.HTTP_404_NOT_FOUND)
+    def process_item(self, request, pk):
+        try:
+            note = BookNote.objects.get(pk=pk)
+        except BookNote.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if note.user == request.user:
+            serializer = BookNoteSerializer(note)
         else:
-            list_type = request.GET.get('type', None)
-
-            user = request.user
-
-            if list_type == 'count':
-                data = user.get_count_list()
-                return Response(data=data)
-
-            if list_type == 'all':
-                notes = user.get_all_friends_notes()
-            elif list_type == 'me':
-                notes = user.get_notes()
-            elif list_type == 'book':
-                book_id = request.GET.get('book')
-                notes = BookNote.get_notes_by_book(book_id)
-            else:
-                Response(status=status.HTTP_400_BAD_REQUEST)
-
-            serializer = BookNoteSerializer(notes, many=True)
+            if note.share_to == 'P':
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            elif note.share_to == 'F':
+                user_friend_list = note.user.get_friends()
+                if user_friend_list.filter(pk=request.user.pk).exists():
+                    serializer = BookNoteSerializer(note)
+                else:
+                    return Response(status=status.HTTP_401_UNAUTHORIZED)
+            elif note.share_to == 'A':
+                serializer = BookNoteSerializer(note)
 
         return Response(serializer.data)
+
+    def process_list(self, request):
+        list_type = request.GET.get('type', None)
+        user = request.user
+
+        if list_type == 'count':
+            data = user.get_note_stat()
+            return Response(data=data)
+
+        if list_type == 'all':
+            notes = user.get_all_friends_notes()
+        elif list_type == 'me':
+            notes = user.get_my_notes()
+        elif list_type == 'book':
+            book_id = request.GET.get('book')
+            notes = BookNote.get_notes_by_book(book_id)
+        else:
+            Response(status=status.HTTP_400_BAD_REQUEST)
+
+        page = int(request.GET.get('page', '1'))
+
+        paginator = Paginator(notes, 10)
+        if page > paginator.num_pages:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            notes_in_page = paginator.page(page)
+        serializer = BookNoteSerializer(notes_in_page, many=True)
+        return Response(serializer.data)
+
+    def get(self, request, pk=None):
+        if pk:
+            return self.process_item(request, pk)
+        else:
+            return self.process_list(request)
 
     @staticmethod
     @csrf_exempt

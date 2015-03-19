@@ -35,7 +35,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">독서 감상문 <span class="badge">{{ book.num_notes }}</span> </h4>
         </div>
-        <resource>
+        <div infinite-resource on_next_page="next_page()" is-busy="is_busy" last-page="last_page">
             <div class="list-item media" ng-repeat="note in notes">
                 <div class="media-left">
                     <a href=""><img class="media-object login-icon"
@@ -54,10 +54,8 @@
                         <attach attachurl="note.attach"></attach>
                     </div>
                     <p class="panel-content">{{ note.content | truncate: 256 }}</p>
-
-
                 </div>
             </div>
-        </resource>
+        </div>
     </div>
 </div>

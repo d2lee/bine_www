@@ -43,7 +43,7 @@
             <span class="glyphicon glyphicon-alert"></span> 추천할 책이 없습니다.
         </div>
     </div>
-    <resource>
+    <div infinite-resource on_next_page="next_page()" is-busy="is_busy" last-page="last_page">
         <div class="list-item media" ng-repeat="book in books | filter:book_query">
             <div class="media-left">
                 <a href="/#/book/{{ book.id }}/">
@@ -61,14 +61,12 @@
                     <span>ISBN: {{ book.isbn }}</span> |
                     <span>출판일: {{ book.pub_date | date:"yyyy-MM-dd" }}</span>
                 </div>
-                <div class='panel-detail'>
-                    <span>감상문수: {{ book.num_notes }}</span> |
+                <div class='panel-detail' ng-show="book.avg_rating">
                     <star-rating rating-value="book.avg_rating" max="5"></star-rating>
                 </div>
                 <p class="panel-content">{{ book.description | truncate: 256 }}</p>
             </div>
         </div>
-    </resource>
-
-
+    </div>
 </div>
+
