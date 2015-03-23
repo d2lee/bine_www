@@ -9,7 +9,8 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
             $scope.http_status = -1;
             $rootScope.note = null;
             $scope.user = login_user.get_user();
-            $scope.note_state = BookNotes.get_notes_count(null, function () {
+            BookNotes.get_notes_count(null, function (data) {
+                $scope.note_state = data;
                 var target_percent;
                 if ($scope.note_state.target_max) {
                     target_percent = $scope.note_state.target_count / $scope.note_state.target_max * 100;
