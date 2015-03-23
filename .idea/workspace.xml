@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="861bcea7-8c2d-472f-ab5e-2df4c199db47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" afterPath="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/static/app/note_list.html" afterPath="$PROJECT_DIR$/bine/static/app/note_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bine/templates/bine.html" afterPath="$PROJECT_DIR$/bine/templates/bine.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bine_www.iws" />
@@ -80,18 +79,28 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1477" max-vertical-offset="2085">
-              <caret line="124" column="24" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="2085">
+              <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="note_controllers.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="note_controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5042017" vertical-offset="0" max-vertical-offset="7785">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3900" max-vertical-offset="7785">
               <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bine.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bine/templates/bine.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.38356164" vertical-offset="1606" max-vertical-offset="2190">
+              <caret line="122" column="91" selection-start-line="122" selection-start-column="91" selection-end-line="122" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -148,7 +157,6 @@
         <option value="$PROJECT_DIR$/bine/static/app/book_detail.html" />
         <option value="$PROJECT_DIR$/bine/static/app/css/register.css" />
         <option value="$PROJECT_DIR$/bine/static/app/js/register_control.js" />
-        <option value="$PROJECT_DIR$/bine/templates/bine.html" />
         <option value="$PROJECT_DIR$/bine/static/app/js/route_data.js" />
         <option value="$PROJECT_DIR$/bine/static/app/js/app.js" />
         <option value="$PROJECT_DIR$/bine/static/app/css/login.css" />
@@ -156,8 +164,9 @@
         <option value="$PROJECT_DIR$/bine/static/app/login.html" />
         <option value="$PROJECT_DIR$/bine/static/app/register.html" />
         <option value="$PROJECT_DIR$/bine/static/app/note_list.html" />
-        <option value="$PROJECT_DIR$/bine_www/settings.py" />
         <option value="$PROJECT_DIR$/bine/static/app/js/note_controllers.js" />
+        <option value="$PROJECT_DIR$/bine_www/settings.py" />
+        <option value="$PROJECT_DIR$/bine/templates/bine.html" />
       </list>
     </option>
   </component>
@@ -278,7 +287,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -297,10 +306,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -653,12 +658,6 @@
       <option name="number" value="Default" />
       <updated>1425370274315</updated>
     </task>
-    <task id="LOCAL-00014" summary="노트 목록과 노트 자세히 보기 화면에서 loading animation을 정중앙에 위치시킨다.">
-      <created>1425475710884</created>
-      <option name="number" value="00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1425475710884</updated>
-    </task>
     <task id="LOCAL-00015" summary="/api로 제외하고 모든 url를 bine.html이 처리하도록 urls.py파일 변경&#10;&#10;- bine.html로  매핑하는 url pattern을 모든 스트링 형태를 지원하도록 수정">
       <created>1425513629732</created>
       <option name="number" value="00015" />
@@ -947,7 +946,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427079433942</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="노트 보기에서 note_state값을 받아오지 않았음에도 불구하고 화면에 target을 설정하라는 메시지가 보이는 문제 해결">
+      <created>1427088549089</created>
+      <option name="number" value="00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1427088549090</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -971,7 +976,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="728" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="728" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -981,6 +986,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5283912" sideWeight="0.18578352" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4747634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -993,7 +999,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3254717" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1038,7 +1043,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Test 방법론을 도입하여 User, Auth에 대한 테스트케이스  구현&#10; &#10; - User, Auth와 관련하여 테스트케이스 구현 &#10; - User와 Auth에 대한 TestCase작성하면서 추가로 기존에 문제가 있던 UserView와 UserSerializer에 대한 refactoring" />
     <MESSAGE value="1. ngInclude를 사용하여 navbar 부분을 별도의 파일로 구분.&#10;2. book search결과 화면에서 제목이 길어지면 썸네일 일부가 없어지는 문제 해결" />
     <MESSAGE value="1. HTTP 통신이 이루어질떄마다 보여지는 spinner를 HTTP Intercepter로 구현함&#10;2. Friend와 User의 메뉴를 route구조를 활용하여 url형태로 변경되도록 수정&#10;" />
     <MESSAGE value="daum키를 production키로 수정" />
@@ -1063,7 +1067,8 @@
     <MESSAGE value="북 자세히 보기에서 노트를 스크롤 업하면 노트는 하나지만 계속 같은 것이 반복되는 문제 해결" />
     <MESSAGE value="Django compressor를 이용하여 CSS와 javascript파일을 최적화 시킴&#10;&#10;- Django Compressor 사용&#10;   1. CSS, javascript파일들을 단일 파일로 압축하여 클라이언트에 전송&#10;   2. javascript파일들은 minify시켜서 클라이언트로 전송&#10;   &#10; - Login과 Register의 백그라운드 컬러를 동적으로 변경하기 위해 route_data 정의&#10;" />
     <MESSAGE value="바로 전에 했던 Compress작업후 더 이상 필요없는 login과 register CSS파일을 프로젝트에서 삭제" />
-    <option name="LAST_COMMIT_MESSAGE" value="바로 전에 했던 Compress작업후 더 이상 필요없는 login과 register CSS파일을 프로젝트에서 삭제" />
+    <MESSAGE value="노트 보기에서 note_state값을 받아오지 않았음에도 불구하고 화면에 target을 설정하라는 메시지가 보이는 문제 해결" />
+    <option name="LAST_COMMIT_MESSAGE" value="노트 보기에서 note_state값을 받아오지 않았음에도 불구하고 화면에 target을 설정하라는 메시지가 보이는 문제 해결" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1420,13 +1425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine/templates/bine.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47285464" vertical-offset="45" max-vertical-offset="2175">
-          <caret line="21" column="60" selection-start-line="21" selection-start-column="60" selection-end-line="21" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="2895">
@@ -1449,14 +1447,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1477" max-vertical-offset="2085">
-          <caret line="124" column="24" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/note_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.875" vertical-offset="1050" max-vertical-offset="2115">
@@ -1467,8 +1457,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bine/static/app/js/note_controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5042017" vertical-offset="0" max-vertical-offset="7785">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3900" max-vertical-offset="7785">
           <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine_www/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="2085">
+          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bine/templates/bine.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38356164" vertical-offset="1606" max-vertical-offset="2190">
+          <caret line="122" column="91" selection-start-line="122" selection-start-column="91" selection-end-line="122" selection-end-column="91" />
           <folding />
         </state>
       </provider>
