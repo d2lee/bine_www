@@ -1,17 +1,46 @@
 var bineApp = angular.module('bineApp', ['ngRoute', 'ngResource', 'ngCookies', 'ngSanitize',
-    'angular-jwt', 'angularFileUpload', 'infinite-scroll']);
+    'angular-jwt', 'angularFileUpload', 'infinite-scroll', 'RouteData']);
 
-bineApp.config(['$routeProvider', function ($routeProvider) {
+bineApp.config(['$routeProvider', 'RouteDataProvider', function ($routeProvider, RouteDataProvider) {
+    RouteDataProvider.applyConfig({
+        bodyStyle: {
+            'background-color': '#e5e5e5'
+        }
+    });
+
+    RouteDataProvider.hookToRootScope(true);
+
     $routeProvider.when('/', {
+        RouteData: {
+            bodyStyle: {
+                'background-color': '#e5e5e5'
+            }
+        },
         templateUrl: '/static/app/note_list.html',
         controller: 'NoteListControl'
     }).when('/note/', {
+        RouteData: {
+            bodyStyle: {
+                'background-color': '#e5e5e5'
+            }
+        },
+
         templateUrl: '/static/app/note_list.html',
         controller: 'NoteListControl'
     }).when('/login/', {
+        RouteData: {
+            bodyStyle: {
+                'background-color': '#4caf50'
+            }
+        },
         templateUrl: '/static/app/login.html',
         controller: 'LoginControl'
     }).when('/register/', {
+        RouteData: {
+            bodyStyle: {
+                'background-color': '#FFFFFF'
+            }
+        },
         templateUrl: '/static/app/register.html',
         controller: 'RegisterControl'
     }).when('/user/', {

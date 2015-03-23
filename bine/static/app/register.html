@@ -1,25 +1,24 @@
-<link href="/static/app/css/register.css" rel="stylesheet">
-
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="cover-container">
-            <div class="inner cover">
-                <div class="page-header">
-                    <h2>{{ page_title }}
-                        <small></small>
-                    </h2>
-                </div>
-                <div class="panel panel-primary register" ng-show="step=='step1'">
-                    <div class="panel-heading">
-                        <h4 class="panel-caption">STEP 1 - 필수 정보</h4>
+<div class="register">
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
+                <div class="inner cover">
+                    <div class="page-header">
+                        <h2>{{ page_title }}
+                            <small></small>
+                        </h2>
                     </div>
-                    <div class="panel-body">
-                        <form name="reg_form" novalidate>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="username"
-                                           ng-change="user_duplicated=undefined"
-                                           ng-minlength="5" name="username" placeholder="아이디" autoFocus required>
+                    <div class="panel panel-primary register" ng-show="step=='step1'">
+                        <div class="panel-heading">
+                            <h4 class="panel-caption">필수 정보</h4>
+                        </div>
+                        <div class="panel-body">
+                            <form name="reg_form" novalidate>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="username"
+                                               ng-change="user_duplicated=undefined"
+                                               ng-minlength="5" name="username" placeholder="아이디" autoFocus required>
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button"
                                                 ng-click="check_user_duplication()">
@@ -27,158 +26,163 @@
                                             </span> 중복 확인
                                         </button>
                                  </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="error-msg"
-                                 ng-show="reg_form.$submitted || reg_form.username.$touched">
-                                <div ng-show="reg_form.username.$error.required">
-                                    <span class='glyphicon glyphicon-info-sign'></span>아이디는 필수
-                                    항목입니다.
-                                </div>
-                                <div ng-show="reg_form.username.$error.minlength">
-                                    <span class='glyphicon glyphicon-info-sign'></span>아이디는 최소 5자
-                                    이상이어야 합니다.
-                                </div>
-                                <div ng-show="user_duplicated == undefined">
-                                    <span class='glyphicon glyphicon-info-sign'></span>입력하신 아이디에 대한 중복검사를 해 주시기 바랍니다.
-                                </div>
-                                <div ng-show="user_duplicated == true">
-                                    <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 이미 사용중인 아이디입니다.
-                                    다른 아이디를 입력하시기 바랍니다.
-                                </div>
-                                <div ng-show="user_duplicated == false">
-                                    <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 사용 가능한 아이디입니다.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" ng-model="fullname"
-                                       name="fullname" placeholder="이름" required>
-
                                 <div class="error-msg"
-                                     ng-show="reg_form.$submitted || reg_form.fullname.$touched">
-                                    <div ng-show="reg_form.fullname.$error.required">
-                                        <span class='glyphicon glyphicon-info-sign'></span>이름은 필수
+                                     ng-show="reg_form.$submitted || reg_form.username.$touched">
+                                    <div ng-show="reg_form.username.$error.required">
+                                        <span class='glyphicon glyphicon-info-sign'></span>아이디는 필수
                                         항목입니다.
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" ng-model="email"
-                                       name="email" placeholder="이메일" required>
-
-                                <div class="error-msg"
-                                     ng-show="reg_form.$submitted || reg_form.email.$touched">
-                                    <div ng-show="reg_form.email.$error.required">
-                                        <span class='glyphicon glyphicon-info-sign'></span>이메일 주소는 필수
-                                        항목입니다.
-                                    </div>
-                                    <div ng-show="reg_form.email.$error.email">
-                                        <span class='glyphicon glyphicon-info-sign'></span>올바른 이메일 주소를
-                                        입력해 주십시오.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <span class="form-control-static">생일:</span> <select
-                                    class="form-control birthday-control"
-                                    ng-model="birth_year" name="birth_year"
-                                    ng-options="index.name for index in year_list" required>
-                                <option value="">년도</option>
-                            </select>
-                                <select class="form-control birthday-control"
-                                        ng-model="birth_month" name="birth_month"
-                                        ng-options="index.name for index in month_list" required>
-                                    <option value="">월</option>
-                                </select>
-                                <select class="form-control birthday-control"
-                                        ng-model="birth_day" name="birth_day"
-                                        ng-options="index.name for index in day_list" required>
-                                    <option value="">일</option>
-                                </select> <span class="clearfix"></span>
-
-                                <div class="error-msg"
-                                     ng-show="reg_form.$submitted || reg_form.birth_day.$touched">
-                                    <div ng-show="reg_form.birth_year.$error.required || reg_form.birth_month.$error.required || reg_form.birth_day.$error.required">
-                                        <span class='glyphicon glyphicon-info-sign'></span>생일은 필수 항목입니다.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group clearfix">
-                                <span class="form-control-static">성별:</span>
-
-                                <div class=" btn-group pull-left" data-toggle="buttons">
-                                    <label class="btn btn-default btn-sex btn-left" ng-click="set_sex('M')"> <input
-                                            type="radio" name="sex" ng-model="sex"
-                                            value="M" required autocomplete="off"> 남자
-                                    </label> <label class="btn btn-default btn-sex" ng-click="set_sex('F')"> <input
-                                        type="radio" name="sex" ng-model="sex"
-                                        value="F" required autocomplete="off"> 여자
-                                </label>
-
-                                </div>
-                                <span class="clearfix"></span>
-
-                                <div class="error-msg"
-                                     ng-show="reg_form.$submitted || reg_form.sex.$touched">
-                                    <div ng-show="reg_form.sex.$error.required">
-                                        <span class='glyphicon glyphicon-info-sign'></span>성별은 필수 항목입니다.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group password-form">
-                                <input type="password" class="form-control" ng-model="password1"
-                                       name="password1" placeholder="비밀번호" required ng-minlength="6">
-
-                                <div class="error-msg"
-                                     ng-show="reg_form.$submitted || reg_form.password1.$touched">
-                                    <div ng-show="reg_form.password1.$error.required">
-                                        <span class='glyphicon glyphicon-info-sign'></span>비밀번호는 필수
-                                        항목입니다.
-                                    </div>
-                                    <div ng-show="reg_form.password1.$error.minlength">
-                                        <span class='glyphicon glyphicon-info-sign'></span>비밀번호는 최소 6자
+                                    <div ng-show="reg_form.username.$error.minlength">
+                                        <span class='glyphicon glyphicon-info-sign'></span>아이디는 최소 5자
                                         이상이어야 합니다.
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="password" class="form-control"
-                                       ng-model="password2" name="password2"
-                                       placeholder="비밀번호 재확인"
-                                       ng-required="reg_form.password1 == reg_form.password2">
-
-                                <div class="error-msg"
-                                     ng-show="! (reg_form.password1.$error.required || reg_form.password1.$error.minlength) && (reg_form.$submitted || reg_form.password2.$touched)">
-                                    <div ng-show="reg_form.password2.$error.required">
-                                        <span class='glyphicon glyphicon-info-sign'></span>비밀번호가 일치하지
-                                        않습니다.
+                                    <div ng-show="user_duplicated == undefined">
+                                        <span class='glyphicon glyphicon-info-sign'></span>입력하신 아이디에 대한 중복검사를 해 주시기
+                                        바랍니다.
+                                    </div>
+                                    <div ng-show="user_duplicated == true">
+                                        <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 이미 사용중인
+                                        아이디입니다.
+                                        다른 아이디를 입력하시기 바랍니다.
+                                    </div>
+                                    <div ng-show="user_duplicated == false">
+                                        <span class='glyphicon glyphicon-info-sign'></span>{{ username }}는 사용 가능한
+                                        아이디입니다.
                                     </div>
                                 </div>
-                            </div>
-                            <div class="alert alert-warning" ng-show="http_status && (http_status != 201)">
-                                <span class="glyphicon glyphicon-warning-sign"></span>서버에 이상이 있어 가입이 실패하였습니다. 잠시 후 다시 시도해 주시기 바랍니다.
-                            </div>
-                            <button type="submit" class="btn btn-md btn-primary btn-block"
-                                    ng-click="register()">가입하기
-                            </button>
-                        </form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="fullname"
+                                           name="fullname" placeholder="이름" required>
+
+                                    <div class="error-msg"
+                                         ng-show="reg_form.$submitted || reg_form.fullname.$touched">
+                                        <div ng-show="reg_form.fullname.$error.required">
+                                            <span class='glyphicon glyphicon-info-sign'></span>이름은 필수
+                                            항목입니다.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" ng-model="email"
+                                           name="email" placeholder="이메일" required>
+
+                                    <div class="error-msg"
+                                         ng-show="reg_form.$submitted || reg_form.email.$touched">
+                                        <div ng-show="reg_form.email.$error.required">
+                                            <span class='glyphicon glyphicon-info-sign'></span>이메일 주소는 필수
+                                            항목입니다.
+                                        </div>
+                                        <div ng-show="reg_form.email.$error.email">
+                                            <span class='glyphicon glyphicon-info-sign'></span>올바른 이메일 주소를
+                                            입력해 주십시오.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-control-static">생일:</span> <select
+                                        class="form-control birthday-control"
+                                        ng-model="birth_year" name="birth_year"
+                                        ng-options="index.name for index in year_list" required>
+                                    <option value="">년도</option>
+                                </select>
+                                    <select class="form-control birthday-control"
+                                            ng-model="birth_month" name="birth_month"
+                                            ng-options="index.name for index in month_list" required>
+                                        <option value="">월</option>
+                                    </select>
+                                    <select class="form-control birthday-control"
+                                            ng-model="birth_day" name="birth_day"
+                                            ng-options="index.name for index in day_list" required>
+                                        <option value="">일</option>
+                                    </select> <span class="clearfix"></span>
+
+                                    <div class="error-msg"
+                                         ng-show="reg_form.$submitted || reg_form.birth_day.$touched">
+                                        <div ng-show="reg_form.birth_year.$error.required || reg_form.birth_month.$error.required || reg_form.birth_day.$error.required">
+                                            <span class='glyphicon glyphicon-info-sign'></span>생일은 필수 항목입니다.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <span class="form-control-static">성별:</span>
+
+                                    <div class=" btn-group pull-left" data-toggle="buttons">
+                                        <label class="btn btn-default btn-sex btn-left" ng-click="set_sex('M')"> <input
+                                                type="radio" name="sex" ng-model="sex"
+                                                value="M" required autocomplete="off"> 남자
+                                        </label> <label class="btn btn-default btn-sex" ng-click="set_sex('F')"> <input
+                                            type="radio" name="sex" ng-model="sex"
+                                            value="F" required autocomplete="off"> 여자
+                                    </label>
+
+                                    </div>
+                                    <span class="clearfix"></span>
+
+                                    <div class="error-msg"
+                                         ng-show="reg_form.$submitted || reg_form.sex.$touched">
+                                        <div ng-show="reg_form.sex.$error.required">
+                                            <span class='glyphicon glyphicon-info-sign'></span>성별은 필수 항목입니다.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group password-form">
+                                    <input type="password" class="form-control" ng-model="password1"
+                                           name="password1" placeholder="비밀번호" required ng-minlength="6">
+
+                                    <div class="error-msg"
+                                         ng-show="reg_form.$submitted || reg_form.password1.$touched">
+                                        <div ng-show="reg_form.password1.$error.required">
+                                            <span class='glyphicon glyphicon-info-sign'></span>비밀번호는 필수
+                                            항목입니다.
+                                        </div>
+                                        <div ng-show="reg_form.password1.$error.minlength">
+                                            <span class='glyphicon glyphicon-info-sign'></span>비밀번호는 최소 6자
+                                            이상이어야 합니다.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control"
+                                           ng-model="password2" name="password2"
+                                           placeholder="비밀번호 재확인"
+                                           ng-required="reg_form.password1 == reg_form.password2">
+
+                                    <div class="error-msg"
+                                         ng-show="! (reg_form.password1.$error.required || reg_form.password1.$error.minlength) && (reg_form.$submitted || reg_form.password2.$touched)">
+                                        <div ng-show="reg_form.password2.$error.required">
+                                            <span class='glyphicon glyphicon-info-sign'></span>비밀번호가 일치하지
+                                            않습니다.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning" ng-show="http_status && (http_status != 201)">
+                                    <span class="glyphicon glyphicon-warning-sign"></span>서버에 이상이 있어 가입이 실패하였습니다. 잠시 후
+                                    다시 시도해 주시기 바랍니다.
+                                </div>
+                                <button type="submit" class="btn btn-md btn-primary btn-block"
+                                        ng-click="register()">가입하기
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div ng-show="step=='step2'">
-                    <div class="alert alert-warning">
-                        <h3>{{ fullname }} 님, Bine 회원이 되신걸 환영합니다!</h3>
+                    <div ng-show="step=='step2'">
+                        <div class="alert alert-warning">
+                            <h3>{{ fullname }} 님, Bine 회원이 되신걸 환영합니다!</h3>
 
-                        <p><a href="#/note/">메인 화면으로 이동</a></p>
+                            <p><a href="#/note/">메인 화면으로 이동</a></p>
+                        </div>
+
                     </div>
 
+
                 </div>
-
-
             </div>
-        </div>
 
+        </div>
     </div>
 </div>

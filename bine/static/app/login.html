@@ -1,57 +1,58 @@
-<link href="/static/app/css/login.css" rel="stylesheet">
-
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="cover-container">
-            <div class="masthead clearfix">
-                <div class="inner"></div>
-            </div>
-            <div class="inner cover">
-                <h1 class="cover-heading">Bine<span class="beta">alpha</span></h1>
-                <blockquote class="lead">
-                    <p>"같은 책을 읽은 다른 사람들과 어울릴 때, 책읽기의 기쁨은 두 배가 된다."</p>
-                    <footer>
-                        <cite title="캐서린 맨스필드"> 캐서린 맨스필드</cite>
-                    </footer>
-                </blockquote>
-                <p class="lead">
-
-                <form class="form-signin" method="post" novalidate>
-                    <label for="alias" class="sr-only">아이디</label> <input type="text"
-                                                                          ng-model="username" name="username"
-                                                                          class="form-control" placeholder="아이디"
-                                                                          ng-change = "reset_error()"
-                                                                          autoFocus
-                                                                          required>
-                    <label for="password" class="sr-only">암호</label> <input
-                        type="password" ng-model="password" name="password" class="form-control"
-                        placeholder="암호" ng-change = "reset_error()" required>
-
-                    <div>
-                        <div class="alert alert-warning" ng-show="http_status == 400">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                            아이디와 암호가 잘못되었습니다. 다시 확인하십시오.</div>
-                    </div>
-
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"
-                            ng-click="login()">로그인
-                    </button>
-                    <div class="checkbox">
-                        <label> <a href="#/register/">회원가입</a> | <a href="#">아이디암호찾기</a>
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div class="mastfoot">
-                <div class="inner">
-                    <p>
-                        @Copyright by <a href="https://bine.co.kr">bine.co.kr</a>.
-                    </p>
+<div class="login">
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
+                <div class="masthead clearfix">
+                    <div class="inner"></div>
                 </div>
+                <div class="inner cover">
+                    <h1 class="cover-heading">Bine<span class="beta">alpha</span></h1>
+                    <blockquote class="lead">
+                        <p>"같은 책을 읽은 다른 사람들과 어울릴 때, 책읽기의 기쁨은 두 배가 된다."</p>
+                        <footer>
+                            <cite title="캐서린 맨스필드"> 캐서린 맨스필드</cite>
+                        </footer>
+                    </blockquote>
+                    <p class="lead">
+
+                    <form class="form-signin" method="post" novalidate>
+                        <label for="alias" class="sr-only">아이디</label> <input type="text"
+                                                                              ng-model="username" name="username"
+                                                                              class="form-control" placeholder="아이디"
+                                                                              ng-change="reset_error()"
+                                                                              autoFocus
+                                                                              required>
+                        <label for="password" class="sr-only">암호</label> <input
+                            type="password" ng-model="password" name="password" class="form-control"
+                            placeholder="암호" ng-change="reset_error()" required>
+
+                        <div>
+                            <div class="alert alert-warning" ng-show="http_status == 400">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                아이디와 암호가 잘못되었습니다. 다시 확인하십시오.
+                            </div>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit"
+                                ng-click="login()">로그인
+                        </button>
+                        <div class="checkbox">
+                            <label> <a href="#/register/">회원가입</a> | <a href="#">아이디암호찾기</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>
+                            @Copyright by <a href="https://bine.co.kr">bine.co.kr</a>.
+                        </p>
+                    </div>
+                </div>
+
             </div>
 
         </div>
 
     </div>
-
 </div>
