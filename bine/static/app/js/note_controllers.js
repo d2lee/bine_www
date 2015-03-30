@@ -39,12 +39,15 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
 
         var get_page = function () {
             var next_page;
-            if ($scope.notes) {
+            if ($scope.notes && $scope.notes.length > 0) {
                 next_page = Math.round($scope.notes.length / PAGE_MAX_ITEM) + 1;
+                console.log('get_page: next_page? ' + next_page + ", notes length? " + $scope.notes.length);
             }
             else {
                 next_page = 1;
+                console.log('get_page: next_page? ' + next_page);
             }
+
             return {'page': next_page}
         }
 
@@ -54,23 +57,39 @@ bineApp.controller('NoteListControl', ["$rootScope", "$scope", "$location",
                     for (var i = 0; i < data.length; i++) {
                         $scope.notes.push(data[i]);
                     }
+                    console.log('set_note: data length? ' + data.length + ", scope notes?" + $scope.notes.length);
                 }
                 else {
                     $scope.notes = data;
+                    console.log('set_note: data length? ' + data.length + ", scope notes?" + $scope.notes.length);
                 }
+
             }
         }
 
         var fetch_notes = function (fetch_func) {
-            var page_data = get_page();
+            if ($scope.notes) {
+                console.log('starting fetch_notes: busy? ' + $scope.is_busy + ", notes? " + $scope.notes.length);
+            }
+            else {
+                console.log('starting fetch_notes: busy? ' + $scope.is_busy + ", notes? zero");
+            }
+
+            if ($scope.is_busy)
+                return;
 
             $scope.is_busy = true;
+
+            var page_data = get_page();
+
             BookNotes[fetch_func](page_data, function (data) {
                 set_note(data);
-                $scope.is_busy = false;
                 $scope.last_page = data.length != PAGE_MAX_ITEM;
+                $scope.is_busy = false;
+                console.log('ending fetch_notes: busy? ' + $scope.is_busy + ", last_page:" + $scope.last_page + ", notes?" + $scope.notes.length);
             }, function () {
                 $scope.is_busy = false;
+                console.log('ending fetch_notes <error> : busy? ' + $scope.is_busy + ", last_page:" + $scope.last_page + ", notes?" + $scope.notes.length)
             });
         }
 
@@ -239,7 +258,7 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
                 'read_date_from': today,
                 'read_date_to': today
             };
-            $scope.book_title = "";
+            $scope.book_title = undefined;
             $scope.rating = 3;
         }
 
@@ -306,6 +325,7 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
             }).success(function (data, status, headers, config) {
                 $scope.http_status = status;
                 init_note();
+                $scope.note_form.$submitted = undefined;
                 $scope.books = null;
 
             }).error(function (data, status) {
@@ -326,10 +346,18 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
             if (note.id)
                 id = note.id;
 
+            var book = '';
+            if ($scope.is_new_book) {
+                book = $scope.convert_book_data(note.book);
+            }
+            else {
+                book = note.book.id;
+            }
+
             var data = {
                 'id': id,
                 'user': note.user.id,
-                'book': note.book.id,
+                'book': book,
                 'content': note.content,
                 'read_date_from': $scope.format_date(note.read_date_from),
                 'read_date_to': $scope.format_date(note.read_date_to),
@@ -347,7 +375,7 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
         };
 
         var search_book_with_keyword = function (title, api_key) {
-            if (title == '')
+            if (!title || title == '' || title == null)
                 return;
 
             var url = "https://apis.daum.net/search/book";
@@ -360,7 +388,6 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
             $http.jsonp(url).
                 success(function (data, status, headers, config) {
                     $scope.books = $scope.strip_escaped_text(data.channel.item);
-                    // $('#book_search_modal').modal('show');
                     $scope.book_http_status = 200;
                 }).
                 error(function (data, status, headers, config) {
@@ -372,6 +399,8 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
             var title = $scope.book_title;
 
             $scope.book_http_status != -1
+            $scope.books = undefined;
+
             $('#book_search_modal').modal('show');
 
             var api_key = $rootScope.book_search_key;
@@ -431,9 +460,7 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
             return d.substr(0, 4) + "-" + d.substr(4, 2) + "-" + d.substr(6, 2)
         };
 
-        $scope.save_book = function (book) {
-            // 새로운 책이기 때문에 데이터베이스에 저장.
-
+        $scope.convert_book_data = function(book) {
             var book_url = book.cover_l_url;
             if (!book_url || book_url == "") {
                 book_url = book.cover_s_url;
@@ -454,6 +481,13 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
                 'pub_date': $scope.add_dash_to_date(book.pub_date),
                 'link': book.link
             };
+            return book_data;
+        }
+
+        $scope.save_book = function (book) {
+            // 새로운 책이기 때문에 데이터베이스에 저장.
+
+            var book_data = $scope.convert_book_data(book)
 
             url = '/api/book/';
             $http.post(url, book_data).success(function (data, status, headers, config) {
@@ -462,23 +496,44 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
                 $('#book_search_modal').modal('hide');
             }).error(function (data, status, headers, config) {
                 alert("서버에 이상이 있습니다. 잠시후에 다시 시도해 주십시오.");
-
             });
         };
 
         // 사용자가 책을 선택했을 때 실행되는 함수
         $scope.select_book = function (book) {
+            var isbn
 
-            // 이미 데이터베이스에 존재하는지 유무 확인
-            var url = "/api/book/isbn13/" + book.isbn13 + "/";
+            if (book.isbn13) {
+                isbn = book.isbn13;
+            }
+            else if (book.isbn) {
+                isbn = book.isbn;
+
+            }
+            else {
+                return;
+            }
+
+            var url = "/api/note/isbn/" + isbn + "/";
             $http.get(url).success(function (data, status, headers, config) {
-                $scope.note.book = data;
-                $scope.book_title = book.title;
-                $('#book_search_modal').modal('hide');
+                if (data.note) {
+                    window.alert('이 책에 대한 독서감상문이 이미 있습니다. 기존 독서 감상문을 읽어옵니다.');
+                    $scope.note = data.note;
+                    $scope.is_new_book = false;
+                    $('#book_search_modal').modal('hide');
+                }
+                else if (data.book) {
+                    $scope.note.book = data.book;
+                    $scope.book_title = data.book.title;
+                    $scope.is_new_book = false;
+                    $('#book_search_modal').modal('hide');
+                }
             }).error(function (data, status, headers, config) {
                 if (status == 404) {
-                    // 새로운 책이기 때문에 데이터베이스에 저장.
-                    $scope.save_book(book);
+                    $scope.note.book = book;
+                    $scope.book_title = book.title;
+                    $scope.is_new_book = true;
+                    $('#book_search_modal').modal('hide');
                 }
                 else {
                     alert('서버에 이상이 있습니다. 잠시후에 다시 시도해 주십시오.');
@@ -487,6 +542,9 @@ bineApp.controller('NoteFormControl', ["$rootScope", "$routeParams", "$scope", "
         };
 
         $scope.format_date = function (date) {
+            if (typeof(date) == 'string')
+                date = new Date(date);
+
             var year = date.getFullYear();
             var month = (1 + date.getMonth()).toString();
             month = month.length > 1 ? month : '0' + month;

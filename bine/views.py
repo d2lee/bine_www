@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from django.contrib.auth import authenticate
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -21,6 +20,7 @@ from bine.utils import convert_category_to_age_level
 from bine.models import BookNote, BookNoteReply, User, Book, BookNoteLikeit, School
 from bine.serializers import BookSerializer, BookNoteSerializer, UserSerializer, FriendSerializer, SchoolSerializer
 from bine_www import settings
+import json
 
 
 @api_view(('GET',))
@@ -340,7 +340,23 @@ class FriendView(APIView):
 
 
 class BookNoteView(APIView):
-    def process_item(self, request, pk):
+    def get_by_isbn(self, request, isbn):
+        note = BookNote.get_notes_by_book_isbn(request.user, isbn)
+        response_data = {}
+
+        if note is None:
+            book = Book.get_book_by_isbn(isbn)
+
+            if book:
+                response_data['book'] = BookSerializer(book).data
+                return Response(response_data)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            response_data['note'] = BookNoteSerializer(note).data
+            return Response(response_data)
+
+    def get_by_pk(self, request, pk):
         try:
             note = BookNote.objects.get(pk=pk)
         except BookNote.DoesNotExist:
@@ -359,8 +375,15 @@ class BookNoteView(APIView):
                     return Response(status=status.HTTP_401_UNAUTHORIZED)
             elif note.share_to == 'A':
                 serializer = BookNoteSerializer(note)
-
         return Response(serializer.data)
+
+    def process_item(self, request, pk=None, isbn=None):
+        if isbn:
+            return self.get_by_isbn(request, isbn)
+        elif pk:
+            return self.get_by_pk(request, pk)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def process_list(self, request):
         list_type = request.GET.get('type', None)
@@ -390,9 +413,9 @@ class BookNoteView(APIView):
         serializer = BookNoteSerializer(notes_in_page, many=True)
         return Response(serializer.data)
 
-    def get(self, request, pk=None):
-        if pk:
-            return self.process_item(request, pk)
+    def get(self, request, pk=None, isbn=None):
+        if pk or isbn:
+            return self.process_item(request, pk, isbn)
         else:
             return self.process_list(request)
 
@@ -407,7 +430,15 @@ class BookNoteView(APIView):
                 serializer = BookNoteSerializer(note, data=request.data)
         else:
             # set current user to the user although user is sent from client.
-            # request.POST['user'] = request.user.id
+            book_data = json.loads(request.data.get('book'))
+            if type(book_data).__name__ == 'dict':
+                book_serializer = BookSerializer(data=book_data)
+                if book_serializer.is_valid():
+                    book = book_serializer.save()
+                    request.DATA['book'] = book.id
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+
             serializer = BookNoteSerializer(data=request.data)
 
         if serializer.is_valid():

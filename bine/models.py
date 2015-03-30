@@ -329,7 +329,7 @@ class Book(models.Model):
     isbn = CharField(max_length=10, blank=True, unique=False)
     barcode = models.CharField(max_length=16, blank=True)
     author = CharField(max_length=128, blank=False)
-    isbn13 = CharField(max_length=13, blank=False, unique=True)
+    isbn13 = CharField(max_length=13, blank=True, unique=False)
     author_etc = CharField(max_length=128, blank=True)
     illustrator = CharField(max_length=128, blank=True)
     translator = CharField(max_length=50, blank=True)
@@ -370,6 +370,19 @@ class Book(models.Model):
         self.age_level = self.age_level | age_level
         self.save()
 
+    @staticmethod
+    def get_book_by_isbn(isbn):
+        book = None
+
+        len_of_isbn = len(isbn)
+
+        if len_of_isbn == 9:
+            book = Book.objects.filter(isbn=isbn).first()
+        elif len_of_isbn == 13:
+            book = Book.objects.filter(isbn13=isbn).first()
+
+        return book
+
     def __str__(self):
         return self.title
 
@@ -401,6 +414,19 @@ class BookNote(models.Model):
     @staticmethod
     def get_notes_by_book(book_id):
         return BookNote.objects.filter(book__id=book_id).order_by('-created_at')
+
+    @staticmethod
+    def get_notes_by_book_isbn(user, isbn):
+        len_of_isbn = len(isbn)
+
+        note = None
+
+        if len_of_isbn == 9:
+            note = BookNote.objects.filter(book__isbn=isbn, user=user).first()
+        elif len_of_isbn == 13:
+            note = BookNote.objects.filter(book__isbn13=isbn, user=user).first()
+
+        return note
 
     def __str__(self):
         return self.user.fullname + " - " + self.book.title

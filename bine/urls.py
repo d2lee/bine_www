@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view()),
     url(r'^api/note/$', BookNoteView.as_view()),
     url(r'^api/note/(?P<pk>[0-9]+)/$', BookNoteView.as_view()),
+    url(r'^api/note/isbn/(?P<isbn>[0-9a-zA-Z]+)/$', BookNoteView.as_view()),
     url(r'^api/book/$', BookList.as_view()),
     url(r'^api/book/(?P<pk>[0-9]+)/$', BookDetail.as_view()),
     url(r'^api/book/(?P<pk>[0-9]+)/?P<action>.+/$', BookDetail.as_view()),
